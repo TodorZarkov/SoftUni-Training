@@ -1,2 +1,2 @@
 # SoftUni-Training
- CS FSD
+ CSharp FSD
