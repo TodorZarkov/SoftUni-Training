@@ -15,9 +15,12 @@ namespace _09._Spice_Must_Flow
             {
                 day++;
                 totalIyeld += expectedSpice - 26;
-                expectedSpice -= 10; 
+                expectedSpice -= 10;
             }
+            if (totalIyeld!=0)
+            {
             totalIyeld -= 26;
+            }
             Console.WriteLine(day);
             Console.WriteLine(totalIyeld);
         }
