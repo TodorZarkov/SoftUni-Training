@@ -6,14 +6,14 @@ namespace _01._Integer_Operations
     {
         static void Main(string[] args)
         {
-            long a = int.Parse(Console.ReadLine());
-            int b = int.Parse(Console.ReadLine());
+            int a = int.Parse(Console.ReadLine());
+            long b = int.Parse(Console.ReadLine());
             int c = int.Parse(Console.ReadLine());
             int d = int.Parse(Console.ReadLine());
-            a += b;
-            a /= c;
-            a *= d;
-            Console.WriteLine(d);
+            b = b + a;
+            b = b / c;
+            b = b * d;
+            Console.WriteLine(b);
         }
     }
 }
