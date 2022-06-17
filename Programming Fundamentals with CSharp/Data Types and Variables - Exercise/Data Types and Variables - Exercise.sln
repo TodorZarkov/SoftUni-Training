@@ -5,23 +5,25 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01. Integer Operations", "01. Integer Operations\01. Integer Operations.csproj", "{BE199960-B9A6-4275-A13F-849D53D5BE4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02. Sum Digits", "02. Sum Digits\02. Sum Digits.csproj", "{8BB71A5C-57E4-4F56-915A-C73424D6BF45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02. Sum Digits", "02. Sum Digits\02. Sum Digits.csproj", "{8BB71A5C-57E4-4F56-915A-C73424D6BF45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. Elevator", "03. Elevator\03. Elevator.csproj", "{2486AD76-0752-4673-85BB-77F65394CFA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03. Elevator", "03. Elevator\03. Elevator.csproj", "{2486AD76-0752-4673-85BB-77F65394CFA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04. Sum of Chars", "04. Sum of Chars\04. Sum of Chars.csproj", "{1819C258-4FAC-4528-AE05-FC10EA3FD720}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04. Sum of Chars", "04. Sum of Chars\04. Sum of Chars.csproj", "{1819C258-4FAC-4528-AE05-FC10EA3FD720}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05. PrintPartOfASCIITable", "05. PrintPartOfASCIITable\05. PrintPartOfASCIITable.csproj", "{732B13C6-4A72-4056-B2DE-9804414133E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05. PrintPartOfASCIITable", "05. PrintPartOfASCIITable\05. PrintPartOfASCIITable.csproj", "{732B13C6-4A72-4056-B2DE-9804414133E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06. TriplesOfLatinLetters", "06. TriplesOfLatinLetters\06. TriplesOfLatinLetters.csproj", "{190F5141-8A15-40D9-A22E-CB9551458DEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06. TriplesOfLatinLetters", "06. TriplesOfLatinLetters\06. TriplesOfLatinLetters.csproj", "{190F5141-8A15-40D9-A22E-CB9551458DEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07. Water Overflow", "07. Water Overflow\07. Water Overflow.csproj", "{B1B33D07-A5D6-4CB4-8474-284A5D7A365C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "07. Water Overflow", "07. Water Overflow\07. Water Overflow.csproj", "{B1B33D07-A5D6-4CB4-8474-284A5D7A365C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08. Beer Kegs", "08. Beer Kegs\08. Beer Kegs.csproj", "{E4640A0A-BD05-475A-B483-09F5544479B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "08. Beer Kegs", "08. Beer Kegs\08. Beer Kegs.csproj", "{E4640A0A-BD05-475A-B483-09F5544479B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09. Spice Must Flow", "09. Spice Must Flow\09. Spice Must Flow.csproj", "{23300458-7114-4477-8567-083913110465}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "09. Spice Must Flow", "09. Spice Must Flow\09. Spice Must Flow.csproj", "{23300458-7114-4477-8567-083913110465}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10. Poke Mon", "10. Poke Mon\10. Poke Mon.csproj", "{E166DDF3-694F-468D-B8C0-33E44DFC4367}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "10. Poke Mon", "10. Poke Mon\10. Poke Mon.csproj", "{E166DDF3-694F-468D-B8C0-33E44DFC4367}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11. Snowballs", "11. Snowballs\11. Snowballs.csproj", "{1C382933-7476-435F-8003-0822DDED598B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{E166DDF3-694F-468D-B8C0-33E44DFC4367}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E166DDF3-694F-468D-B8C0-33E44DFC4367}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E166DDF3-694F-468D-B8C0-33E44DFC4367}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C382933-7476-435F-8003-0822DDED598B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C382933-7476-435F-8003-0822DDED598B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C382933-7476-435F-8003-0822DDED598B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C382933-7476-435F-8003-0822DDED598B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
