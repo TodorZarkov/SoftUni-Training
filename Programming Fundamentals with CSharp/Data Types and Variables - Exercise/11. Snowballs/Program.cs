@@ -13,14 +13,18 @@ namespace _11._Snowballs
             int quality = 0;
             for (int i = 0; i < balls; i++)
             {
-                snow = int.Parse(Console.ReadLine());
-                time = int.Parse(Console.ReadLine());
-                quality = int.Parse(Console.ReadLine());
+                int curSnow = int.Parse(Console.ReadLine());
+                int curTime = int.Parse(Console.ReadLine());
+                int curQuality = int.Parse(Console.ReadLine());
 
-                int curValue = (snow / time) ^ quality;
+                int curValue = (int)Math.Pow((double)(curSnow / curTime), (double)curQuality);
                 if (curValue > value)
                 {
                     value = curValue;
+                    snow = curSnow;
+                    time = curTime;
+                    quality = curQuality;
+
                 }
             }
             Console.WriteLine($"{snow} : {time} = {value} ({quality})");
