@@ -6,7 +6,7 @@ namespace _04.Refr_PrimeChkr
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
         }
     }
 }
