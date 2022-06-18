@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "10. Poke Mon", "10. Poke Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11. Snowballs", "11. Snowballs\11. Snowballs.csproj", "{1C382933-7476-435F-8003-0822DDED598B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12. Snowballs II", "12. Snowballs II\12. Snowballs II.csproj", "{28394B53-0937-4715-BEE4-C25E4D08F6A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{1C382933-7476-435F-8003-0822DDED598B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C382933-7476-435F-8003-0822DDED598B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C382933-7476-435F-8003-0822DDED598B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28394B53-0937-4715-BEE4-C25E4D08F6A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28394B53-0937-4715-BEE4-C25E4D08F6A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28394B53-0937-4715-BEE4-C25E4D08F6A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28394B53-0937-4715-BEE4-C25E4D08F6A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
