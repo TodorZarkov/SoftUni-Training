@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace _01._Data_Type_Finder
 {
@@ -9,22 +10,21 @@ namespace _01._Data_Type_Finder
             string input = Console.ReadLine();
             while (input != "END")
             {
-
-                if (int.TryParse(input, out int inputInt))
+                if (BigInteger.TryParse(input, out _))
                 {
-                    Console.WriteLine($"{inputInt} is integer type");
+                    Console.WriteLine($"{input} is integer type");
                 }
-                else if (double.TryParse(input, out double inputFloat))
+                else if (double.TryParse(input, out _))
                 {
-                    Console.WriteLine($"{inputFloat} is floating point type");
+                    Console.WriteLine($"{input} is floating point type");
                 }
-                else if (char.TryParse(input, out char inputChar))
+                else if (char.TryParse(input, out _))
                 {
-                    Console.WriteLine($"{inputChar} is character type");
+                    Console.WriteLine($"{input} is character type");
                 }
-                else if (bool.TryParse(input, out bool inputBool))
+                else if (bool.TryParse(input, out _))
                 {
-                    Console.WriteLine($"{inputBool} is boolean type");
+                    Console.WriteLine($"{input} is boolean type");
                 }
                 else
                 {
