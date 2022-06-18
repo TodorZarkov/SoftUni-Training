@@ -6,31 +6,21 @@ namespace _04.Refr_PrimeChkr
     {
         static void Main(string[] args)
         {
-            int ___Do___ = int.Parse(Console.ReadLine());
+            int range = int.Parse(Console.ReadLine());
 
-            for (int takoa = 2; takoa <= ___Do___; takoa++)
-
+            for (int numToCheck = 2; numToCheck <= range; numToCheck++)
             {
+                bool isPrime = true;
 
-                bool takovalie = true;
-
-                for (int cepitel = 2; cepitel < takoa; cepitel++)
-
+                for (int divider = 2; divider < numToCheck; divider++)
                 {
-
-                    if (takoa % cepitel == 0)
-
+                    if (numToCheck % divider == 0)
                     {
-
-                        takovalie = false;
-
+                        isPrime = false;
                         break;
-
                     }
-
                 }
-
-                Console.WriteLine("{0} -> {1}", takoa, takovalie);
+                Console.WriteLine($"{numToCheck} -> {isPrime.ToString().ToLower()}");
 
             }
 
