@@ -19,7 +19,7 @@ namespace _11._Snowballs
 
                 int temp = curSnow / curTime;
                 //(snowballSnow / snowballTime) ^ snowballQuality
-                double curValue = Math.Pow((double)temp, (double)curQuality);//here we got wrong result
+                double curValue = Math.Pow((double)temp, (double)curQuality);//here we got wrong result due to rounding
 
 
                 if (curValue >= value)
