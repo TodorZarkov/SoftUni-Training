@@ -24,37 +24,37 @@ namespace _02._FromL_tToR_t
                     }
                     numberString += input[j];
                 }
-                int firstNumber = int.Parse(numberString);
+                long firstNumber = long.Parse(numberString);
 
                 numberString = string.Empty;
                 for (int k = separatorIndex + 1; k < input.Length; k++)
                 {
                     numberString += input[k];
                 }
-                int secondNumber = int.Parse(numberString);
+                long secondNumber = long.Parse(numberString);
 
                 if (firstNumber >= secondNumber)
                 {
                     firstNumber = Math.Abs(firstNumber);
-                    int digit = firstNumber % 10;
+                    int digit = (byte)(firstNumber % 10);
                     while (firstNumber != 0)
                     {
                         firstNumber = firstNumber / 10;
                         sumOfDigits += digit;
-                        digit = firstNumber % 10;
+                        digit = (byte)(firstNumber % 10);
                     }
                 }
                 else
                 {
                     firstNumber = secondNumber;
                     firstNumber = Math.Abs(firstNumber);
-                    int digit = firstNumber % 10;
+                    int digit = (byte)(firstNumber % 10);
                     while (firstNumber != 0)
                     {
-
+                        
                         firstNumber = firstNumber / 10;
                         sumOfDigits += digit;
-                        digit = firstNumber % 10;
+                        digit = (byte)(firstNumber % 10);
                     }
                 }
                 Console.WriteLine(sumOfDigits);
