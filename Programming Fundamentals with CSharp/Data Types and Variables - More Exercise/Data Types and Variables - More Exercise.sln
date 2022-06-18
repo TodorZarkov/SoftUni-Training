@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.Refr-PrimeChkr", "04.Ref
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.DecryptingMesg", "05.DecryptingMesg\05.DecryptingMesg.csproj", "{615AE430-8521-40B0-B858-5D1A785965E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.BalancedBracks", "06.BalancedBracks\06.BalancedBracks.csproj", "{DBB9EF3C-9034-410E-AAEA-521AFC3A2753}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{615AE430-8521-40B0-B858-5D1A785965E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{615AE430-8521-40B0-B858-5D1A785965E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{615AE430-8521-40B0-B858-5D1A785965E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBB9EF3C-9034-410E-AAEA-521AFC3A2753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBB9EF3C-9034-410E-AAEA-521AFC3A2753}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBB9EF3C-9034-410E-AAEA-521AFC3A2753}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBB9EF3C-9034-410E-AAEA-521AFC3A2753}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
