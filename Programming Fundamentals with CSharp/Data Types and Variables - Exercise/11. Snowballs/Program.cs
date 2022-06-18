@@ -9,7 +9,7 @@ namespace _11._Snowballs
             int balls = int.Parse(Console.ReadLine());
             double value = 0;
             int snow = 0;
-            int time = 0;
+            int time = 1;
             int quality = 0;
             for (int i = 0; i < balls; i++)
             {
@@ -18,8 +18,8 @@ namespace _11._Snowballs
                 int curQuality = int.Parse(Console.ReadLine());
 
                 double curValue = Math.Pow(((double)curSnow) / curTime, (double)curQuality);
-
-                if (curValue > value)
+                
+                if (curValue >= value)
                 {
                     value =  curValue;
                     snow = curSnow;
