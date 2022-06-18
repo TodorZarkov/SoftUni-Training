@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02. FromL-tToR II", "02. Fr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.Refr-PrimeChkr", "04.Refr-PrimeChkr\04.Refr-PrimeChkr.csproj", "{35484B23-C7F6-4FAE-9D0F-3DC30FF64AE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.DecryptingMesg", "05.DecryptingMesg\05.DecryptingMesg.csproj", "{615AE430-8521-40B0-B858-5D1A785965E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{35484B23-C7F6-4FAE-9D0F-3DC30FF64AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35484B23-C7F6-4FAE-9D0F-3DC30FF64AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35484B23-C7F6-4FAE-9D0F-3DC30FF64AE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{615AE430-8521-40B0-B858-5D1A785965E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{615AE430-8521-40B0-B858-5D1A785965E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{615AE430-8521-40B0-B858-5D1A785965E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{615AE430-8521-40B0-B858-5D1A785965E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
