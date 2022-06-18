@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace _11._Snowballs
 {
@@ -7,17 +8,17 @@ namespace _11._Snowballs
         static void Main(string[] args)
         {
             int balls = int.Parse(Console.ReadLine());
-            double value = 0;
-            int snow = 0;
-            int time = 1;
+            BigInteger value = 0;
+            BigInteger snow = 0;
+            BigInteger time = 1;
             int quality = 0;
             for (int i = 0; i < balls; i++)
             {
-                int curSnow = int.Parse(Console.ReadLine());
-                int curTime = int.Parse(Console.ReadLine());
+                BigInteger curSnow = int.Parse(Console.ReadLine());
+                BigInteger curTime = int.Parse(Console.ReadLine());
                 int curQuality = int.Parse(Console.ReadLine());
 
-                double curValue = Math.Pow(((double)curSnow) / curTime, (double)curQuality);
+                BigInteger curValue = BigInteger.Pow((curSnow / curTime), curQuality);
                 
                 if (curValue >= value)
                 {
