@@ -4,6 +4,9 @@ namespace _04._Array_Rotation
 {
     internal class Program
     {
+        
+        // arr.len time consuming algorithm
+        // 2*arr.len memory consuming algorithm
         static void Main(string[] args)
         {
             char separator = ' ';
