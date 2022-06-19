@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01. Train", "01. Train\01. Train.csproj", "{787804F8-20E8-486A-A66A-8B7A33295A5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01. Train", "01. Train\01. Train.csproj", "{787804F8-20E8-486A-A66A-8B7A33295A5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02. Common Elements", "02. Common Elements\02. Common Elements.csproj", "{FE8D9CB1-6B3E-4D34-95A3-3DD56A691406}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02. Common Elements", "02. Common Elements\02. Common Elements.csproj", "{FE8D9CB1-6B3E-4D34-95A3-3DD56A691406}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. Zig-Zag Arrays", "03. Zig-Zag Arrays\03. Zig-Zag Arrays.csproj", "{8E6F7C98-329B-4E41-8D08-22488FAF823A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03. Zig-Zag Arrays", "03. Zig-Zag Arrays\03. Zig-Zag Arrays.csproj", "{8E6F7C98-329B-4E41-8D08-22488FAF823A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04. Array Rotation", "04. Array Rotation\04. Array Rotation.csproj", "{4B13D2D2-DF7F-4A1F-A70C-1B6E9E9EB378}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04. Array Rotation", "04. Array Rotation\04. Array Rotation.csproj", "{4B13D2D2-DF7F-4A1F-A70C-1B6E9E9EB378}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05. Top Integers", "05. Top Integers\05. Top Integers.csproj", "{C73E2CEC-3573-4F9A-A663-F180312AD49F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{4B13D2D2-DF7F-4A1F-A70C-1B6E9E9EB378}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B13D2D2-DF7F-4A1F-A70C-1B6E9E9EB378}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B13D2D2-DF7F-4A1F-A70C-1B6E9E9EB378}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C73E2CEC-3573-4F9A-A663-F180312AD49F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C73E2CEC-3573-4F9A-A663-F180312AD49F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C73E2CEC-3573-4F9A-A663-F180312AD49F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C73E2CEC-3573-4F9A-A663-F180312AD49F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
