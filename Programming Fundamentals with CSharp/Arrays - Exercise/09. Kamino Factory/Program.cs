@@ -14,6 +14,7 @@ namespace _09._Kamino_Factory
                 int valueToSearchFor = 1;
 
                 int[] bestDna = new int[sequLen];
+                Array.Fill(bestDna, 0);
                 int bestSample = 1;
                 int bestSeqLen = 1;
                 int bestStartIndex = 0;
@@ -34,7 +35,7 @@ namespace _09._Kamino_Factory
                         if (arr[i] == valueToSearchFor)
                         {
                             int temSeqLen = 1;
-                            for (int j = i + 1; j < arr.Length; j++)
+                            for (int j = i + 1; j < arr.Length; j++)//never indicates the last one index!!!
                             {
                                 if (arr[i] == arr[j])
                                 {
