@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace _09._Kamino_Factory
 {
@@ -8,7 +9,7 @@ namespace _09._Kamino_Factory
         static void Main(string[] args)
         {
             {
-                char separator = '!';
+                Regex separator = new Regex(@"!+|s+");
                 int sequLen = int.Parse(Console.ReadLine());
                 int valueToSearchFor = 1;
 
@@ -18,17 +19,16 @@ namespace _09._Kamino_Factory
                 int bestStartIndex = 0;
                 int bestSum = 0;
 
-                int subSequLen = 0;
+                int subSequLen = 1;
                 int startIndex = 0;
                 int sample = 1;
 
                 string input = Console.ReadLine();
                 while (input != "Clone them!")
                 {
-                    subSequLen = 0;
+                    subSequLen = 1;
                     startIndex = 0;
-
-                    int[] arr = input.Split(separator).Select(int.Parse).ToArray();
+                    int[] arr = separator.Split(input.Trim('!')).Select(int.Parse).ToArray();
                     for (int i = 0; i < arr.Length; i++)
                     {
                         if (arr[i] == valueToSearchFor)
