@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10. Top Number", "10. Top N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09. Palindrome Integers II", "09. Palindrome Integers II\09. Palindrome Integers II.csproj", "{F13BD922-EA4B-44A4-A751-E344E890242A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11. Array Manipulator", "11. Array Manipulator\11. Array Manipulator.csproj", "{FB55AC5D-97CE-49E7-BA17-DD75120C7110}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{F13BD922-EA4B-44A4-A751-E344E890242A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F13BD922-EA4B-44A4-A751-E344E890242A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F13BD922-EA4B-44A4-A751-E344E890242A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB55AC5D-97CE-49E7-BA17-DD75120C7110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB55AC5D-97CE-49E7-BA17-DD75120C7110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB55AC5D-97CE-49E7-BA17-DD75120C7110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB55AC5D-97CE-49E7-BA17-DD75120C7110}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
