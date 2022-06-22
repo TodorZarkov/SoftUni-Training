@@ -369,12 +369,9 @@ public class Program
                 if (countEvens == n)
                 {
                     output = output.Trim();
-                    if (output.Length != 0)
-                    {
-                        int[] tempOut1 = output.Split(' ').Select(int.Parse).ToArray();
-                        Array.Reverse(tempOut1);
-                        output = string.Join(", ", tempOut1);
-                    }
+                    int[] tempOut1 = output.Split(' ').Select(int.Parse).ToArray();
+                    Array.Reverse(tempOut1);
+                    output = string.Join(", ", tempOut1);
                     output = "[" + output + "]";
                     System.Console.WriteLine(output);
                     return;
