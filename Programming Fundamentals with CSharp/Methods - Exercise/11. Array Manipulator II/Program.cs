@@ -43,6 +43,7 @@ namespace _11._Array_Manipulator
             {
                 Console.WriteLine($"[]");
                 return;
+                _06._Speed_Info
             }
 
             int resultEvenOdd = 1;
