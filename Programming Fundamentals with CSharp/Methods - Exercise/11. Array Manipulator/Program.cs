@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Numerics;
 
 public class Program
 {
@@ -16,7 +17,7 @@ public class Program
 
             if (split[0] == "exchange")
             {
-                if (!Exchange(inputArr, int.Parse(split[1])))
+                if (!Exchange(inputArr, BigInteger.Parse(split[1])))
                     Console.WriteLine("Invalid index");
             }
             else if (split[0] == "max")
@@ -77,22 +78,22 @@ public class Program
             {
                 if (split[2] == "even")
                 {
-                    FirstNEven(int.Parse(split[1]), inputArr);
+                    FirstNEven(BigInteger.Parse(split[1]), inputArr);
                 }
                 else if (split[2] == "odd")
                 {
-                    FirstNOdd(int.Parse(split[1]), inputArr);
+                    FirstNOdd(BigInteger.Parse(split[1]), inputArr);
                 }
             }
             else if (split[0] == "last")
             {
                 if (split[2] == "even")
                 {
-                    LastNEven(int.Parse(split[1]), inputArr);
+                    LastNEven(BigInteger.Parse(split[1]), inputArr);
                 }
                 else if (split[2] == "odd")
                 {
-                    LastNOdd(int.Parse(split[1]), inputArr);
+                    LastNOdd(BigInteger.Parse(split[1]), inputArr);
                 }
             }
 
@@ -106,7 +107,7 @@ public class Program
     //exchanges the places of the two resulting sub-arrays. E.g. 
     //[1, 2, 3, 4, 5] -> exchange 2 -> result: [4, 5, 1, 2, 3]
     // ◦ If the index is outside the boundaries of the array, print "Invalid index"
-    public static bool Exchange(int[] arr, int splitInd)
+    public static bool Exchange(int[] arr, BigInteger splitInd)
     {
         if (splitInd > arr.Length - 1 || splitInd < 0)
             return false;
@@ -240,7 +241,7 @@ public class Program
     //print "Invalid count"
     //     ◦ If there are not enough elements to satisfy the count, 
     //print as many as you can. If there are zero even/odd elements, print an empty array "[]"
-    public static void FirstNEven(int n, int[] arr)
+    public static void FirstNEven(BigInteger n, int[] arr)
     {
         if (n > arr.Length)
         {
@@ -275,7 +276,7 @@ public class Program
 
     }
 
-    public static void FirstNOdd(int n, int[] arr)
+    public static void FirstNOdd(BigInteger n, int[] arr)
     {
         if (n > arr.Length)
         {
@@ -311,7 +312,7 @@ public class Program
     }
 
 
-    public static void LastNEven(int n, int[] arr)
+    public static void LastNEven(BigInteger n, int[] arr)
     {
         if (n > arr.Length)
         {
@@ -351,7 +352,7 @@ public class Program
 
 
 
-    public static void LastNOdd(int n, int[] arr)
+    public static void LastNOdd(BigInteger n, int[] arr)
     {
         if (n > arr.Length)
         {
