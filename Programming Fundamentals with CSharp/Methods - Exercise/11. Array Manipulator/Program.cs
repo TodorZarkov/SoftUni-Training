@@ -5,19 +5,100 @@ public class Program
 {
     public static void Main()
     {
-        int[] arr = { 10, 8, 6, 4, 2 };
 
-        // if (Exchange(arr, 4))
-        // {
-        //     System.Console.WriteLine(string.Join(' ', arr));
-        // }
-        // else
-        // {
-        //     System.Console.WriteLine("Invalid index"); ;
-        // }
+        int[] inputArr = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+        string line = Console.ReadLine();
+        //POSSIBLE INPUT:
+        //exchange {index};     max even/odd; min even/odd;     first {count} even/odd; last {count} even/odd
+        while (line != "end")
+        {
+            string[] split = line.Split(' ');
 
-        //System.Console.WriteLine(MaxEven(arr));
-        LastNEven(5, arr);
+            if (split[0] == "exchange")
+            {
+                if (!Exchange(inputArr, int.Parse(split[1])))
+                    Console.WriteLine("Invalid index");
+            }
+            else if (split[0] == "max")
+            {
+                if (split[1] == "even")
+                {
+                    int max = MaxEven(inputArr);
+                    if (max == -1)
+                    {
+                        Console.WriteLine("No matches");
+                    }
+                    else
+                    {
+                        Console.WriteLine(max);
+                    }
+                }
+                else if (split[1] == "odd")
+                {
+                    int max = MaxOdd(inputArr);
+                    if (max == -1)
+                    {
+                        Console.WriteLine("No matches");
+                    }
+                    else
+                    {
+                        Console.WriteLine(max);
+                    }
+                }
+            }
+            else if (split[0] == "min")
+            {
+                if (split[1] == "even")
+                {
+                    int max = MinEven(inputArr);
+                    if (max == -1)
+                    {
+                        Console.WriteLine("No matches");
+                    }
+                    else
+                    {
+                        Console.WriteLine(max);
+                    }
+                }
+                else if (split[1] == "odd")
+                {
+                    int max = MinOdd(inputArr);
+                    if (max == -1)
+                    {
+                        Console.WriteLine("No matches");
+                    }
+                    else
+                    {
+                        Console.WriteLine(max);
+                    }
+                }
+            }
+            else if (split[0] == "first")
+            {
+                if (split[2] == "even")
+                {
+                    FirstNEven(int.Parse(split[1]), inputArr);
+                }
+                else if (split[2] == "odd")
+                {
+                    FirstNOdd(int.Parse(split[1]), inputArr);
+                }
+            }
+            else if (split[0] == "last")
+            {
+                if (split[2] == "even")
+                {
+                    LastNEven(int.Parse(split[1]), inputArr);
+                }
+                else if (split[2] == "odd")
+                {
+                    LastNOdd(int.Parse(split[1]), inputArr);
+                }
+            }
+
+            line = Console.ReadLine();
+        }
+        Console.WriteLine('[' + String.Join(", ", inputArr) + ']');
 
     }
 
@@ -27,10 +108,10 @@ public class Program
     // ◦ If the index is outside the boundaries of the array, print "Invalid index"
     public static bool Exchange(int[] arr, int splitInd)
     {
-        if (splitInd >= arr.Length - 1)
+        if (splitInd > arr.Length - 1 || splitInd < 0)
             return false;
-        int off = arr.Length - splitInd;
-        for (int i = 0; i < off; i++)
+
+        for (int i = 0; i <= splitInd; i++)
         {
             RotateOneRight(arr);
         }
@@ -237,13 +318,10 @@ public class Program
             System.Console.WriteLine("Invalid count");
             return;
         }
-
         string output = string.Empty;
         int countEvens = 0;
         for (int i = arr.Length - 1; i >= 0; i--)
         {
-
-
             if (arr[i] % 2 == 0) // if odd - not equal.
             {
                 countEvens++;
@@ -252,7 +330,7 @@ public class Program
                 {
                     output = output.Trim();
                     int[] tempOut1 = output.Split(' ').Select(int.Parse).ToArray();
-                    tempOut1.Reverse();
+                    Array.Reverse(tempOut1);
                     output = string.Join(", ", tempOut1);
                     output = "[" + output + "]";
                     System.Console.WriteLine(output);
@@ -261,21 +339,57 @@ public class Program
             }
         }
         output = output.Trim();
-        int[] tempOut = output.Split(' ').Select(int.Parse).ToArray();
-        tempOut.Reverse();
-        output = string.Join(", ", tempOut);
+        if (output.Length != 0)
+        {
+            int[] tempOut = output.Split(' ').Select(int.Parse).ToArray();
+            Array.Reverse(tempOut);
+            output = string.Join(", ", tempOut);
+        }
         output = "[" + output + "]";
         System.Console.WriteLine(output);
     }
 
 
 
-
-
-    public static string ReverseString(string s)
+    public static void LastNOdd(int n, int[] arr)
     {
-        s = string.Join("", s.Reverse());
-        return s;
+        if (n > arr.Length)
+        {
+            System.Console.WriteLine("Invalid count");
+            return;
+        }
+        string output = string.Empty;
+        int countEvens = 0;
+        for (int i = arr.Length - 1; i >= 0; i--)
+        {
+            if (arr[i] % 2 != 0) // if odd - not equal.
+            {
+                countEvens++;
+                output += arr[i] + " ";
+                if (countEvens == n)
+                {
+                    output = output.Trim();
+                    if (output.Length != 0)
+                    {
+                        int[] tempOut1 = output.Split(' ').Select(int.Parse).ToArray();
+                        Array.Reverse(tempOut1);
+                        output = string.Join(", ", tempOut1);
+                    }
+                    output = "[" + output + "]";
+                    System.Console.WriteLine(output);
+                    return;
+                }
+            }
+        }
+        output = output.Trim();
+        if (output.Length != 0)
+        {
+            int[] tempOut1 = output.Split(' ').Select(int.Parse).ToArray();
+            Array.Reverse(tempOut1);
+            output = string.Join(", ", tempOut1);
+        }
+        output = "[" + output + "]";
+        System.Console.WriteLine(output);
     }
 
 }
