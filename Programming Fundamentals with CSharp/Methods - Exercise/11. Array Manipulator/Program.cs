@@ -248,7 +248,12 @@ public class Program
             System.Console.WriteLine("Invalid count");
             return;
         }
-
+        // By specificaton this will never happen!!!
+        if (n == 0)
+        {
+            Console.WriteLine("[]");
+            return;
+        }
         string output = string.Empty;
         int countEvens = 0;
         for (int i = 0; i < arr.Length; i++)
