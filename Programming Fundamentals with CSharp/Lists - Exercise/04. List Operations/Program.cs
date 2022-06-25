@@ -36,34 +36,18 @@ namespace _04._List_Operations
                 }
                 else if (command[0] == "Shift" && command[1] == "left")
                 {
-                    int index = int.Parse(command[2]);
-                    if (index >= 0 && index < numbers.Count)
+                    for (int i = 0; i < int.Parse(command[2]); i++)
                     {
-                        for (int i = 0; i < index; i++)
-                        {
-                            numbers.Add(numbers[0]);
-                            numbers.RemoveAt(0);
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid index");
+                        numbers.Add(numbers[0]);
+                        numbers.RemoveAt(0);
                     }
                 }
                 else if (command[0] == "Shift" && command[1] == "right")
                 {
-                    int index = int.Parse(command[2]);
-                    if (index >= 0 && index < numbers.Count)
+                    for (int i = 0; i < int.Parse(command[2]); i++)
                     {
-                        for (int i = 0; i < index; i++)
-                        {
-                            numbers.Insert(0, numbers.Last());
-                            numbers.RemoveAt(numbers.Count - 1);
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid index");
+                        numbers.Insert(0, numbers.Last());
+                        numbers.RemoveAt(numbers.Count - 1);
                     }
                 }
                 line = Console.ReadLine();
