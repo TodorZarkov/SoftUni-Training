@@ -16,7 +16,7 @@ namespace _02._Change_List
                 string[] command = line.Split(' ').ToArray();
                 if (command[0] == "Delete")
                 {
-                    while (numbers.Remove(int.Parse(command[1])));
+                    numbers.RemoveAll(x=>x==int.Parse(command[1]));
                 }
                 else if (command[0] == "Insert")
                 {
