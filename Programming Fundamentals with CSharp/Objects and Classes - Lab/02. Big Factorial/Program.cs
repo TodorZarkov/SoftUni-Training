@@ -9,7 +9,7 @@ namespace _02._Big_Factorial
         {
             BigInteger n = int.Parse(Console.ReadLine());
             Console.WriteLine(Factorial(n));
-
+            
         }
         static BigInteger Factorial(BigInteger n)
         {
