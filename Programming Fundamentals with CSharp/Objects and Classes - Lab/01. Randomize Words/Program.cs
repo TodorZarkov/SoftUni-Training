@@ -15,7 +15,10 @@ namespace _01._Randomize_Words
                 line[i] = line[randIndex];
                 line[randIndex] = temp;
             }
-            Console.WriteLine(string.Join(' ', line));
+            foreach (string word  in line)
+            {
+                Console.WriteLine(word);
+            }
 
         }
     }
