@@ -6,7 +6,14 @@ namespace _03._Songs
     {
         static void Main(string[] args)
         {
-            
+
+        }
+
+        class Student
+        {
+            public string TypeList { get; set; }
+            public string Name { get; set; }
+            public string Time { get; set; }
         }
     }
 }
