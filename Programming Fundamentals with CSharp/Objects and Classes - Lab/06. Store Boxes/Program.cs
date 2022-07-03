@@ -21,8 +21,25 @@ public class Program
 
             line = Console.ReadLine();
         }
-        boxes.Sort
+        boxes.Sort(compareBoxes);
+        foreach (Box box in boxes)
+        {
+            Console.WriteLine($"{box.SerialNumber}");
+            Console.WriteLine($"-- {box.Item.Name} - ${box.Item.Price:f2}: {box.ItemQuantity}");
+            Console.WriteLine($"-- ${box.Price():f2}");
+        }
+        
 
+    }
+
+    private static int compareBoxes (Box a, Box b)
+    {
+        if (a.Price() > b.Price())
+            return -1;
+        else if (a.Price() < b.Price())
+            return 1;
+        else
+            return 0;
     }
 }
 
