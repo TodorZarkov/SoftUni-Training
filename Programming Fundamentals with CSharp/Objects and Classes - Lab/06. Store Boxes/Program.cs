@@ -16,9 +16,12 @@ public class Program
 
             Box box = new Box { SerialNumber = int.Parse(data[0]), ItemQuantity = int.Parse(data[2]) };
             box.Item.Name = data[1];
-            box.Item.Price = int.Parse(data[3]);
+            box.Item.Price = double.Parse(data[3]);
             boxes.Add(box);
+
+            line = Console.ReadLine();
         }
+        boxes.Sort
 
     }
 }
