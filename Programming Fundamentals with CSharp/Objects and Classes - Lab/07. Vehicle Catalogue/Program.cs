@@ -30,12 +30,14 @@ namespace _07._Vehicle_Catalogue
             List<Car> orderedCars = catalogue.Cars.OrderBy(car => car.Brand).ToList();
             List<Truck> orderedTrucks = catalogue.Trucks.OrderBy(truck => truck.Brand).ToList();
 
-            Console.WriteLine("Cars:");
+            if (orderedCars.Count != 0)
+                Console.WriteLine("Cars:");
             foreach (var car in orderedCars)
             {
                 Console.WriteLine($"{car.Brand}: {car.Model} - {car.HorsePower}hp");
             }
-            Console.WriteLine("Trucks:");
+            if (orderedTrucks.Count != 0)
+                Console.WriteLine("Trucks:");
             foreach (var truck in orderedTrucks)
             {
                 Console.WriteLine($"{truck.Brand}: {truck.Model} - {truck.Weight}kg");
