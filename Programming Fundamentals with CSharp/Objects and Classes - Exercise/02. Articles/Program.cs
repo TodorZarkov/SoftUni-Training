@@ -21,7 +21,7 @@ namespace _02._Articles
                 else if (command[0] == "Rename")
                     article.Rename(command[1]);
             }
-            Console.WriteLine(article.ToString());
+            Console.WriteLine(article);
         }
     }
     class Article
