@@ -32,9 +32,9 @@ namespace _02._Articles
             this.Content = content;
             this.Author = author;
         }
-        public string Title { get; set; }
-        public string Content { get; set; }
-        public string Author { get; set; }
+        private string Title { get; set; }
+        private string Content { get; set; }
+        private string Author { get; set; }
         public void Edit(string newContent)
         {
             this.Content = newContent;

@@ -30,9 +30,9 @@ namespace _03._Articles_2._0
             this.Content = content;
             this.Author = author;
         }
-        public string Title { get; set; }
-        public string Content { get; set; }
-        public string Author { get; set; }
+        private string Title { get; set; }
+        private string Content { get; set; }
+        private string Author { get; set; }
         
         override public string ToString()
         {
