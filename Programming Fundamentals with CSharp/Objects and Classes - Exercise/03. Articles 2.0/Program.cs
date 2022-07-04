@@ -18,7 +18,7 @@ namespace _03._Articles_2._0
             }
             foreach (Article article  in articles)
             {
-                Console.WriteLine(article.ToString());
+                Console.WriteLine(article);
             }
         }
     }
