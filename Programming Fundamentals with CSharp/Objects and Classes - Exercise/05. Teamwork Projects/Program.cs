@@ -15,6 +15,7 @@ namespace _05._Teamwork_Projects
 
     class Team
     {
+        //to check for existing creator and existing team
         public Team(string name, string teamCreator)
         {
             this.Name = name;
