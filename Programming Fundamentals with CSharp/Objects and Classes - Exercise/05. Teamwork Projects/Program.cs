@@ -15,12 +15,11 @@ namespace _05._Teamwork_Projects
 
     class Team
     {
-        Team(string name, string teamCreator)
+        public Team(string name, string teamCreator)
         {
             this.Name = name;
             this.Creator = teamCreator;
-            List<string> members = new List<string>();
-            this.Members = members;
+            this.Members = new List<string>();
         }
         public string Name { get; }
         public string Creator { get; }
