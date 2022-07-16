@@ -30,34 +30,33 @@ namespace _06._Vehicle_Catalogue
                 modelsToPrint.Add(line);
                 line = Console.ReadLine();
             }
+
             modelsToPrint.ForEach(m => vehicles.Where(v => v.Model == m).ToList().ForEach(x => Console.WriteLine(x)));
 
-            int sum = 0;
             List<Vehicle> cars = vehicles.Where(x => x.Type == "car").ToList();
-            cars.ForEach(c => sum += c.HorsePower);
-            double average = (double)sum / cars.Count;
-            Console.WriteLine($"Cars have average horsepower of: {average:f2}.");
-
-            sum = 0;
             List<Vehicle> trucks = vehicles.Where(x => x.Type == "truck").ToList();
-            trucks.ForEach(t => sum += t.HorsePower);
-            average = (double)sum / trucks.Count;
-            Console.WriteLine($"Trucks have average horsepower of: {average:f2}.");
-        }
 
-        class Vehicle
+            double carsAvHorsPower = cars.Count > 0 ? cars.Average(x => x.HorsePower) : 0.00;
+            double trucksAvHorsPower = trucks.Count > 0 ? trucks.Average(y => y.HorsePower) : 0.00;
+
+            Console.WriteLine($"Cars have average horsepower of: {carsAvHorsPower:f2}.");
+            Console.WriteLine($"Trucks have average horsepower of: {trucksAvHorsPower:f2}.");
+        }
+    }
+
+    class Vehicle
+    {
+        public string Type { get; set; }
+        public string Model { get; set; }
+        public string Colour { get; set; }
+        public int HorsePower { get; set; }
+        public override string ToString()
         {
-            public string Type { get; set; }
-            public string Model { get; set; }
-            public string Colour { get; set; }
-            public int HorsePower { get; set; }
-            public override string ToString()
-            {
-                return @$"Type: {this.Type[0].ToString().ToUpper() + this.Type.Remove(0,1).ToLower()}
+            return @$"Type: {this.Type[0].ToString().ToUpper() + this.Type.Remove(0, 1).ToLower()}
 Model: {this.Model}
 Color: {this.Colour}
 Horsepower: {this.HorsePower}";
-            }
         }
     }
 }
+
