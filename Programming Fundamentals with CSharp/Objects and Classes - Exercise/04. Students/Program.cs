@@ -31,9 +31,7 @@ namespace _04._Students
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public double Grade { get; set; }
-        public override string ToString()
-        {
-            return $"{this.FirstName} {this.LastName}: {this.Grade:F2}";
-        }
+        public override string ToString() => $"{this.FirstName} {this.LastName}: {this.Grade:F2}";
+        
     }
 }
