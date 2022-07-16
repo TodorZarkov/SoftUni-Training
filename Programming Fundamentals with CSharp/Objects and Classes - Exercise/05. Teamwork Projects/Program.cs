@@ -61,7 +61,28 @@ public class Program
             line = Console.ReadLine();
         }
 
+        List<Team> toDisband = new List<Team>();
+        foreach (Team team in teams)
+        {
+            if (team.Users.Count == 0)
+            {
+                toDisband.Add(team);
+            }
+        }
+        Console.WriteLine("Teams to disband:");
+        if (toDisband.Count != 0)
+        {
+            List<Team> orderedToDisband = toDisband.OrderBy(t => t.Name).ToList();
+            orderedToDisband.ForEach(t => Console.WriteLine(t.Name));
+            orderedToDisband.ForEach(t => teams.Remove(t));
+        }
+
+        List<Team> ordByName = teams.OrderBy(t => t.Name).ToList();
+        List<Team> ordByUsersAndName = ordByName.OrderByDescending(t => t.Users.Count).ToList();
+        ordByUsersAndName.ForEach(t => Console.WriteLine(t));
+
     }
+
 
 }
 
@@ -79,4 +100,14 @@ class Team
     public string Name { get; }
     public string Creator { get; }
     public List<string> Users { get; set; }
+    public override string ToString()
+    {
+        string users = null;
+        List<string> orderedUsers = this.Users.OrderBy(u => u).ToList();
+        foreach (string user in orderedUsers)
+        {
+            users += $"-- {user}{Environment.NewLine}";
+        }
+        return $"{this.Name}{Environment.NewLine}- {this.Creator}{Environment.NewLine}{users}";
+    }
 }
