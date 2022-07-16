@@ -43,13 +43,25 @@ public class Program
             ////input: {userName}->{teamName}
             string[] assingments = line.Split("->");
             bool teamExists = false;
+            bool userExists = false;
             //teams.Find(t)
+
             foreach (Team t in teams)
             {
                 if (t.Name == assingments[1])
                 {
-                    t.Users.Add(assingments[0]);
                     teamExists = true;
+                    foreach (Team team in teams)
+                    {
+                        if (team.Creator == assingments[0] || team.Users.Any(u => u == assingments[0]))
+                        {
+                            Console.WriteLine($"Member {assingments[0]} cannot join team {assingments[0]}!");
+                            userExists = true;
+                            break;
+                        }
+                    }
+                    if (userExists) break;
+                    t.Users.Add(assingments[0]);
                     break;
                 }
             }
@@ -61,7 +73,29 @@ public class Program
             line = Console.ReadLine();
         }
 
+        List<Team> toDisband = new List<Team>();
+        foreach (Team team in teams)
+        {
+            if (team.Users.Count == 0)
+            {
+                toDisband.Add(team);
+            }
+        }
+        List<Team> orderedToDisband = toDisband.OrderBy(t => t.Name).ToList();
+        orderedToDisband.ForEach(t => teams.Remove(t));
+        
+
+        List<Team> ordByName = teams.OrderBy(t => t.Name).ToList();
+        List<Team> ordByUsersAndName = ordByName.OrderByDescending(t => t.Users.Count).ToList();
+        ordByUsersAndName.ForEach(t => Console.WriteLine(t));
+
+        Console.WriteLine("Teams to disband:");
+        if (toDisband.Count != 0)
+        {
+            orderedToDisband.ForEach(t => Console.WriteLine(t.Name));
+        }
     }
+
 
 }
 
@@ -79,4 +113,14 @@ class Team
     public string Name { get; }
     public string Creator { get; }
     public List<string> Users { get; set; }
+    public override string ToString()
+    {
+        string users = null;
+        List<string> orderedUsers = this.Users.OrderBy(u => u).ToList();
+        foreach (string user in orderedUsers)
+        {
+            users += $"-- {user}{Environment.NewLine}";
+        }
+        return $"{this.Name}{Environment.NewLine}- {this.Creator}{Environment.NewLine}{users}";
+    }
 }
