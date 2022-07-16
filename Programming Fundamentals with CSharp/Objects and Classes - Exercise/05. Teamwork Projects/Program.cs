@@ -99,6 +99,9 @@ public class Program
 
 }
 
+
+}
+
 class Team
 {
     //check for dublicat name and creator - outside.
