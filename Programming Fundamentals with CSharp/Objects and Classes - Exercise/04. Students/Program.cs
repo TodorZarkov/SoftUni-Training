@@ -16,8 +16,8 @@ namespace _04._Students
                 Student student = new Student(line[0], line[1], double.Parse(line[2]));
                 students.Add(student);
             }
-            List<Student> orderedStudents = students.OrderByDescending(student => student.Grade).ToList();
-            orderedStudents.ForEach(student => Console.WriteLine(student));
+            students = students.OrderByDescending(student => student.Grade).ToList();
+            students.ForEach(student => Console.WriteLine(student));
         }
     }
     class Student
