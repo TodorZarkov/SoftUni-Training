@@ -55,7 +55,7 @@ public class Program
                     {
                         if (team.Creator == assingments[0] || team.Users.Any(u => u == assingments[0]))
                         {
-                            Console.WriteLine($"Member {assingments[0]} cannot join team {assingments[0]}!");
+                            Console.WriteLine($"Member {assingments[0]} cannot join team {assingments[1]}!");
                             userExists = true;
                             break;
                         }
@@ -83,7 +83,7 @@ public class Program
         }
         List<Team> orderedToDisband = toDisband.OrderBy(t => t.Name).ToList();
         orderedToDisband.ForEach(t => teams.Remove(t));
-        
+
 
         List<Team> ordByName = teams.OrderBy(t => t.Name).ToList();
         List<Team> ordByUsersAndName = ordByName.OrderByDescending(t => t.Users.Count).ToList();
@@ -100,7 +100,7 @@ public class Program
 }
 
 
-}
+
 
 class Team
 {
@@ -120,9 +120,12 @@ class Team
     {
         string users = null;
         List<string> orderedUsers = this.Users.OrderBy(u => u).ToList();
-        foreach (string user in orderedUsers)
+        for (int i = 0; i < orderedUsers.Count; i++)
         {
-            users += $"-- {user}{Environment.NewLine}";
+            if (i != orderedUsers.Count - 1)
+                users += $"-- {orderedUsers[i]}{Environment.NewLine}";
+            else
+                users += $"-- {orderedUsers[i]}";
         }
         return $"{this.Name}{Environment.NewLine}- {this.Creator}{Environment.NewLine}{users}";
     }
