@@ -9,13 +9,14 @@ namespace _05._Teamwork_Projects
         static void Main(string[] args)
         {
             int countOfTeams = int.Parse(Console.ReadLine());
-
+            Team team = new Team("bla", "blaa");
         }
     }
 
     class Team
     {
         //to check for existing creator and existing team
+        
         public Team(string name, string teamCreator)
         {
             this.Name = name;
