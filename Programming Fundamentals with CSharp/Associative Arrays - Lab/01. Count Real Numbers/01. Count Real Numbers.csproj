@@ -6,4 +6,8 @@
     <RootNamespace>_01._Count_Real_Numbers</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Collections.Specialized" Version="4.3.0" />
+  </ItemGroup>
+
 </Project>
