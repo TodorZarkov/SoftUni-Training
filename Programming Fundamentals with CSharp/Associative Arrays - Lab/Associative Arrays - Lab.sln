@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02. Odd Occurrences", "02. 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. Word Synonyms", "03. Word Synonyms\03. Word Synonyms.csproj", "{C4701707-89E3-4664-A7A0-D76122225963}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04. Word Filter", "04. Word Filter\04. Word Filter.csproj", "{15181A76-2951-44D1-8F4B-7764F65CB57C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C4701707-89E3-4664-A7A0-D76122225963}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4701707-89E3-4664-A7A0-D76122225963}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4701707-89E3-4664-A7A0-D76122225963}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15181A76-2951-44D1-8F4B-7764F65CB57C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15181A76-2951-44D1-8F4B-7764F65CB57C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15181A76-2951-44D1-8F4B-7764F65CB57C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15181A76-2951-44D1-8F4B-7764F65CB57C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
