@@ -26,7 +26,24 @@ namespace _05._Courses
                     courses[courseName].Add(registeredStudent);
                 line = Console.ReadLine();
             }
-            courses.ToList().ForEach(kvp => Console.WriteLine($"{kvp.Key}: {kvp.Value.Count}{string.Join($"{Environment.NewLine}-- ", kvp.Value)}"));
+            // courses.ToList().ForEach(kvp => Console.WriteLine($"{kvp.Key}: {kvp.Value.Count}{Environment.NewLine}{string.Join($"{Environment.NewLine}-- ", kvp.Value)}"));
+            //              Algorithms: 2
+            //              -- Jay Moore
+            //              -- Bob Jackson
+            //              Programming Basics: 1
+            //              -- Martin Taylor
+            //              Python Fundamentals: 3
+            //              -- John Anderson
+            //              -- Andrew Robinson
+            //              -- Clark Lewis
+            foreach (var kvp in courses)
+            {
+                System.Console.WriteLine($"{kvp.Key}: {kvp.Value.Count}");
+                foreach (string name in kvp.Value)
+                {
+                    System.Console.WriteLine($"-- {name}");
+                }
+            }
         }
     }
 }
