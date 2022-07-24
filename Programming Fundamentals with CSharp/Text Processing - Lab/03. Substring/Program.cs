@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace _03._Substring
 {
@@ -6,7 +7,13 @@ namespace _03._Substring
     {
         static void Main(string[] args)
         {
-            
+            string toRemove = Console.ReadLine();
+            StringBuilder toFilter = new StringBuilder(Console.ReadLine());
+            while (toFilter.ToString().Contains(toRemove))
+            {
+                toFilter.Replace(toRemove, "");
+            }
+            Console.WriteLine(toFilter);
         }
     }
 }
