@@ -13,11 +13,11 @@ namespace _05._Digits__Letters_and_Other
             StringBuilder otherSymbols = new StringBuilder();
             foreach (char symbol in text)
             {
-                if (symbol >= '0' && symbol <= '9')
+                if (char.IsDigit(symbol))
                 {
                     digits.Append(symbol);
                 }
-                else if ((symbol >= 'a' && symbol <= 'z') || (symbol >= 'A' && symbol <= 'Z'))
+                else if (char.IsLetter(symbol))
                 {
                     letters.Append(symbol);
                 }
