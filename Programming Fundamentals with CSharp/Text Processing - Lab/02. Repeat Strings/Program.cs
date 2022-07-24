@@ -8,12 +8,12 @@ namespace _02._Repeat_Strings
         static void Main(string[] args)
         {
             string[] words = Console.ReadLine().Split();
-            string repeatedWords = string.Empty;
+            StringBuilder repeatedWords = new StringBuilder();
             foreach (string word in words)
             {
                 for (int i = 0; i < word.Length; i++)
                 {
-                    repeatedWords += word;
+                    repeatedWords.Append(word);
                 }
             }
             Console.WriteLine(repeatedWords);
