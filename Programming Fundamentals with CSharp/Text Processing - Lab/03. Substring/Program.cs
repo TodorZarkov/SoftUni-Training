@@ -8,10 +8,10 @@ namespace _03._Substring
         static void Main(string[] args)
         {
             string toRemove = Console.ReadLine();
-            StringBuilder toFilter = new StringBuilder(Console.ReadLine());
-            while (toFilter.ToString().Contains(toRemove))
+            string toFilter = Console.ReadLine();
+            while (toFilter.IndexOf(toRemove)!= -1)
             {
-                toFilter.Replace(toRemove, "");
+                toFilter = toFilter.Remove(toFilter.IndexOf(toRemove), toRemove.Length);
             }
             Console.WriteLine(toFilter);
         }
