@@ -23,7 +23,7 @@ namespace _02._Character_Multiplier
                     sum += (int)strA[i];
                 }
             }
-            else if (strA.Length < strB.Length)
+            else// if (strA.Length < strB.Length)
             {
                 for (int i = minLen; i < strB.Length; i++)
                 {
