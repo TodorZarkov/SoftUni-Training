@@ -1,0 +1,23 @@
+﻿using System;
+using System.Text;
+
+namespace _06._Replace_Repeating_Chars
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string text = Console.ReadLine();
+            StringBuilder filteredText = new StringBuilder();
+            filteredText.Append(text[0]);
+            for (int i = 1; i < text.Length; i++)
+            {
+                if (text[i - 1] != text[i])
+                {
+                    filteredText.Append(text[i]);
+                }
+            }
+            Console.WriteLine(filteredText);
+        }
+    }
+}
