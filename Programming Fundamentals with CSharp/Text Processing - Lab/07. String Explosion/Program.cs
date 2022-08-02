@@ -5,32 +5,43 @@ namespace _07._String_Explosion
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
-            StringBuilder explodedText = new StringBuilder();
+            char bomb = '>';
             string text = Console.ReadLine();
-            const char bomb = '>';
-            int bombIndex = text.IndexOf(bomb);
-            int magnitude = (int)text[bombIndex + 1] - 48;
-            AddCharsFromString(explodedText, text, 0, bombIndex);
-            while (bombIndex != -1)
+            int index = 0;
+            StringBuilder explodedText = new StringBuilder();
+            while (index < text.Length)
             {
-                int nextBombIndex = text.IndexOf(bomb);
-                while (nextBombIndex > bombIndex)
+                if (text[index] == bomb)
                 {
-                    bombIndex = nextBombIndex;
-                    explodedText.Append(bomb);
-                    nextBombIndex = text.IndexOf(bomb);
+                    int bombIndex = index;
+                    int magnitude = int.Parse($"{text[bombIndex + 1]}");
+                    int numberOfBombs = 1;
+                    int nextBombIndex = bombIndex + 2;
+                    while (nextBombIndex <= magnitude + bombIndex)
+                    {
+                        if (nextBombIndex >= text.Length)
+                            break;
+                        if (text[nextBombIndex] == bomb)
+                        {
+                            magnitude += int.Parse($"{text[nextBombIndex + 1]}");
+                            numberOfBombs++;
+                        }
+                        nextBombIndex++;
+                    }
+
+                    index += magnitude + 1;
+                    explodedText.Append(bomb, numberOfBombs);
                 }
-                bombIndex = text.IndexOf(bomb);
+                else
+                {
+                    explodedText.Append(text[index]);
+                    index++;
+                }
+
             }
-        }
-        static void AddCharsFromString(StringBuilder sb, string text, int start, int end)
-        {
-            for (int i = start; i <= end; i++)
-            {
-                sb.Append(text[i]);
-            }
+            Console.WriteLine(explodedText);
         }
     }
 }
