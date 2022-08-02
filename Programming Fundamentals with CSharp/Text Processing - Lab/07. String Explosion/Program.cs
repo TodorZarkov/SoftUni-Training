@@ -31,7 +31,7 @@ namespace _07._String_Explosion
                         nextBombIndex++;
                     }
 
-                    index += magnitude + 1;
+                    index += magnitude + numberOfBombs;
                     explodedText.Append(bomb, numberOfBombs);
                 }
                 else
