@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01. Match Full Name", "01. 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02. Match Phone Number", "02. Match Phone Number\02. Match Phone Number.csproj", "{05EC023F-7EC0-42F7-9AB4-0814B24D0F2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. Match Dates", "03. Match Dates\03. Match Dates.csproj", "{74B86431-678A-4EDC-BEB9-39E2A487051E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{05EC023F-7EC0-42F7-9AB4-0814B24D0F2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05EC023F-7EC0-42F7-9AB4-0814B24D0F2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05EC023F-7EC0-42F7-9AB4-0814B24D0F2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74B86431-678A-4EDC-BEB9-39E2A487051E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74B86431-678A-4EDC-BEB9-39E2A487051E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74B86431-678A-4EDC-BEB9-39E2A487051E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74B86431-678A-4EDC-BEB9-39E2A487051E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
