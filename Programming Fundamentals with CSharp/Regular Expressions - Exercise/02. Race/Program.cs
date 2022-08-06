@@ -30,10 +30,15 @@ namespace _02._Race
                 line = Console.ReadLine();
             }
             //racers.OrderByDescending(r => r.Value).ToList().ForEach(kvp => Console.WriteLine(kvp.Key));
+            int limitPlace = 3;
+            if (racers.Count < 3 )
+            {
+                limitPlace = racers.Count;
+            }
             int place = 1;
             foreach (var item in racers.OrderByDescending(r => r.Value))
             {
-                if (place <= 3)
+                if (place <= limitPlace)
                     Console.WriteLine($"{place}{Ordinal(place)} place: {item.Key}");
                 else
                     break;
