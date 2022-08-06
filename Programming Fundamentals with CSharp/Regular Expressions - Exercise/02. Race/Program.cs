@@ -23,7 +23,7 @@ namespace _02._Race
                 {
                     if (!racers.ContainsKey(name))
                     {
-                        racers[name] = distance;
+                        racers.Add(name,0);
                     }
                     racers[name] += distance;
                 }
@@ -31,70 +31,72 @@ namespace _02._Race
             }
             if (racers.Count == 0)
                 return;
-            //racers.OrderByDescending(r => r.Value).ToList().ForEach(kvp => Console.WriteLine(kvp.Key));
-            int limitPlace = 3;
-            if (racers.Count < 3)
+            var winners = racers.OrderByDescending(x => x.Value).Take(3);
+            var firstPlace = winners.Take(1);
+            var secondPlace = winners.OrderByDescending(x => x.Value).Take(2).OrderBy(x => x.Value).Take(1);
+            var thirdPlace = winners.OrderBy(x => x.Value).Take(1);
+            foreach (var firstName in firstPlace)
             {
-                limitPlace = racers.Count;
+                Console.WriteLine($"1st place: {firstName.Key}");
             }
-            int place = 1;
-            foreach (var item in racers.OrderByDescending(r => r.Value))
+            foreach (var secondName in secondPlace)
             {
-                if (place <= limitPlace)
-                    Console.WriteLine($"{place}{Ordinal(place)} place: {item.Key}");
-                else
-                    break;
-                place++;
+                Console.WriteLine($"2nd place: {secondName.Key}");
             }
-        }
-        static bool IsRacer(string name, List<string> names)
-        {
-            foreach (string item in names)
+            foreach (var thirdName in thirdPlace)
             {
-                if (item == name)
+                Console.WriteLine($"3rd place: {thirdName.Key}");
+            }
+
+            static bool IsRacer(string name, List<string> names)
+            {
+                foreach (string item in names)
                 {
-                    return true;
+                    if (item == name)
+                    {
+                        return true;
+                    }
                 }
+                return false;
             }
-            return false;
-        }
-        static string ParseName(Regex rx, string line)
-        {
-            StringBuilder name = new StringBuilder();
-            MatchCollection letters = rx.Matches(line);
-            foreach (Match match in letters)
+            static string ParseName(Regex rx, string line)
             {
-                name.Append(match.Value);
+                StringBuilder name = new StringBuilder();
+                MatchCollection letters = rx.Matches(line);
+                foreach (Match match in letters)
+                {
+                    name.Append(match.Value);
+                }
+                return name.ToString();
             }
-            return name.ToString();
-        }
-        static int ParseDistance(Regex rx, string line)
-        {
-            MatchCollection digits = rx.Matches(line);
-            int distance = 0;
-            foreach (Match match in digits)
+            static int ParseDistance(Regex rx, string line)
             {
-                distance += int.Parse(match.Value);
+                MatchCollection digits = rx.Matches(line);
+                int distance = 0;
+                foreach (Match match in digits)
+                {
+                    distance += int.Parse(match.Value);
+                }
+                return distance;
             }
-            return distance;
-        }
-        static string Ordinal(int number)
-        {
-            if (number == 1)
+            static string Ordinal(int number)
             {
-                return "st";
-            }
-            else if (number == 2)
-            {
-                return "nd";
-            }
-            else if (number == 3)
-            {
-                return "rd";
-            }
-            else
-            {
-                return "";
+                if (number == 1)
+                {
+                    return "st";
+                }
+                else if (number == 2)
+                {
+                    return "nd";
+                }
+                else if (number == 3)
+                {
+                    return "rd";
+                }
+                else
+                {
+                    return "";
+                }
             }
         }
     }
