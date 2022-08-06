@@ -29,9 +29,11 @@ namespace _02._Race
                 }
                 line = Console.ReadLine();
             }
+            if (racers.Count == 0)
+                return;
             //racers.OrderByDescending(r => r.Value).ToList().ForEach(kvp => Console.WriteLine(kvp.Key));
             int limitPlace = 3;
-            if (racers.Count < 3 )
+            if (racers.Count < 3)
             {
                 limitPlace = racers.Count;
             }
@@ -56,7 +58,6 @@ namespace _02._Race
             }
             return false;
         }
-
         static string ParseName(Regex rx, string line)
         {
             StringBuilder name = new StringBuilder();

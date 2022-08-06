@@ -10,12 +10,12 @@ namespace _01._Furniture
         {
             double total = 0;
             List<string> furniture = new List<string>();
-            Regex rx = new Regex(@"(^>>(?<name>\w+)<<(?<price>\d+\.{0,1}\d+)!(?<quantity>\d+)\b)");
+            Regex rx = new Regex(@"(^>>(?<name>[a-zA-Z\s]+)<<(?<price>\d+\.{0,1}\d+)!(?<quantity>\d+))");
             string line = Console.ReadLine();
             while (line != "Purchase")
             {
                 Match matchedLine = rx.Match(line);
-                if (!rx.IsMatch(line))
+                if (!matchedLine.Success)
                 {
                     line = Console.ReadLine();
                     continue;
