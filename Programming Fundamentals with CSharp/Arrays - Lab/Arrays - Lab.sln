@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03. Rounding Numbers", "03.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04. Reverse Array of Strings", "04. Reverse Array of Strings\04. Reverse Array of Strings.csproj", "{83E10F42-5C1C-4911-BB2E-E637A72E5A0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05. Sum Even Numbers", "05. Sum Even Numbers\05. Sum Even Numbers.csproj", "{CAC1A1D0-F08B-4975-9C3B-811981D314FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{83E10F42-5C1C-4911-BB2E-E637A72E5A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83E10F42-5C1C-4911-BB2E-E637A72E5A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83E10F42-5C1C-4911-BB2E-E637A72E5A0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAC1A1D0-F08B-4975-9C3B-811981D314FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAC1A1D0-F08B-4975-9C3B-811981D314FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAC1A1D0-F08B-4975-9C3B-811981D314FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAC1A1D0-F08B-4975-9C3B-811981D314FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
