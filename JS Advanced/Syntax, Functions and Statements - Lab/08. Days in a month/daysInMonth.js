@@ -1,8 +1,9 @@
 'use strict';
 function solve(mnt, ye){
    console.log();
-   let date = new Date(ye,mnt);
-   console.log(date.getMonth);
+   let date = new Date(ye,mnt,0);
+   //console.log(date);
+   console.log(date.getDate());
     
 }
-solve(5,2022);
+solve(9,2022);
