@@ -1,14 +1,9 @@
 'use strict';
 
-let number = 10;
-let anotherNumber = 234.34324234;
-console.log(number + anotherNumber);
-
-let objkt = {
-    name: 'sharo',
-    breed: 'ksh'
+function echo(stringParam){
+    let textLen = stringParam.length;
+    console.log(textLen);
+    console.log(stringParam);
 }
 
-console.log(objkt.name);
-objkt.color = 'blue';
-console.log(objkt.color);
+echo('it Works');
