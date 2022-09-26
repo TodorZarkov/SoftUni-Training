@@ -1,33 +1,29 @@
 'use strict';
 function fromJSONToHTMLTable(input) {
-    //Write your code here
     let students = JSON.parse(input);
-    let tableRow = [];
-    let result = `<table>\n`;
+    let tableRow = ['<table>'];
 
-    tableRow.push('\t<tr>');
+    let row = '<tr>';
     for (let key in students[0]) {
-        tableRow.push(`<th>${key}</th>`);
+        row += `<th>${key}</th>`;
     }
-    tableRow.push('</tr>\n');
+    row += '</tr>';
+    tableRow.push(row);
 
     for (let student of students) {
-        tableRow.push('\t<tr>');
+        row = '<tr>';
         for (let key in student) {
-            tableRow.push(`<td>${student[key]}</td>`);
-
+            row += `<td>${student[key]}</td>`;
         }
-        tableRow.push('</tr>\n');
+        row += '</tr>';
+        tableRow.push(row);
     }
-    result += tableRow.join('') + `</table>`;
-    console.log(result);
+    tableRow.push('</table>')
+    console.log(tableRow.join('\n'));
 
-//     return (`<table>
-// ${result}
-// </table>`);
 }
 
 fromJSONToHTMLTable(`[{"Name":"Stamat",
 "Score":5.5},
-{"Name":"Rumen",
+{"Name":"3",
 "Score":6}]`)
