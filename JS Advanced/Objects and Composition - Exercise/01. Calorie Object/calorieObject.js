@@ -1,12 +1,8 @@
 'use strict';
 function solution(arr) {
     let calorie = {};
-    let evenEntry;
-    let oddEntry;
     for (let entry = 0; entry < arr.length/2; entry++) {
-        evenEntry = 2*entry;
-        oddEntry = 2*entry + 1;
-        calorie[arr[evenEntry]] = Number(arr[oddEntry]);
+        calorie[arr[entry]] = Number(arr[entry+1]);
     }
     console.log(calorie);
 }
