@@ -10,10 +10,12 @@ function solve(input = []) {
         town.product.price = Number(townData[2]);
         town.entry = 0;
         for (let t of towns) {
-            if (t.product.name === town.product.name)
+            if (t.product.name === town.product.name){
                 town.entry = t.entry;
-            else
+                break;
+            }else{
                 town.entry = i;
+            }
         }
         towns.push(town);
     }
@@ -41,12 +43,12 @@ function solve(input = []) {
 }
 
 solve(['Sofia City | Audi | 100000',
-'Sofia City | BMW | 100000',
-'Sofia City | Mitsubishi | 10000',
-'Sofia City | Mercedes | 10000',
-'Sofia City | NoOffenseToCarLovers | 0',
-'Mexico City | Audi | 1000',
-'Mexico City | BMW | 99999',
-'Mexico City | Mitsubishi | 10000',
-'New York City | Mitsubishi | 1000',
-'Washington City | Mercedes | 1000']);
+    'Sofia City | BMW | 100000',
+    'Sofia City | Mitsubishi | 10000',
+    'Sofia City | Mercedes | 10000',
+    'Sofia City | NoOffenseToCarLovers | 0',
+    'Mexico City | Audi | 1000',
+    'Mexico City | BMW | 99999',
+    'Mexico City | Mitsubishi | 10000',
+    'New York City | Mitsubishi | 1000',
+    'Washington City | Mercedes | 1000']);
