@@ -12,6 +12,8 @@ function solve(input = []) {
         for (let t of towns) {
             if (t.product.name === town.product.name){
                 town.entry = t.entry;
+                if(t.product.price === town.product.price)
+                town.entry = i;
                 break;
             }else{
                 town.entry = i;
@@ -48,7 +50,7 @@ solve(['Sofia City | Audi | 100000',
     'Sofia City | Mercedes | 10000',
     'Sofia City | NoOffenseToCarLovers | 0',
     'Mexico City | Audi | 1000',
-    'Mexico City | BMW | 99999',
+    'Mexico City | BMW | 100000',
     'Mexico City | Mitsubishi | 10000',
     'New York City | Mitsubishi | 1000',
     'Washington City | Mercedes | 1000']);
