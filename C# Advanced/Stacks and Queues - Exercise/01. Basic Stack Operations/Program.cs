@@ -34,9 +34,7 @@ namespace _01._Basic_Stack_Operations
             }
             else
             {
-                List<int> list = stack.ToList();
-                list.Sort();
-                Console.WriteLine(list.First());
+                Console.WriteLine(stack.Min());
             }
         }
     }
