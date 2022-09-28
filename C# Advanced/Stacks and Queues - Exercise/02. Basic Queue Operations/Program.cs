@@ -36,9 +36,7 @@ namespace _02._Basic_Queue_Operations
             }
             else
             {
-                List<int> list = queue.ToList();
-                list.Sort();
-                Console.WriteLine(list.First());
+                Console.WriteLine(queue.Min());
             }
         }
     }
