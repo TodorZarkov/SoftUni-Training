@@ -24,9 +24,19 @@ namespace _01._Basic_Stack_Operations
                 stack.Pop();
             }
             bool isPresent = stack.Contains(toCheck);
-            if (isPresent)
+            if (stack.Count == 0)
             {
-                Console.WriteLine(isPresent);
+                Console.WriteLine(0);
+            }
+            else if (isPresent)
+            {
+                Console.WriteLine(isPresent.ToString().ToLower());
+            }
+            else
+            {
+                List<int> list = stack.ToList();
+                list.Sort();
+                Console.WriteLine(list.First());
             }
         }
     }
