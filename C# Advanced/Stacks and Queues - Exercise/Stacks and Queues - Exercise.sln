@@ -5,7 +5,9 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01. Basic Stack Operations", "01. Basic Stack Operations\01. Basic Stack Operations.csproj", "{7EC27830-4C14-4555-AA80-20A110A25D5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02. Basic Queue Operations", "02. Basic Queue Operations\02. Basic Queue Operations.csproj", "{7AAB1985-09B7-494B-9A21-96A6866A2654}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02. Basic Queue Operations", "02. Basic Queue Operations\02. Basic Queue Operations.csproj", "{7AAB1985-09B7-494B-9A21-96A6866A2654}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. Maximum and Minimum Element", "03. Maximum and Minimum Element\03. Maximum and Minimum Element.csproj", "{343BC196-F3DB-405A-A609-EACE64A97A5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7AAB1985-09B7-494B-9A21-96A6866A2654}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AAB1985-09B7-494B-9A21-96A6866A2654}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AAB1985-09B7-494B-9A21-96A6866A2654}.Release|Any CPU.Build.0 = Release|Any CPU
+		{343BC196-F3DB-405A-A609-EACE64A97A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{343BC196-F3DB-405A-A609-EACE64A97A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{343BC196-F3DB-405A-A609-EACE64A97A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{343BC196-F3DB-405A-A609-EACE64A97A5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
