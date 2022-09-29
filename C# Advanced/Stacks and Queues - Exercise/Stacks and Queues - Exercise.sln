@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08. Balanced Parenthesis", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09. Simple Text Editor", "09. Simple Text Editor\09. Simple Text Editor.csproj", "{0ADA9DB9-1ECC-484C-B4D8-B0382A798AC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10. Crossroads", "10. Crossroads\10. Crossroads.csproj", "{919BA7E8-4BFA-4178-A813-C5C237D844E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{0ADA9DB9-1ECC-484C-B4D8-B0382A798AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0ADA9DB9-1ECC-484C-B4D8-B0382A798AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0ADA9DB9-1ECC-484C-B4D8-B0382A798AC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{919BA7E8-4BFA-4178-A813-C5C237D844E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{919BA7E8-4BFA-4178-A813-C5C237D844E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{919BA7E8-4BFA-4178-A813-C5C237D844E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{919BA7E8-4BFA-4178-A813-C5C237D844E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
