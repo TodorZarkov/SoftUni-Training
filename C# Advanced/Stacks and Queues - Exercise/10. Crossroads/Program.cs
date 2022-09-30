@@ -8,28 +8,50 @@ namespace _10._Crossroads
     {
         static void Main(string[] args)
         {
-            int greenDuration = int.Parse(Console.ReadLine());
-            int yellowDuration = int.Parse(Console.ReadLine());
+            int greenSeconds = int.Parse(Console.ReadLine());
+            int freeSeconds = int.Parse(Console.ReadLine());
+
             Queue<string> queue = new Queue<string>();
-            string line = Console.ReadLine();
             int carsPassed = 0;
+
+
+            string line = Console.ReadLine();
             while (line != "END")
             {
                 if (line == "green")
                 {
-                    carsPassed += queue.Count;
-                    int crossing = Crossing(greenDuration, yellowDuration, queue);
-                    if(crossing != 0)
+                    int carsToPass = queue.Count;
+                    int crossedIndex = GreenCycle(queue, greenSeconds);
+                    if (crossedIndex == -1)
                     {
-                        Console.WriteLine("A crash happened!");
-                        Console.WriteLine($"{queue.Peek()} was hit at {(char)crossing}.");
-                        return;
+                        carsPassed += carsToPass - queue.Count;
+                    }
+                    else
+                    {
+                        string passingCar = queue.Peek();
+                        int leftLength = passingCar.Length - crossedIndex;
+                        if (leftLength <= freeSeconds)
+                        {
+                            queue.Dequeue();
+                            carsPassed += carsToPass - queue.Count;
+                        }
+                        else
+                        {
+                            carsPassed += carsToPass - queue.Count;
+                            string hitCar = queue.Dequeue();
+                            int hitIndex = crossedIndex + freeSeconds;
+                            Console.WriteLine("A crash happened!");
+                            Console.WriteLine($"{hitCar} was hit at {hitCar[hitIndex]}.");
+                            return;
+                        }
                     }
                 }
                 else
                 {
                     queue.Enqueue(line);
                 }
+
+                line = Console.ReadLine();
             }
             Console.WriteLine("Everyone is safe.");
             Console.WriteLine($"{carsPassed} total cars passed the crossroads.");
@@ -38,34 +60,27 @@ namespace _10._Crossroads
 
 
 
-
-        static int Crossing(int greenDuration, int yellowDuration, Queue<string> queue)
+        static int GreenCycle(Queue<string> queue, int seconds)
         {
-            string car = "";
-            while (greenDuration > 0 && queue.Count > 0)//(duration in seconds)
+            while (queue.Count > 0)
             {
-                greenDuration -= queue.Peek().Length;
-                if(greenDuration >= 0)
+                seconds -= queue.Peek().Length;
+                if (seconds == 0)
+                {
+                    queue.Dequeue();
+                    return -1;
+                }
+                else if (seconds < 0)
+                {
+                    return queue.Peek().Length + seconds;
+                }
+                else
                 {
                     queue.Dequeue();
                 }
             }
-
-            if (queue.Count == 0)
-                return 0;
-
-            if (greenDuration == 0)
-                return 0;
-
-            int index = Math.Abs(greenDuration);
-            if (index > car.Length - 1)
-            {
-                queue.Dequeue();
-                return 0;
-            }
-               
-
-            return (int)car[index];
+            return -1;
         }
+        
     }
 }
