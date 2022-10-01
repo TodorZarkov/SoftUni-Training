@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1. Diagonal Difference", "1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2. Squares in Matrix", "2. Squares in Matrix\2. Squares in Matrix.csproj", "{C9CA2754-5DB1-443A-891F-03D096A15D59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2. Squares in Matrix-v2", "2. Squares in Matrix-v2\2. Squares in Matrix-v2.csproj", "{FF78E342-1E66-4BA1-884C-D928163BD4A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2. Squares in Matrix-v2", "2. Squares in Matrix-v2\2. Squares in Matrix-v2.csproj", "{FF78E342-1E66-4BA1-884C-D928163BD4A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. Maximal Sum", "3. Maximal Sum\3. Maximal Sum.csproj", "{29C4D70E-3CF4-4D69-AF60-6DE8A45E6321}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3. Maximal Sum", "3. Maximal Sum\3. Maximal Sum.csproj", "{29C4D70E-3CF4-4D69-AF60-6DE8A45E6321}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4. Matrix Shuffling", "4. Matrix Shuffling\4. Matrix Shuffling.csproj", "{3B4AD990-BB99-4133-AE30-7FB2EFB3BF9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "4. Matrix Shuffling", "4. Matrix Shuffling\4. Matrix Shuffling.csproj", "{3B4AD990-BB99-4133-AE30-7FB2EFB3BF9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5. Snake Moves", "5. Snake Moves\5. Snake Moves.csproj", "{2F82692A-B7A1-46A5-AB76-BE403D4E3258}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{3B4AD990-BB99-4133-AE30-7FB2EFB3BF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B4AD990-BB99-4133-AE30-7FB2EFB3BF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B4AD990-BB99-4133-AE30-7FB2EFB3BF9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F82692A-B7A1-46A5-AB76-BE403D4E3258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F82692A-B7A1-46A5-AB76-BE403D4E3258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F82692A-B7A1-46A5-AB76-BE403D4E3258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F82692A-B7A1-46A5-AB76-BE403D4E3258}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
