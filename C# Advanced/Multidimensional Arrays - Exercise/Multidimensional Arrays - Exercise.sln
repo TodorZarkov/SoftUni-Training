@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7. Knight Game", "7. Knight
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "8. Bombs", "8. Bombs\8. Bombs.csproj", "{CBB84F3C-CB42-4CFD-9193-3EEEE6CA1AA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "9. Miner", "9. Miner\9. Miner.csproj", "{FCEB76AF-AC64-44D8-956B-B202C396D1E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{CBB84F3C-CB42-4CFD-9193-3EEEE6CA1AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBB84F3C-CB42-4CFD-9193-3EEEE6CA1AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBB84F3C-CB42-4CFD-9193-3EEEE6CA1AA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCEB76AF-AC64-44D8-956B-B202C396D1E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCEB76AF-AC64-44D8-956B-B202C396D1E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCEB76AF-AC64-44D8-956B-B202C396D1E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCEB76AF-AC64-44D8-956B-B202C396D1E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
