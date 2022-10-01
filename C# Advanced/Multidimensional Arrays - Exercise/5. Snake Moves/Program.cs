@@ -43,6 +43,7 @@ namespace _5._Snake_Moves
                 }
             }
 
+            //PRINT NORMAL
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
                 string line = "";
