@@ -132,7 +132,7 @@ namespace _9._Miner
                     }
                     break;
                 case "left":
-                    if (col - 1 < field.GetLength(0))
+                    if (col - 1 >= 0)
                     {
                         col--;
                         if (field[row, col] == 'c')
@@ -149,7 +149,7 @@ namespace _9._Miner
                     }
                     break;
                 case "up":
-                    if (row - 1 < field.GetLength(0))
+                    if (row - 1 >= 0)
                     {
                         row--;
                         if (field[row, col] == 'c')
