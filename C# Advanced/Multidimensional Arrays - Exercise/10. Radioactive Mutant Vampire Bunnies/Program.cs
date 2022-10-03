@@ -70,6 +70,7 @@ namespace _10._Radioactive_Mutant_Vampire_Bunnies
             }//Moves to Bunny
             else if (lair[curPoint[0] + offset[0], curPoint[1] + offset[1]] == 'B')
             {
+                lair[curPoint[0], curPoint[1]] = '.';
                 curPoint[0] += offset[0];
                 curPoint[1] += offset[1];
                 result = "DEAD";
