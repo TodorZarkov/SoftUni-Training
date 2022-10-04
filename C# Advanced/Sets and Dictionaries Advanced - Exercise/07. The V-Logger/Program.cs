@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace _07._The_V_Logger
 {
@@ -8,11 +9,13 @@ namespace _07._The_V_Logger
     {
         static void Main(string[] args)
         {
-            Dictionary<string, List<string>> vlogers = new Dictionary<string, List<string>>();
+            Dictionary<string, HashSet<string>> vlogers = new Dictionary<string, HashSet<string>>();
+            Dictionary<string, int> vlogersFowols = new Dictionary<string, int>();
+
             string commandLine = Console.ReadLine();
             while (commandLine != "Statistics")
             {
-                string[] commandData = Console.ReadLine().Split(' ', StringSplitOptions.TrimEntries);
+                string[] commandData = commandLine.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 string command = commandData[1];
                 switch (command)
                 {
@@ -20,8 +23,8 @@ namespace _07._The_V_Logger
                         string name = commandData[0];
                         if (!vlogers.ContainsKey(name))
                         {
-                            vlogers.Add(name, new List<string>());
-                            vlogers[name].Add("0");
+                            vlogers.Add(name, new HashSet<string>());
+                            vlogersFowols.Add(name, 0);
                         }
                         break;
                     case "followed":
@@ -29,11 +32,33 @@ namespace _07._The_V_Logger
                         string secondName = commandData[2];
                         if (vlogers.ContainsKey(firstName) && vlogers.ContainsKey(secondName))
                         {
-
+                            if (!(firstName == secondName) && !vlogers[secondName].Contains(firstName))
+                            {
+                                vlogers[secondName].Add(firstName);
+                                vlogersFowols[firstName]++;
+                            }
                         }
                         break;
-
                 }
+                commandLine = Console.ReadLine();
+            }
+            Console.WriteLine($"The V-Logger has a total of {vlogers.Count} vloggers in its logs.");
+
+            var ordVlogers = vlogers.OrderByDescending(v => v.Value.Count).ThenBy(v => vlogersFowols[v.Key]).ToList();
+
+            Console.WriteLine($"1. {ordVlogers[0].Key} : {ordVlogers[0].Value.Count} followers, {vlogersFowols[ordVlogers[0].Key]} following");
+            if (ordVlogers[0].Value.Count != 0)
+            {
+                ordVlogers[0].Value.OrderBy(follower => follower).ToList().ForEach(follower =>
+                {
+                    Console.WriteLine($"*  {follower}");
+                });
+
+            }
+
+            for (int i = 1; i < vlogers.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {ordVlogers[i].Key} : {ordVlogers[i].Value.Count} followers, {vlogersFowols[ordVlogers[i].Key]} following");
             }
         }
     }
