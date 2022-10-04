@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04. Even Times", "04. Even 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05. Count Symbols", "05. Count Symbols\05. Count Symbols.csproj", "{CB68D4B5-E227-41C6-9140-A9B80C569767}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06. Wardrobe", "06. Wardrobe\06. Wardrobe.csproj", "{FEF97764-E74E-4590-81A5-377F0A033F21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06. Wardrobe", "06. Wardrobe\06. Wardrobe.csproj", "{FEF97764-E74E-4590-81A5-377F0A033F21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07. The V-Logger", "07. The V-Logger\07. The V-Logger.csproj", "{B47030B1-CB92-49FD-AC54-51C80BAA5FBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "07. The V-Logger", "07. The V-Logger\07. The V-Logger.csproj", "{B47030B1-CB92-49FD-AC54-51C80BAA5FBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08. Ranking", "08. Ranking\08. Ranking.csproj", "{B68F0531-075A-46F3-82AF-059538B18B62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{B47030B1-CB92-49FD-AC54-51C80BAA5FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B47030B1-CB92-49FD-AC54-51C80BAA5FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B47030B1-CB92-49FD-AC54-51C80BAA5FBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B68F0531-075A-46F3-82AF-059538B18B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B68F0531-075A-46F3-82AF-059538B18B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B68F0531-075A-46F3-82AF-059538B18B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B68F0531-075A-46F3-82AF-059538B18B62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
