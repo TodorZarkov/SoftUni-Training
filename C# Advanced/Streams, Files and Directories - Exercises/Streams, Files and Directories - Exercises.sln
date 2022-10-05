@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02. Line Numbers", "02. Lin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. Copy Binary File", "03. Copy Binary File\03. Copy Binary File.csproj", "{6D6367F6-8AC0-425D-A1AB-B1E04F4E3AC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04. Directory Traversal", "04. Directory Traversal\04. Directory Traversal.csproj", "{C482F7D2-3B42-47B2-A19E-8992D82E2FE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{6D6367F6-8AC0-425D-A1AB-B1E04F4E3AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D6367F6-8AC0-425D-A1AB-B1E04F4E3AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D6367F6-8AC0-425D-A1AB-B1E04F4E3AC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C482F7D2-3B42-47B2-A19E-8992D82E2FE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C482F7D2-3B42-47B2-A19E-8992D82E2FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C482F7D2-3B42-47B2-A19E-8992D82E2FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C482F7D2-3B42-47B2-A19E-8992D82E2FE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
