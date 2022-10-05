@@ -35,10 +35,16 @@
             FileInfo[] files = dir.GetFiles().OrderByDescending(file => extensions[file.Extension]).ThenBy(file => file.Extension).ThenBy(file => file.Length).ToArray();
 
             StringBuilder sb = new StringBuilder();
-            foreach (var file in files)
+            sb.AppendLine(files[0].Extension);
+            for (int i = 0;i<files.Length-1; i++)
             {
-                sb.AppendLine($"--{file.Name} - {file.Length/1024.0:f3}kb");
+                sb.AppendLine($"--{files[i].Name} - {(files[i].Length/1024.0).ToString("0.###")}kb");
+                if (files[i+1].Extension != files[i].Extension)
+                {
+                    sb.AppendLine(files[i+1].Extension);
+                }
             }
+            sb.AppendLine($"--{files[files.Length-1].Name} - {(files[files.Length - 1].Length / 1024.0).ToString("0.###")}kb");
 
 
 
@@ -47,6 +53,8 @@
 
         public static void WriteReportToDesktop(string textContent, string reportFileName)
         {
+            string DTPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            File.WriteAllText(DTPath + reportFileName, textContent);
         }
     }
 }
