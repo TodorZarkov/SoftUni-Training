@@ -8,10 +8,12 @@ namespace _04._Find_Evens_or_Odds
         static void Main(string[] args)
         {
             int[] range = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
-            for (int i = 0; i < range.Length; i++)
-            {
 
-            }
+            int[] arr = Enumerable.Range(range[0], range[1] - range[0] + 1).ToArray();
+            Predicate<int> getEven = num => num % 2 == 0 ? true : false;
+            Predicate<int> getOdd = num => num % 2 == 0 ? false : true;
+            var toGet = Console.ReadLine() == "even" ? getEven : getOdd;
+            Console.WriteLine(string.Join(' ', arr.Where(x => toGet(x)).ToArray()));
         }
     }
 }
