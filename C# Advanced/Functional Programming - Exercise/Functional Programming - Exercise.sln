@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01. Action Print", "01. Act
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02. Knights of Honor", "02. Knights of Honor\02. Knights of Honor.csproj", "{952FA5BB-3CD4-4F12-812B-BA4E20746351}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. Custom Min Function", "03. Custom Min Function\03. Custom Min Function.csproj", "{87A28E4D-69AC-4C0C-A958-83A0AE463775}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03. Custom Min Function", "03. Custom Min Function\03. Custom Min Function.csproj", "{87A28E4D-69AC-4C0C-A958-83A0AE463775}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04. Find Evens or Odds", "04. Find Evens or Odds\04. Find Evens or Odds.csproj", "{5F0D97F3-5916-4ED4-B2C9-62B135C3A715}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04. Find Evens or Odds", "04. Find Evens or Odds\04. Find Evens or Odds.csproj", "{5F0D97F3-5916-4ED4-B2C9-62B135C3A715}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05. Applied Arithmetics", "05. Applied Arithmetics\05. Applied Arithmetics.csproj", "{F912DF38-7D2C-4E37-A4B3-CCC992A5343B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5F0D97F3-5916-4ED4-B2C9-62B135C3A715}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F0D97F3-5916-4ED4-B2C9-62B135C3A715}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F0D97F3-5916-4ED4-B2C9-62B135C3A715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F912DF38-7D2C-4E37-A4B3-CCC992A5343B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F912DF38-7D2C-4E37-A4B3-CCC992A5343B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F912DF38-7D2C-4E37-A4B3-CCC992A5343B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F912DF38-7D2C-4E37-A4B3-CCC992A5343B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
