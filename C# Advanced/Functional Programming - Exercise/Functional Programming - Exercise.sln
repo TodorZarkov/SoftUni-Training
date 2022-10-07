@@ -5,7 +5,11 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01. Action Print", "01. Action Print\01. Action Print.csproj", "{BBA4FF11-C9B3-4D78-B231-442E7ED37E3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02. Knights of Honor", "02. Knights of Honor\02. Knights of Honor.csproj", "{952FA5BB-3CD4-4F12-812B-BA4E20746351}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02. Knights of Honor", "02. Knights of Honor\02. Knights of Honor.csproj", "{952FA5BB-3CD4-4F12-812B-BA4E20746351}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. Custom Min Function", "03. Custom Min Function\03. Custom Min Function.csproj", "{87A28E4D-69AC-4C0C-A958-83A0AE463775}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04. Find Evens or Odds", "04. Find Evens or Odds\04. Find Evens or Odds.csproj", "{5F0D97F3-5916-4ED4-B2C9-62B135C3A715}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{952FA5BB-3CD4-4F12-812B-BA4E20746351}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{952FA5BB-3CD4-4F12-812B-BA4E20746351}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{952FA5BB-3CD4-4F12-812B-BA4E20746351}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87A28E4D-69AC-4C0C-A958-83A0AE463775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87A28E4D-69AC-4C0C-A958-83A0AE463775}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87A28E4D-69AC-4C0C-A958-83A0AE463775}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87A28E4D-69AC-4C0C-A958-83A0AE463775}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F0D97F3-5916-4ED4-B2C9-62B135C3A715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F0D97F3-5916-4ED4-B2C9-62B135C3A715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F0D97F3-5916-4ED4-B2C9-62B135C3A715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F0D97F3-5916-4ED4-B2C9-62B135C3A715}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
