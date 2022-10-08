@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>_11._TriFunction</RootNamespace>
+    <RootNamespace>_01._Define_a_Class_Person</RootNamespace>
   </PropertyGroup>
 
 </Project>
