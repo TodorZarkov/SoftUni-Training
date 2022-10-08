@@ -12,7 +12,20 @@ namespace _11._TriFunction
             int number = int.Parse(Console.ReadLine());
             List<string> names = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            Func<string, int, bool> match = (name, num) =>
+            var match = GetPredicate(number);
+            
+
+            Func< Predicate<string>, List<string>, string> get = (match, names) =>
+            {
+                return names.Find(name => match(name));
+            };
+
+            Console.WriteLine(get(match,names)); 
+        }
+
+        static Predicate<string> GetPredicate(int num)
+        {
+            Predicate<string> match = (name) =>
             {
                 int sum = 0;
                 for (int i = 0; i < name.Length; i++)
@@ -26,13 +39,7 @@ namespace _11._TriFunction
 
                 return false;
             };
-
-            Func< Func<string, int, bool>, List<string>, string> get = (match, names) =>
-            {
-                return names.Find(name => match(name, number));
-            };
-
-            Console.WriteLine(get(match,names)); 
+            return match;
         }
     }
 }
