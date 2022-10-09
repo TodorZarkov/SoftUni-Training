@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04. Opinion Poll", "04. Opi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefiningClasses", "DefiningClasses\DefiningClasses.csproj", "{08F114F5-DCF8-4597-8567-FDF3B1E96213}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05. Date Modifier", "05. Date Modifier\05. Date Modifier.csproj", "{D8BC3F88-5E92-4FD7-932D-83DC72227767}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateModifier", "DateModifier\DateModifier.csproj", "{E5654379-21EB-49F2-ADFB-2E882488DEDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{08F114F5-DCF8-4597-8567-FDF3B1E96213}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08F114F5-DCF8-4597-8567-FDF3B1E96213}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08F114F5-DCF8-4597-8567-FDF3B1E96213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8BC3F88-5E92-4FD7-932D-83DC72227767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8BC3F88-5E92-4FD7-932D-83DC72227767}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8BC3F88-5E92-4FD7-932D-83DC72227767}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8BC3F88-5E92-4FD7-932D-83DC72227767}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5654379-21EB-49F2-ADFB-2E882488DEDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5654379-21EB-49F2-ADFB-2E882488DEDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5654379-21EB-49F2-ADFB-2E882488DEDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5654379-21EB-49F2-ADFB-2E882488DEDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
