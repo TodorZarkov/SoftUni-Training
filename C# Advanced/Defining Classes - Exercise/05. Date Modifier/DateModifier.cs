@@ -1,9 +1,6 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
-namespace _05._Date_Modifier
+namespace DateModifier
 {
     public class DateModifier
     {
@@ -13,6 +10,7 @@ namespace _05._Date_Modifier
             DateTime startDate = DateTime.ParseExact(begin, "yyyy MM dd", System.Globalization.CultureInfo.InvariantCulture);
             DateTime endDate = DateTime.ParseExact(end, "yyyy MM dd", System.Globalization.CultureInfo.InvariantCulture);
             this.difference = endDate.Subtract(startDate).Days;
+
             return Math.Abs(difference);
         }
     }

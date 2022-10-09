@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace DefiningClasses
+namespace OpinionPoll
 {
     public class Person
     {

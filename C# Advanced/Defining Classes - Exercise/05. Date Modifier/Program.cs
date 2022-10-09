@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace _05._Date_Modifier
+namespace DateModifier
 {
-    public class Program
+    public class StartUp
     {
         static void Main(string[] args)
         {
