@@ -6,14 +6,10 @@ namespace DateModifier
     {
         static void Main(string[] args)
         {
-            string startDate = "";
-            string endDate = "";
+            string startDate = Console.ReadLine();
+            string endDate = Console.ReadLine();
 
-            startDate = Console.ReadLine();
-            endDate = Console.ReadLine();
-
-            DateModifier dm = new DateModifier();
-            Console.WriteLine(dm.getDifference(startDate, endDate));
+            Console.WriteLine(DateModifier.getDifference(startDate, endDate));
         }
     }
 }
