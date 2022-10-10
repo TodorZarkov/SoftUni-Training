@@ -34,37 +34,11 @@ namespace _07._Raw_Data
             string command = Console.ReadLine();
             if (command == "fragile")
             {
-                List<Car> fragileLoadedCars = cars.FindAll(car =>
-                {
-                    if (car.Cargo.Type == "fragile")
-                    {
-                        foreach (var tyre in car.Tyres)
-                        {
-                            if (tyre.Preasure < 1)
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                    return false;
-                }).ToList();
-
-                fragileLoadedCars.ForEach(car => Console.WriteLine(car.Model));
+                cars.Where(car => car.Cargo.Type == "fragile" && car.Tyres.Any(t => t.Preasure < 1)).Select(car => car.Model).ToList().ForEach(car => Console.WriteLine(car));
             }
             else if (command == "flammable")
             {
-                List<Car> flammableLoadedCars = cars.FindAll(car =>
-                {
-                    if (car.Cargo.Type == "flammable")
-                    {
-                        if (car.Engine.Power > 250)
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }).ToList();
-                flammableLoadedCars.ForEach(car => Console.WriteLine(car.Model));
+                cars.Where(car => car.Cargo.Type == "flammable" && car.Engine.Power > 250).Select(car => car.Model).ToList().ForEach(car => Console.WriteLine(car));
             }
         }
     }
