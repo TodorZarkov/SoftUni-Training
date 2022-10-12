@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.Tuple", "07.Tuple\07.Tup
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08.Threeuple", "08.Threeuple\08.Threeuple.csproj", "{39564D25-B0C2-4BD1-BC58-64C44CC9CCAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomDoublyLinkedList", "09.CustomLinkedList\CustomDoublyLinkedList.csproj", "{E0AD9CA6-5102-4212-B66F-97575B491D57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{39564D25-B0C2-4BD1-BC58-64C44CC9CCAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39564D25-B0C2-4BD1-BC58-64C44CC9CCAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39564D25-B0C2-4BD1-BC58-64C44CC9CCAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0AD9CA6-5102-4212-B66F-97575B491D57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0AD9CA6-5102-4212-B66F-97575B491D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0AD9CA6-5102-4212-B66F-97575B491D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0AD9CA6-5102-4212-B66F-97575B491D57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
