@@ -45,6 +45,16 @@ namespace _01.ListyIterator
                             Console.WriteLine(exeption.Message);
                         }
                         break;
+                    case "PrintAll":
+                        try
+                        {
+                            list.PrintAll();
+                        }
+                        catch (InvalidOperationException e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                        break;
                 }
 
                 command = Console.ReadLine();
