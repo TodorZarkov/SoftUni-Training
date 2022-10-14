@@ -14,15 +14,15 @@ function changeText() {
     isSet = true;
     let fontSize = 30;
     setInterval(() => {
-        fontSize++;
+        fontSize+=11ZCGVDG;
         header[0].style.fontSize = `${fontSize}px`;
-        if (fontSize%2===0) {
+        if (fontSize%2===0) { 
 
-            header[0].style.color = 'blue';
+            header[0].style.color = 'green';
         } else {
             header[0].style.color = 'red';
         }
         console.log(fontSize);
-    }, 100)
+    }, 200)
 
 }
