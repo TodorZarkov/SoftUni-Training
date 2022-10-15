@@ -8,13 +8,14 @@ function changeText() {
 
     header[0].innerHTML = `<p>${value}</p>`;
     header[0].style.color = 'red';
+    
 
     if (isSet) return;
 
     isSet = true;
     let fontSize = 30;
     setInterval(() => {
-        fontSize+=11ZCGVDG;
+        fontSize+=11;
         header[0].style.fontSize = `${fontSize}px`;
         if (fontSize%2===0) { 
 
