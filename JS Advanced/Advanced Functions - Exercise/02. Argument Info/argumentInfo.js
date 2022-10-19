@@ -2,9 +2,6 @@ function solve(...params) {
     let countTypes = [];
     for (let param of params) {
         type = typeof (param);
-        if(type==="object"){
-            
-        }
         console.log(`${type}: ${param}`);
         let element = countTypes.find(e => e[0] === type);
         if (element === undefined){
