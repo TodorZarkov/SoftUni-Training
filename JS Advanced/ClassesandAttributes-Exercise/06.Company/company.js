@@ -1,0 +1,5 @@
+class Company {
+    constructor() {
+        departments = {};
+    }
+}
