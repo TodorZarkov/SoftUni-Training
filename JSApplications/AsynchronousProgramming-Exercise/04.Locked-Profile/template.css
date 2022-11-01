@@ -79,5 +79,5 @@ button {
 }
 
 .hiddenInfo > input, .hiddenInfo > label {
-  display: none;
+  display: block;
 }
