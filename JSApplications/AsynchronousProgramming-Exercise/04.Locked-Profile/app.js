@@ -21,7 +21,6 @@ function hideShow(event) {
     if(btn.nodeName !== 'BUTTON') return;
     let id = btn.id;
     let locked = document.getElementById(`radio-${id}`);
-    console.log(locked);
     if(locked.checked === true) return;
     let hiddenFields = document.querySelector(`[myid=user-${id}-HiddenFields]`)
     if(btn.textContent === 'Show more'){
