@@ -6,30 +6,33 @@ async function attachEvents() {
 }
 
 async function getWeather() {
-    let locations = [];
-    let txtBox = document.getElementById("location");
+    try {
+        let locations = [];
+        let txtBox = document.getElementById("location");
 
-    let locationsResponse = await fetch('http://localhost:3030/jsonstore/forecaster/locations/');
-    if (locationsResponse.ok === false || locationsResponse.status !== 200) throw "Bad REST1";
-    locations = await locationsResponse.json();
+        let locationsResponse = await fetch('http://localhost:3030/jsonstore/forecaster/locations/');
+        if (locationsResponse.ok === false || locationsResponse.status !== 200) throw "Bad REST1";
+        locations = await locationsResponse.json();
 
+        let location = locations.find(l => l.name === txtBox.value);
+        if (location === undefined) throw "City not found in DB";
 
-    let location = locations.find(l => l.name === txtBox.value);
-    if (location === undefined) throw "City not found in DB";
+        let todayResponse =
+            await fetch(`http://localhost:3030/jsonstore/forecaster/today/${location.code}`);
+        if (todayResponse.ok === false || todayResponse.status !== 200) throw "Bad REST2";
+        let today = await todayResponse.json();
 
-    let todayResponse =
-        await fetch(`http://localhost:3030/jsonstore/forecaster/today/${location.code}`);
-    if (todayResponse.ok === false || todayResponse.status !== 200) throw "Bad REST2";
-    let today = await todayResponse.json();
+        let upcomingResponse =
+            await fetch(`http://localhost:3030/jsonstore/forecaster/upcoming/${location.code}`);
+        if (upcomingResponse.ok === false || upcomingResponse.status !== 200) throw "Bad REST3";
+        let upcoming = await upcomingResponse.json();
 
-    let upcomingResponse =
-        await fetch(`http://localhost:3030/jsonstore/forecaster/upcoming/${location.code}`);
-    if (upcomingResponse.ok === false || upcomingResponse.status !== 200) throw "Bad REST3";
-    let upcoming = await upcomingResponse.json();
+        generateHtmlToday(today);
+        generateHtmlUpcoming(upcoming);
 
-    generateHtmlToday(today);
-    generateHtmlUpcoming(upcoming)
-
+    } catch (error) {
+        onError(error);
+    }
 }
 
 function generateHtmlToday(today) {
