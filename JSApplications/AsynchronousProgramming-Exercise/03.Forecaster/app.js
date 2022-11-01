@@ -57,7 +57,7 @@ function generateHtmlUpcoming(upcoming) {
     upcomingDiv.children[1] !== undefined ? upcomingDiv.children[1].remove() : true;
 
     let toFillDiv = document.createElement('div');
-    toFillDiv.setAttribute('class', 'forecasts-info');
+    toFillDiv.setAttribute('class', 'forecast-info');
     console.log(upcoming.forecast);
     for (let f of upcoming.forecast) {
         let innerHtmlUpcoming =
