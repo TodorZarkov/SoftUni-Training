@@ -32,8 +32,7 @@ namespace _05.FootballTeamGenerator
             get { return name; }
             private set
             {
-                Regex empty = new Regex(@"^\s+$");
-                if (value == null || value == "" || empty.IsMatch(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("A name should not be empty.");
                 }

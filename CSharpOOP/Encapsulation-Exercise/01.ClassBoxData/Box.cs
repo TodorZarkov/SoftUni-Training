@@ -24,7 +24,7 @@ namespace _01.ClassBoxData
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Length cannot be zero or negative.");
+                    throw new ArgumentException(String.Format(ExceptionMessages.BoxParameterCannotBeZeroOrNegative,nameof(Length)));
                 }
                 length = value;
             }
@@ -36,7 +36,7 @@ namespace _01.ClassBoxData
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Height cannot be zero or negative.");
+                    throw new ArgumentException(String.Format(ExceptionMessages.BoxParameterCannotBeZeroOrNegative, nameof(Height)));
                 }
                 height = value;
             }
@@ -48,7 +48,7 @@ namespace _01.ClassBoxData
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Width cannot be zero or negative.");
+                    throw new ArgumentException(String.Format(ExceptionMessages.BoxParameterCannotBeZeroOrNegative, nameof(Width)));
                 }
                 width = value;
             }
