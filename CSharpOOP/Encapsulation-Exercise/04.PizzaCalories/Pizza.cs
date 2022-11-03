@@ -7,6 +7,7 @@ namespace _04.PizzaCalories
 {
     internal class Pizza
     {
+        const int minNameLength = 1;
         const int maxNameLength = 15;
         const int minNumberOfToppings = 0;
         const int maxNumberOfToppings = 10;
@@ -28,11 +29,11 @@ namespace _04.PizzaCalories
                 Regex empty = new Regex(@"^\s+^");
                 if (value == null || value == "" || empty.IsMatch(value))
                 {
-                    throw new ArgumentException("Pizza name should not be empty.");
+                    throw new ArgumentException($"Pizza name should be between {minNameLength} and {maxNameLength} symbols.");
                 }
-                if (value.Length > 15)
+                if (value.Length < minNameLength || value.Length > maxNameLength)
                 {
-                    throw new ArgumentException($"Pizza name should be between 1 and {maxNameLength} symbols.");
+                    throw new ArgumentException($"Pizza name should be between {minNameLength} and {maxNameLength} symbols.");
                 }
                 name = value;
             }
