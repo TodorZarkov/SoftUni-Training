@@ -2,12 +2,31 @@ const postsUrl = "http://localhost:3030/jsonstore/blog/posts/";
 const commentsUrl = "http://localhost:3030/jsonstore/blog/comments/";
 let allPosts = {};
 
+attachEvents();
+
 function attachEvents() {
     document.getElementById("btnLoadPosts").addEventListener('click', onLoad);
     document.getElementById("btnViewPost").addEventListener('click', onView);
 }
 
-attachEvents();
+function generateArticle(title,body) {
+    document.getElementById("post-title").textContent = title;
+    document.getElementById("post-body").textContent = body;
+}
+
+function generateLi(id, text) {
+    let li = document.createElement('li');
+    li.id = id;
+    li.textContent = text;
+    return li;
+}
+
+function createOption(value, text) {
+    let option = document.createElement('option');
+    option.value = value;
+    option.textContent = text;
+    return option;
+}
 
 
 async function getPostsIdAndTitle(url) {
@@ -23,12 +42,6 @@ async function getCommentsOf(postId, url) {
     return Object.values(data).filter(c => c.postId === postId).map(c => obj = { id: c.id, text: c.text });
 }
 
-function createOption(value, text) {
-    let option = document.createElement('option');
-    option.value = value;
-    option.textContent = text;
-    return option;
-}
 
 async function onLoad() {
     let select = document.getElementById("posts");
@@ -45,25 +58,15 @@ async function getArticle(url, id) {
     return obj;
 }
 
-function generateArticle(article) {
-    document.getElementById("post-title").textContent = article.title;
-    document.getElementById("post-body").textContent = article.body;
-}
-
-function generateLi(id, text) {
-    let li = document.createElement('li');
-    li.id = id;
-    li.textContent = text;
-    return li;
-}
-
 async function onView() {
-    let id = document.getElementById('posts').value;
+    let postsEl = document.getElementById('posts');
+    let id = postsEl.value;
+    let artName = postsEl.options[postsEl.selectedIndex].text;
     //let article = await getArticle(postsUrl,id);
-    let article = allPosts[id];
-    generateArticle(article);
-    let comments = await getCommentsOf(id,commentsUrl);
-    let lis = comments.map(c=>generateLi(c.id,c.text));
+    let artText = Object.values(allPosts).find(t => t.title === artName).body;
+    generateArticle(artName, artText);
+    let comments = await getCommentsOf(id, commentsUrl);
+    let lis = comments.map(c => generateLi(c.id, c.text));
     document.getElementById("post-comments").replaceChildren(...lis);
 }
 
