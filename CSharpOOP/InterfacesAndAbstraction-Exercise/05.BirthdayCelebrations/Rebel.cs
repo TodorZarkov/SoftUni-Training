@@ -1,32 +1,32 @@
 ﻿
-
-
 namespace _05.BirthdayCelebrations
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-
-    public class Citizen : IPerson, IIdentifiable, IBirthable, IBuyer
+    using System.Text;
+    using System.Xml.Linq;
+    public class Rebel : IPerson, IBuyer
     {
         private string name;
         private int age;
-        private string id;
-        private string birthdate;
+        private string group;
         private int food;
 
 
 
-        private Citizen()
+        private Rebel()
         {
             Food = 0;
         }
-        public Citizen(string name, int age, string id, string birthdate) : this()
+        public Rebel(string name, int age, string group) : this()
         {
             Name = name;
             Age = age;
-            Id = id;
-            Birthdate = birthdate;
+            Group = group;
         }
+
+
 
         public string Name
         {
@@ -54,34 +54,19 @@ namespace _05.BirthdayCelebrations
             }
         }
 
-        public string Id
+        public string Group
         {
-            get { return id; }
+            get { return group; }
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("The id cannot be empty.");
+                    throw new ArgumentException("The group cannot be empty.");
                 }
-                id = value;
+
+                group = value;
             }
         }
-
-        public string Birthdate
-        {
-            get { return birthdate; }
-            private set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Birthdate cannot be empty.");
-                }
-                birthdate = value;
-            }
-        }
-
-
-
 
         public int Food
         {
@@ -93,13 +78,12 @@ namespace _05.BirthdayCelebrations
         }
 
 
+
         public void BuyFood()
         {
-            Food += 10;
+            Food += 5;
         }
 
-
-
-       
+        
     }
 }
