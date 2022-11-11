@@ -6,15 +6,22 @@ namespace _01.Vehicles
     {
         private double fuelQuantity;
         private double baseFuelConsumption;
+        private double tankCapacity;
 
         private double additionalFuelCons;
 
 
 
-        public Vehicle(double fuelQuantity, double baseFuelConsumption)
+        public Vehicle(double fuelQuantity, double baseFuelConsumption, double tankCapacity)
         {
+
             FuelQuantity = fuelQuantity;
             BaseFuelConsumption = baseFuelConsumption;
+            TankCapacity = tankCapacity;
+            if(FuelQuantity>TankCapacity)
+            {
+                FuelQuantity = 0;
+            }
         }
 
 
@@ -25,7 +32,7 @@ namespace _01.Vehicles
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException(string.Format(CannotBeEmpty, nameof(FuelQuantity)));
+                    throw new ArgumentException(string.Format(MustBePositive, "Fuel"));
                 }
                 fuelQuantity = value;
             }
@@ -39,12 +46,11 @@ namespace _01.Vehicles
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException(string.Format(CannotBeEmpty, nameof(BaseFuelConsumption)));
+                    throw new ArgumentException(string.Format(MustBePositive, nameof(BaseFuelConsumption)));
                 }
                 baseFuelConsumption = value;
             }
         }
-
 
         public double AdditionalFuelCons
         {
@@ -53,11 +59,13 @@ namespace _01.Vehicles
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException(string.Format(CannotBeEmpty, nameof(AdditionalFuelCons)));
+                    throw new ArgumentException(string.Format(MustBePositive, nameof(AdditionalFuelCons)));
                 }
                 additionalFuelCons = value;
             }
         }
+
+        public double TankCapacity { get => tankCapacity; private set => tankCapacity = value; }
 
 
 
@@ -78,8 +86,19 @@ namespace _01.Vehicles
         }
 
 
-        public abstract void Refuel(double liters);
 
+        public virtual void Refuel(double liters)
+        {
+            if (liters <= 0)
+            {
+                throw new ArgumentException(String.Format(MustBePositive, "Fuel"));
+            }
+            if (FuelQuantity + liters > TankCapacity)
+            {
+                throw new ArgumentException(string.Format(CannotFitFuelInTheTank, liters));
+            }
+            FuelQuantity += liters;
+        }
 
         public override string ToString()
         {
