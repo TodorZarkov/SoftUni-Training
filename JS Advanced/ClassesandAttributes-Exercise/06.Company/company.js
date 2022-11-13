@@ -7,10 +7,12 @@ class Company {
 
     addEmployee(name, salary, position, department) {
 
-        if (!(name)) throw "Invalid input!";
-        if (salary === null || salary === undefined || salary === "") throw "Invalid input!";
-        if (!(position)) throw "Invalid input!";
-        if (!(department)) throw "Invalid input!";
+        if (!name || !position || !department) {
+            throw "Invalid input!";
+        }
+        if (salary === null || salary === undefined || salary === "") {
+            throw "Invalid input!";
+        }
 
         if (salary < 0) {
             throw "Invalid input!";
@@ -19,32 +21,36 @@ class Company {
 
         let employee = { name, salary, position };
         if (!this.departments.hasOwnProperty(department)) {
-            this.departments[department] = [];
+            this.departments[department] = {
+                avgSalary: 0,
+                sumSalary: 0,
+                employees: []
+            };
         }
-        this.departments[department].push(employee);
+        this.departments[department].employees.push(employee);
+        this._updateDepartment(this.departments[department], salary);
 
         return `New employee is hired. Name: ${name}. Position: ${position}`
     }
 
+    _updateDepartment(department, salary) {
+        department.sumSalary += salary;
+        department.avgSalary = department.sumSalary / department.employees.length;
+    }
+
     bestDepartment() {
-        let bestSalary = 0;
-        let bestDep;
-        for (let depKey in this.departments) {
-            let salary = this.departments[depKey].reduce((prev, next) => prev + next.salary , 0)
-            salary /= this.departments[depKey].length;
-            if (salary > bestSalary) {
-                bestSalary = salary;
-                bestDep = depKey;
-            }
-        }
-        
-        this.departments[bestDep].sort((a,b) => a.name.localeCompare(b.name)).sort((a,b)=>b.salary - a.salary);
+        let bestDep = Object.entries(this.departments).sort(([depA, empA], [depB, empB]) => empB.avgSalary - empA.avgSalary)[0];
+        let bestSalary = bestDep[1].avgSalary;
+        let bestDepName = bestDep[0];
 
-        let result = `Best Department is: ${bestDep}\nAverage salary: ${bestSalary.toFixed(2)}\n`;
 
-        for(let employee of this.departments[bestDep]){
+        let result = `Best Department is: ${bestDepName}\nAverage salary: ${bestSalary.toFixed(2)}\n`;
+
+        bestDep[1].employees.sort((a, b) => b.salary - a.salary || a.name.localeCompare(b.name));
+
+        for (let employee of bestDep[1].employees) {
             result += `${employee.name} ${employee.salary} ${employee.position}\n`
-        }
+        }  
 
         return result.trimEnd();
     }
