@@ -1,6 +1,9 @@
 function solution() {
     class Employee {
         constructor(name, age) {
+            if(new.target === Employee){
+                throw new Error("Cannot make instance of abstract class Employee.")
+            }
             this.name = name;
             this.age = age;
 
@@ -10,9 +13,11 @@ function solution() {
             this._currentTask = 0;
         };
 
+
         _print(arg) {
             console.log(arg.toString());
         };
+
 
         work() {
             if (this._currentTask >= this.tasks.length) {
@@ -22,14 +27,15 @@ function solution() {
             this._currentTask++;
         };
 
+
         getSalary(){
             return this.salary;
         }
 
+
         collectSalary() {
             this._print(`${this.name} received ${this.getSalary()} this month.`);
         }
-
 
     }
 
