@@ -40,12 +40,5 @@ class StringBuilder {
     }
 }
 
-exports.module = StringBuilder;
+module.exports = StringBuilder;
 
-let str = new StringBuilder('hello');
-str.append(', there');
-str.prepend('User, ');
-str.insertAt('woop', 5);
-console.log(str.toString());
-str.remove(6, 3);
-console.log(str.toString());
