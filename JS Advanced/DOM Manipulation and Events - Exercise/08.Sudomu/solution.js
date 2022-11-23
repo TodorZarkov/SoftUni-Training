@@ -89,7 +89,7 @@ function solve() {
             }
         }
 
-
+        //TODO SPLIT VALIDATION FROM CHEKC RESULT.
 
         let singleElement = table[0][0];
         let gotDifferent = false;
