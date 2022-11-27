@@ -1,11 +1,17 @@
+const div = document.querySelector('.container');
+const nav = document.querySelector('nav');
+const footer = document.querySelector('footer');
+
+
+
 
 export async function getAllMovies(sortDelegate = (a, b) => true, filterPredicate = a => a) {
     let movies = [];
     try {
-        let responce = await fetch("http://localhost:3030/data/movies");
+        const responce = await fetch("http://localhost:3030/data/movies");
         if (!responce.ok || responce.status !== 200) throw new Error("No empty resource.")
 
-        let result = await responce.json();
+        const result = await responce.json();
 
         movies = Object.values(result).filter(filterPredicate).sort(sortDelegate);
 
@@ -13,7 +19,7 @@ export async function getAllMovies(sortDelegate = (a, b) => true, filterPredicat
         throw new Error(error.message);
     }
 
-    let documentFragment = document.createDocumentFragment();
+    const documentFragment = document.createDocumentFragment();
 
     movies.forEach(movieObj => {
         let cardLi = document.createElement("li");
@@ -38,6 +44,12 @@ export async function getAllMovies(sortDelegate = (a, b) => true, filterPredicat
     });
 
     document.getElementById("movies-list").replaceChildren(documentFragment);
+}
+
+
+
+export function showSection(section) {
+    div.replaceChildren(nav, section, footer);
 }
 
 
