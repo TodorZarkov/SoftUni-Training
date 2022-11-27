@@ -70,7 +70,7 @@ function createTopicCard(topicObj) {
                     <div>
                         <p>Date: <time>${currentDateTime.toISOString()}</time></p>
                         <div class="nick-name">
-                            <p>Username: <span>${topicObj.userName}</span></p>
+                            <p>Username: <span>${topicObj.username}</span></p>
                         </div>
                     </div>
     
@@ -81,9 +81,9 @@ function createTopicCard(topicObj) {
     return maingDiv;
 }
 
-function createTopicCards(allTopicsArrayOfObjects) {
+function createTopicCards(topicsArrOfObjs) {
     let docFragment = document.createDocumentFragment();
-    let allTopicCards = allTopicsArrayOfObjects.map(t => createTopicCard(t));
+    let allTopicCards = topicsArrOfObjs.map(t => createTopicCard(t));
     docFragment.replaceChildren(...allTopicCards);
     return docFragment;
 }

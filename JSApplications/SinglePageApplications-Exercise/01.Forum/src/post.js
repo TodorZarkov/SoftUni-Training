@@ -35,8 +35,8 @@ async function onComment(event) {
     event.target.reset();
     try {
         let commentObj = await setCommentToDb(userName, text, uctDateTimeISO, topicId);
-        let commentHtmlText = createPostCard(commentObj);
-        userCommentsDiv.insertAdjacentHTML("beforeend",commentHtmlText);
+        let commentDiv = createPostCard(commentObj);
+        userCommentsDiv.insertAdjacentElement("beforeend",commentDiv);
     } catch (error) {
         window.alert(error.message);
     } finally {
@@ -56,7 +56,7 @@ function populateTopic(topicObj) {
     if (topicObj.eventTime !== "loading...")
         formatedDate = formatDate(new Date(topicObj.eventTime));
     p1.innerHTML = `<span>${topicObj.username}</span> posted on <time>${formatedDate}</time>`;
-    p2.textContent = topicObj.text;
+    p2.textContent = topicObj.content;
 }
 
 function createPostCard(postObj) {
