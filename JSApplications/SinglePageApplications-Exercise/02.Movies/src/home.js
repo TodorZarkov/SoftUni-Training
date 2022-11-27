@@ -10,23 +10,29 @@ let token = "";
 export async function loadHome() {
     if (!sessionStorage.getItem("userName")) {
         document.getElementById("add-movie-button").style.display = "none";
-        document.querySelectorAll(".user").forEach(e=>e.style.display = "none");
-        
+        document.querySelectorAll(".user").forEach(e => e.style.display = "none");
+
 
         //in both cases
         let movieListDiv = document.getElementById("movies-list");
-        let moviesArr = await getAllMovies(urlMovies);
+        let moviesArr = [];
+        try {
+            moviesArr = await getAllMovies(urlMovies);
+        } catch (error) {
+            alert(error.message);
+        }
+        
         let cards = createCards(moviesArr)
         movieListDiv.replaceChildren(cards);
-        
+
         document.getElementById("home-page").style.display = "block";
     }
     else {
         user = sessionStorage.getItem("userName");
         token = sessionStorage.getItem("token");
         document.getElementById("home-page").style.display = "block";
-        document.querySelectorAll(".guest").forEach(e=>e.style.display = "none");
-        
+        document.querySelectorAll(".guest").forEach(e => e.style.display = "none");
+
         //in both cases
         let movieListDiv = document.getElementById("movies-list");
         let moviesArr = await getAllMovies(urlMovies);
@@ -64,10 +70,18 @@ function createCards(moviesArr) {
 
 //utilities
 async function getAllMovies(url, sortDelegate = (a, b) => true, filterPredicate = a => a) {
-    let responce = await fetch(url);
-    let result = await responce.json();
+    try {
+        let responce = await fetch(url);
+        if (!responce.ok || responce.status!==200) throw new Error("No empty resource.");
 
-    return Object.values(result).filter(filterPredicate).sort(sortDelegate);
+        let result = await responce.json();
+
+        return Object.values(result).filter(filterPredicate).sort(sortDelegate);
+
+    } catch (error) {
+        throw new Error(error.message);
+    }
+
 }
 
 
