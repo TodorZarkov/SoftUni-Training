@@ -6,6 +6,7 @@ import { login } from "./login.js";
 import { logout } from "./logout.js";
 import { nav } from "./nav.js";
 import { register } from "./register.js";
+import { request } from "./serverApi.js";
 
 document.querySelector("nav").addEventListener('click', onNavigation);
 const sectionContainer = document.getElementById("section-container");
@@ -43,11 +44,14 @@ function goto(viewName, ...params) {
     if (typeof view === "function") {
         view({
             goto,
-            displaySection
+            render
         }, ...params);
     }
 }
 
-function displaySection(section, container = sectionContainer) {
+function render(section, container = sectionContainer) {
     container.replaceChildren(section);
 }
+
+
+window.request = request;

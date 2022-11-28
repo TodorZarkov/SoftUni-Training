@@ -1,6 +1,10 @@
 
-export function home(thisCtx,name) {
+const section = document.getElementById("home-page");
+let ctx = {};
+
+export function home(inCtx) {
+    ctx = inCtx;
+
     console.log("home");
-    console.log(name);
-    thisCtx.goto("login-link");
+    ctx.goto("add-link");
 }
