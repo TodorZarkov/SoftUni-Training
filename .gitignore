@@ -384,6 +384,7 @@ FodyWeavers.xsd
 !.vscode/extensions.json
 *.code-workspace
 
+
 # Local History for Visual Studio Code
 .history/
 
@@ -399,3 +400,6 @@ FodyWeavers.xsd
 
 # Compressed files
 *.zip
+
+#npm files
+package-lock.json
