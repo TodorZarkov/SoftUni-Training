@@ -1,7 +1,7 @@
 
-const userSee = document.querySelectorAll("[itemid='user']");
-const anonymousSee = document.querySelectorAll("[itemid='anonymous']");
-const navItems = document.querySelectorAll(".nav-item");
+const userSee = [...document.querySelectorAll("[itemid='user']")];
+const anonymousSee = [...document.querySelectorAll("[itemid='anonymous']")];
+const navItems = [...document.querySelectorAll(".nav-item")];
 
 export function checkNavBar(event) {
     if(sessionStorage.getItem("user")) {

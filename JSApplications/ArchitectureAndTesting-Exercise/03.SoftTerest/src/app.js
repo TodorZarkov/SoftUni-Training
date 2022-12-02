@@ -1,7 +1,6 @@
 import { checkNavBar } from "./nav.js";
 import { home } from "./views/home.js";
 import "./serverApi.js";
-import './serverApi.js';
 import './user.js';
 import "./util.js";
 import { dash } from "./views/dash.js";

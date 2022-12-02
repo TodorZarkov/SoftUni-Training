@@ -7,7 +7,7 @@ export function getForm(event) {
 }
 
 export function setForm(formElement, data) {
-    let inputs = Array.from(formElement.querySelectorAll("[name]"));
+    let inputs = [...formElement.querySelectorAll("[name]")];
 
     let length = inputs.length < data.length ? inputs.length : data.length
     
