@@ -78,9 +78,9 @@ async function createDetails() {
               <p>
                 ${movie.description}
               </p>
-              <a class="btn btn-danger" href="javascript:void(0)" id="del-btn" style="display: ${display};">Delete</a>
-              <a class="btn btn-warning" href="javascript:void(0)" id="edit-btn" style="display: ${display};">Edit</a>
-              <a class="btn btn-primary" href="javascript:void(0)" id="like-btn" style="display: ${displayLikeBtn};">Like</a>
+              <a class="btn btn-danger" href="#" id="del-btn" style="display: ${display};">Delete</a>
+              <a class="btn btn-warning" href="#" id="edit-btn" style="display: ${display};">Edit</a>
+              <a class="btn btn-primary" href="#" id="like-btn" style="display: ${displayLikeBtn};">Like</a>
               <span class="enrolled-span" id="number-of-likes" style="display: ${displayLike};">Liked ${numberOfLikes}</span>
             </div>
     `;
