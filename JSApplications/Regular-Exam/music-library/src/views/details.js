@@ -4,27 +4,24 @@ import { get } from "../serverApi.js";
 const section = document.getElementById("details");
 let ctx = {};
 
-export async function details(inCtx,event,id,ownerId) {
+export async function details(inCtx,id,ownerId) {
     ctx = inCtx;
     ctx.render(section);
 
-
-    
-    
-    if(event && event.target) {
-    id = event.target.id;
-    ownerId = event.target.getAttribute("ownerId");
+    if(ctx.event && ctx.event.target) {
+    id = ctx.event.target.id;
+    ownerId = ctx.event.target.getAttribute("ownerId");
     }
     
     
     let data = await get("/data/albums/"+id)
 
-
     let card = await createCard(data, ownerId, id);
 
-    
     ctx.render(card,section);
 }
+
+
 
 
 async function createCard(data, ownerId, id){
@@ -46,6 +43,11 @@ async function createCard(data, ownerId, id){
             displayLike = "inline-block";
         }
 
+    }
+
+    let liked = await get(`/data/likes?where=albumId%3D%22${id}%22%20and%20_ownerId%3D%22${user._id}%22&count`);
+    if(liked) {
+      displayLike = 'none';
     }
 
     div.innerHTML = `

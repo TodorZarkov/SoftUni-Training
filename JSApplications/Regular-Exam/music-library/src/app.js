@@ -11,6 +11,7 @@ import { register } from "./views/register.js";
 import { logout } from "./views/logout.js";
 import { remove } from "./views/remove.js";
 import { edit } from "./views/edit.js";
+import { like } from "./views/like.js";
 
 
 document.querySelector("#wrapper").addEventListener("click", goTo);
@@ -29,7 +30,8 @@ const views = {
     "/register": register,
     "/dashboard/details" : details,
     "/remove" : remove,
-    "/edit" : edit
+    "/edit" : edit,
+    "/like" : like
     
 }
 
@@ -61,8 +63,9 @@ function goTo(event,link, ...params) {
     if ((typeof views[inLink]) === "function") {
         views[inLink]({
             goTo,
-            render
-        },event,...params)
+            render,
+            event
+        },...params)
     }
 }
 

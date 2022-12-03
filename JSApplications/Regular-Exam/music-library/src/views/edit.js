@@ -9,24 +9,18 @@ let ctx = {};
 let albumId;
 let ownerId;
 
-export async function edit(inCtx,event) {
+export async function edit(inCtx) {
     ctx = inCtx;
     ctx.render(section);
 
-    let id = getId(event);
-    let inOwnerId = getOwnerId(event);
+    let id = getId(ctx.event);
+    let inOwnerId = getOwnerId(ctx.event);
     albumId=id;
     ownerId = inOwnerId;
 
-    let data =await get("/data/albums/" + id);
-    console.log(data);
+    let data =await get("/data/albums/" + albumId);
+
     setForm(formEl,[data.singer,data.album,data.imageUrl,data.release, data.label, data.sales]);
-
-
-    
-
-    
-
 }
 
 function getId(event) {

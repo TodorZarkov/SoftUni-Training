@@ -4,14 +4,14 @@ import { del } from "../serverApi.js";
 
 let ctx = {};
 
-export function remove(inCtx, event) {
+export function remove(inCtx) {
     ctx = inCtx;
 
     let sure = confirm("Are you sure?");
     if(!sure) return;
 
 
-    let id = getId(event);
+    let id = getId(ctx.event);
 
     del("/data/albums/" + id);
 

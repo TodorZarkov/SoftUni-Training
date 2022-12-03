@@ -1,20 +1,26 @@
 import { get } from "../serverApi.js";
 
 const section = document.getElementById("dashboard");
-const cardWrapperUl = document.querySelector(".card-wrapper")
 let ctx = {};
 
 export async function dash(inCtx) {
     ctx = inCtx;
     ctx.render(section);
 
-    let albums = await get("/data/albums?sortBy=_createdOn%20desc")
+    let albums = await get("/data/albums?sortBy=_createdOn%20desc");
     
-    cardWrapperUl.innerHTML = "";
+    section.innerHTML = "";
     
-    albums.map(a=>createCard(a));
+    let arrCards = albums.map(a=>createCard(a));
+    let cards = createCards(arrCards);
 
-    console.log(albums);
+    if(cards){
+      section.innerHTML = "<h2>Albums</h2>";
+      section.appendChild(cards)
+    } else {
+      section.innerHTML = "<h2>There are no albums added yet.</h2>";
+    }
+
 }
 
 
@@ -32,7 +38,18 @@ function createCard(data) {
             <p><strong>Sales:</strong><span class="sales">${data.sales}</span></p>
             <a class="details-btn" href="/dashboard/details" id="${data._id}" ownerid = "${data._ownerId}">Details</a>
     `;
-    cardWrapperUl.appendChild(li);
+    return li;
+}
+
+
+function createCards(arrCards) {
+
+  if(!arrCards.length) return null;
+
+  let ul = document.createElement('ul');
+  ul.classList.add("card-wrapper");
+  arrCards.forEach(card=>ul.appendChild(card));
+  return ul;
 }
 
 
