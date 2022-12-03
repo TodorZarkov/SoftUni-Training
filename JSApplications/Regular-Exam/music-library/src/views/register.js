@@ -1,8 +1,9 @@
 import { post } from "../serverApi.js";
 import { getForm, isEmptyInput, isValidPassword, write } from "../util.js";
 
-document.getElementById("submit-link").addEventListener("submit", registerSubmit);
 const section = document.getElementById("register");
+section.querySelector("form").addEventListener("submit", registerSubmit);
+
 let ctx = {};
 
 export function register(inCtx) {
@@ -20,16 +21,16 @@ async function registerSubmit(event) {
             write("All fields are mandatory.");
             return;
         }
-        if (!isValidPassword(data.password)) {
-            write("Insufficient password.");
-            return;
-        }
-        if (data.password !== data.repeatPassword) {
+        // if (!isValidPassword(data.password)) {
+        //     write("Insufficient password.");
+        //     return;
+        // }
+        if (data.password !== data['re-password']) {
             write("The Password and Repeat-Password field doesn't match.");
             return;
         }
         
-        delete data.repeatPassword;
+        delete data['re-password'];
     
         let user = {};
         try {
@@ -48,5 +49,5 @@ async function registerSubmit(event) {
         event.target.reset();
     
         
-        ctx.goTo(undefined, "/");
+        ctx.goTo(undefined, "/dashboard");
 }

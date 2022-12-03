@@ -12,11 +12,18 @@ export function checkNavBar(event) {
         anonymousSee.forEach(el=>el.parentElement.style.display = 'inline-block');
     }
 
-    if(event && event.target && event.target.id && event.target.id.startsWith("nav-")) {
+    if(event && event.target && event.target.href && event.target.href.startsWith("/")) {
         navItems.forEach(ni=>ni.classList.remove("active"));
 
         if(event.target.parentElement)
         event.target.parentElement.classList.add("active");
     }
+}
+
+
+
+
+export function router(link) {
+    history.pushState(null,"",link);
 }
 

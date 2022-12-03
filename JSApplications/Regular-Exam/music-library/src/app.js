@@ -1,4 +1,4 @@
-import { checkNavBar, router } from "./nav.js";
+import { checkNavBar } from "./nav.js";
 import { home } from "./views/home.js";
 import "./serverApi.js";
 import './user.js';
@@ -9,10 +9,12 @@ import { details } from "./views/details.js";
 import { login } from "./views/login.js";
 import { register } from "./views/register.js";
 import { logout } from "./views/logout.js";
+import { remove } from "./views/remove.js";
+import { edit } from "./views/edit.js";
 
 
-document.querySelector("body").addEventListener("click", goTo);
-const container = document.getElementById("dynamic-content");
+document.querySelector("#wrapper").addEventListener("click", goTo);
+const container = document.querySelector("main");
 
 // let a = document.createElement("a");
 // a.parentElement
@@ -26,19 +28,20 @@ const views = {
     "/login": login,
     "/register": register,
     "/dashboard/details" : details,
+    "/remove" : remove,
+    "/edit" : edit
     
 }
-
 
 
 goTo(undefined,"/");
 
 
-//event.target.id is must to redirect!!! //mock  event problem
+
 function goTo(event,link, ...params) {
     let inLink = link;
     if(event && event.target.nodeName === "A") {
-        let url = new URL(event.terget.href);
+        let url = new URL(event.target.href);
         inLink = url.pathname;
         if (!views[inLink]) return;
         event.preventDefault();
@@ -59,11 +62,12 @@ function goTo(event,link, ...params) {
         views[inLink]({
             goTo,
             render
-        })
+        },event,...params)
     }
 }
 
 
 function render(elementToExpose, containerElement = container) {
-    containerElement.replaceChildren(elementToExpose);
+    containerElement.innerHTML = "";
+    containerElement.appendChild(elementToExpose);
 }
