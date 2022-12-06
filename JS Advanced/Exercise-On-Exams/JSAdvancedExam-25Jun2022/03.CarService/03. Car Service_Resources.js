@@ -6,6 +6,8 @@ const carService = {
       return `The overall price will be a bit cheaper`;
     }
   },
+
+  
   discount(numberOfParts, totalPrice) {
     if (typeof numberOfParts !== "number" || typeof totalPrice !== "number") {
       throw new Error("Invalid input");
@@ -27,6 +29,8 @@ const carService = {
       return `Discount applied! You saved ${result}$`;
     }
   },
+
+
   partsToBuy(partsCatalog, neededParts) {
     let totalSum = 0;
 
@@ -44,3 +48,6 @@ const carService = {
     return totalSum;
   },
 };
+
+
+module.exports = {carService};
