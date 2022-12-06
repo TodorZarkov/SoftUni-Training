@@ -13,6 +13,8 @@ const movieTheater = {
         return "There are no age restrictions for this movie";
     }
   },
+
+
   moneySpent(tickets, food, drinks) {
     if (
       typeof tickets !== "number" ||
@@ -57,6 +59,8 @@ const movieTheater = {
       return `The total cost for the purchase is ${bill.toFixed(2)}`;
     }
   },
+
+
   reservation(rowsArray, neededSeatsCount) {
     if (!Array.isArray(rowsArray) || typeof neededSeatsCount !== "number") {
       throw new Error("Invalid input");
@@ -72,3 +76,6 @@ const movieTheater = {
     return Math.max(...availableRows);
   },
 };
+
+
+module.exports = {movieTheater};
