@@ -65,7 +65,7 @@ namespace Formula1.Models
             {
                 return engineDisplacement;
             }
-            set
+            private set
             {
                 if (value < minDisplacement || value > maxDisplacement)
                 {
