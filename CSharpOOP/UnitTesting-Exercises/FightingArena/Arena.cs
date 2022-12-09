@@ -15,7 +15,7 @@ namespace FightingArena
 
         public IReadOnlyCollection<Warrior> Warriors =>
             this.warriors;
-
+ 
         public int Count => this.warriors.Count;
 
         public void Enroll(Warrior warrior)
