@@ -4,6 +4,7 @@
     using ChristmasPastryShop.Models.Cocktails;
     using ChristmasPastryShop.Models.Cocktails.Contracts;
     using ChristmasPastryShop.Models.Delicacies.Contracts;
+    using ChristmasPastryShop.Repositories;
     using ChristmasPastryShop.Repositories.Contracts;
     using ChristmasPastryShop.Utilities.Messages;
     using System;
@@ -15,6 +16,7 @@
     {
         int boothId;
         int capacity;
+
         IRepository<IDelicacy> delicacyMenu;
         IRepository<ICocktail> cocktailMenu;
         double currentBill;
@@ -23,6 +25,8 @@
 
         private Booth()
         {
+            delicacyMenu = new DelicacyRepository();
+            cocktailMenu = new CocktailRepository();
             CurrentBill = 0;
             Turnover = 0;
             IsReserved = false;
@@ -110,22 +114,19 @@
             sb.AppendLine($"Booth: {BoothId}");
             sb.AppendLine($"Capacity: {Capacity}");
             sb.AppendLine($"Turnover: {Turnover:F2} lv");
-            if (CocktailMenu.Models.Count != 0)
-            {
-                sb.AppendLine($"-Cocktail menu:");
-                string coctailToPrint = string.Join(Environment.NewLine, cocktailMenu.Models.Select(c => $"--{c.ToString()}"));
+
+            sb.AppendLine($"-Cocktail menu:");
+            string coctailToPrint = string.Join(Environment.NewLine, cocktailMenu.Models.Select(c => $"--{c}"));
+            if (coctailToPrint != "")
                 sb.AppendLine(coctailToPrint);
-            }
-
-            if(DelicacyMenu.Models.Count !=0)
-            {
-                sb.AppendLine($"-Cocktail menu:");
-                string delicacyToPrint = string.Join(Environment.NewLine, delicacyMenu.Models.Select(d => $"--{d.ToString()}"));
-                sb.AppendLine(delicacyToPrint);
-            }
 
 
-            return base.ToString();
+            sb.AppendLine($"-Delicacy menu:");
+            string delicacyToPrint = string.Join(Environment.NewLine, delicacyMenu.Models.Select(d => $"--{d}"));
+            sb.AppendLine(delicacyToPrint);
+
+
+            return sb.ToString().Trim();
         }
     }
 }

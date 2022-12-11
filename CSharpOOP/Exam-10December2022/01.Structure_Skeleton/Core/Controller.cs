@@ -54,10 +54,10 @@
                 return string.Format(OutputMessages.CocktailAlreadyAdded, size, cocktailName);
             }
 
-            ICocktail coctail = (ICocktail)Activator.CreateInstance(type, cocktailName,sizes);
+            ICocktail coctail = (ICocktail)Activator.CreateInstance(type, cocktailName,size);
             booth.CocktailMenu.AddModel(coctail);
 
-            return string.Format(OutputMessages.NewCocktailAdded, sizes, cocktailName, cocktailTypeName);
+            return string.Format(OutputMessages.NewCocktailAdded, size, cocktailName, cocktailTypeName);
 
         }
 
@@ -155,14 +155,14 @@
 
             if(data.Length == 3)
             {
-                IDelicacy delicacy = (IDelicacy)Activator.CreateInstance(type);
+                IDelicacy delicacy = (IDelicacy)Activator.CreateInstance(type, itemName);
                 booth.UpdateCurrentBill(delicacy.Price * count);
                 return string.Format(OutputMessages.SuccessfullyOrdered, booth.BoothId, count, itemName);
 
             }
             else
             {
-                ICocktail cocktail = (ICocktail)Activator.CreateInstance(type);
+                ICocktail cocktail = (ICocktail)Activator.CreateInstance(type, itemName, cocktailSize);
                 booth.UpdateCurrentBill(cocktail.Price * count);
                 return string.Format(OutputMessages.SuccessfullyOrdered, booth.BoothId, count, itemName);
             }
