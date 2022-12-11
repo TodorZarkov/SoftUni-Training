@@ -19,6 +19,11 @@
     internal class Controller : IController
     {
         BoothRepository booths;
+
+        public Controller()
+        {
+            booths = new BoothRepository();
+        }
         public string AddBooth(int capacity)
         {
             int id = booths.Models.Count + 1;
