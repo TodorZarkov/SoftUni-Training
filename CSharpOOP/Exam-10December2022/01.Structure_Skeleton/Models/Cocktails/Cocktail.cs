@@ -1,10 +1,9 @@
 ﻿namespace ChristmasPastryShop.Models.Cocktails
 {
+    using System;
+
     using ChristmasPastryShop.Models.Cocktails.Contracts;
     using ChristmasPastryShop.Utilities.Messages;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     public abstract class Cocktail : ICocktail
     {

@@ -8,8 +8,13 @@
 
     internal class RaceRepository : IRepository<IRace>
     {
-        readonly List<IRace> races;
-        public IReadOnlyCollection<IRace> Models => races;
+        List<IRace> races;
+
+        public RaceRepository()
+        {
+            races = new List<IRace>();
+        }
+        public IReadOnlyCollection<IRace> Models => races.AsReadOnly();
 
         public void Add(IRace model)
         {

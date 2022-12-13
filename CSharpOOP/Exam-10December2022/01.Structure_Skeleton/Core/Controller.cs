@@ -1,20 +1,18 @@
 ﻿namespace ChristmasPastryShop.Core
 {
+    using System;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+
     using ChristmasPastryShop.Core.Contracts;
     using ChristmasPastryShop.Models.Booths;
     using ChristmasPastryShop.Models.Booths.Contracts;
     using ChristmasPastryShop.Models.Cocktails.Contracts;
-    using ChristmasPastryShop.Models.Delicacies;
     using ChristmasPastryShop.Models.Delicacies.Contracts;
     using ChristmasPastryShop.Repositories;
     using ChristmasPastryShop.Utilities;
     using ChristmasPastryShop.Utilities.Messages;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Runtime.InteropServices.WindowsRuntime;
-    using System.Text;
 
     internal class Controller : IController
     {

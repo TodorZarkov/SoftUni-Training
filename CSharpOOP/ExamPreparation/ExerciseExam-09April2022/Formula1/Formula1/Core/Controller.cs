@@ -1,14 +1,15 @@
 ﻿namespace Formula1.Core
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
     using Formula1.Core.Contracts;
     using Formula1.Models;
-    using Formula1.Models.Concretes;
     using Formula1.Models.Contracts;
     using Formula1.Repositories;
     using Formula1.Utilities;
-    using System;
-    using System.Linq;
-    using System.Reflection;
 
     internal class Controller : IController
     {
@@ -49,7 +50,7 @@
                 throw new NullReferenceException(string.Format(ExceptionMessages.RaceDoesNotExistErrorMessage, raceName));
             }
 
-            if(pilot == null || !pilot.CanRace || race.Pilots.Contains(pilot))
+            if (pilot == null || !pilot.CanRace || race.Pilots.Contains(pilot))
             {
                 throw new InvalidOperationException(string.Format(ExceptionMessages.PilotDoesNotExistErrorMessage, pilotFullName));
             }
@@ -59,20 +60,29 @@
 
         public string CreateCar(string type, string model, int horsepower, double engineDisplacement)
         {
-            if(carRepository.FindByName(model) != null)
+            if (carRepository.FindByName(model) != null)
             {
                 throw new InvalidOperationException(string.Format(ExceptionMessages.CarExistErrorMessage, model));
             }
 
-            Assembly assembly = Assembly.GetEntryAssembly();
+            Assembly assembly = Assembly.GetExecutingAssembly();
             Type carTypeToBe = assembly.GetTypes().FirstOrDefault(t => t.Name == type);
 
-            if(carTypeToBe == null)
+            if (carTypeToBe == null)
             {
                 throw new InvalidOperationException(string.Format(ExceptionMessages.InvalidTypeCar, type));
             }
 
-            IFormulaOneCar car = (IFormulaOneCar)Activator.CreateInstance(carTypeToBe, model, horsepower, engineDisplacement);
+            IFormulaOneCar car;
+            try
+            {
+                car = (IFormulaOneCar)Activator.CreateInstance(carTypeToBe, model, horsepower, engineDisplacement);
+            }
+            catch (Exception outerException)
+            {
+
+                throw outerException.InnerException;
+            }
 
             carRepository.Add(car);
 
@@ -107,17 +117,49 @@
 
         public string PilotReport()
         {
-            throw new System.NotImplementedException();
+            return String.Join(Environment.NewLine, pilotRepository.Models.
+                OrderByDescending(p => p.NumberOfWins).
+                Select(p => p.ToString()));
         }
 
         public string RaceReport()
         {
-            throw new System.NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            return String.Join(Environment.NewLine, raceRepository.
+                Models.
+                Where(r => r.TookPlace).
+                ToList().
+                Select(r => r.RaceInfo()).Select(rs=>rs.Trim())).Trim();
         }
 
         public string StartRace(string raceName)
         {
-            throw new System.NotImplementedException();
+            IRace race = raceRepository.FindByName(raceName);
+            if (race == null)
+            {
+                throw new NullReferenceException(String.Format(ExceptionMessages.RaceDoesNotExistErrorMessage, raceName));
+            }
+
+            if (race.Pilots.Count < 3)
+            {
+                throw new InvalidOperationException(string.Format(ExceptionMessages.InvalidRaceParticipants, raceName));
+            }
+
+            if (race.TookPlace)
+            {
+                throw new InvalidOperationException(string.Format(ExceptionMessages.RaceTookPlaceErrorMessage, raceName));
+            }
+
+            List<IPilot> finished = race.Pilots.OrderByDescending(p => p.Car.RaceScoreCalculator(race.NumberOfLaps)).ToList();
+            race.TookPlace = true;
+            finished[0].WinRace();
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Pilot {finished[0].FullName} wins the {raceName} race.");
+            sb.AppendLine($"Pilot {finished[1].FullName} is second in the {raceName} race.");
+            sb.AppendLine($"Pilot {finished[2].FullName} is third in the {raceName} race.");
+
+            return sb.ToString().Trim();
         }
     }
 }

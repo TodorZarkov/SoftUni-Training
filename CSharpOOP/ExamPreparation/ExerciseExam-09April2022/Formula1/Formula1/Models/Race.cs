@@ -73,13 +73,11 @@
 
         public string RaceInfo()
         {
-            string verbalTookPlace = TookPlace ? "Yes" : "No";
-
             StringBuilder result = new StringBuilder();
             result.AppendLine($"The {RaceName} race has:");
             result.AppendLine($"Participants: {pilots.Count}");
             result.AppendLine($"Number of laps: {NumberOfLaps}");
-            result.AppendLine($@"Took place: {verbalTookPlace}");
+            result.AppendLine($"Took place: {(TookPlace ? "Yes" : "No")}");
             return result.ToString().Trim();
         }
     }

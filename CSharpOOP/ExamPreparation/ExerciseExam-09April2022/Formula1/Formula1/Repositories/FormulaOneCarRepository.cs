@@ -8,7 +8,7 @@
 
     internal class FormulaOneCarRepository : IRepository<IFormulaOneCar>
     {
-        readonly List<IFormulaOneCar> models;
+        List<IFormulaOneCar> models;
 
         public FormulaOneCarRepository()
         {
@@ -18,7 +18,7 @@
         {
             get
             {
-                return models;
+                return models.AsReadOnly();
             }
         }
 

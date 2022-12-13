@@ -10,7 +10,7 @@ namespace Formula1.Models
         const int minNameLength = 3;
 
         const int minHorsepower = 900;
-        const int maxHorsepower = 1015;
+        const int maxHorsepower = 1050;
 
         const double minDisplacement = 1.6;
         const double maxDisplacement = 2;

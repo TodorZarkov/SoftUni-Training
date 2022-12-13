@@ -1,8 +1,9 @@
 ﻿namespace ChristmasPastryShop.Repositories
 {
+    using System.Collections.Generic;
+
     using ChristmasPastryShop.Models.Delicacies.Contracts;
     using ChristmasPastryShop.Repositories.Contracts;
-    using System.Collections.Generic;
 
     public class DelicacyRepository : IRepository<IDelicacy>
     {

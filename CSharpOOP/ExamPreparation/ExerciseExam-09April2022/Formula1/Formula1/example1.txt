@@ -1,0 +1,31 @@
+﻿Pilot Charles_Leclerc is created.
+Car Ferrari, model SF71H is created.
+Pilot Charles_Leclerc will drive a Ferrari SF71H car.
+Car Ferrari, model SF1000 is created.
+Pilot Carlos_Sainz is created.
+Pilot Fernando_Alonso does not exist or has a car.
+Pilot Carlos_Sainz will drive a Ferrari SF1000 car.
+Race Monaco_GP is created.
+Race Monaco_GP cannot start with less than three participants.
+Race Miami_GP is created.
+Pilot Charles_Leclerc is added to the Monaco_GP race.
+Pilot Carlos_Sainz is added to the Monaco_GP race.
+Can not add pilot Fernando_Alonso to the race.
+Car Williams, model FW43B is created.
+Pilot Nicholas_Latifi is created.
+Formula one car type Pagani is not valid.
+Race Monaco_GP cannot start with less than three participants.
+Can not add pilot Nicholas_Latifi to the race.
+Pilot Alexander_Albon is created.
+Car Williams, model FW43 is created.
+Pilot Alexander_Albon will drive a Williams FW43 car.
+Pilot Alexander_Albon is added to the Monaco_GP race.
+Pilot Nicholas_Latifi will drive a Williams FW43B car.
+Pilot Nicholas_Latifi is added to the Monaco_GP race.
+Pilot Alexander_Albon wins the Monaco_GP race.
+Pilot Carlos_Sainz is second in the Monaco_GP race.
+Pilot Charles_Leclerc is third in the Monaco_GP race.
+The Monaco_GP race has:
+Participants: 4
+Number of laps: 78
+Took place: Yes

@@ -1,16 +1,15 @@
 ﻿namespace ChristmasPastryShop.Models.Booths
 {
+    using System;
+    using System.Linq;
+    using System.Text;
+
     using ChristmasPastryShop.Models.Booths.Contracts;
-    using ChristmasPastryShop.Models.Cocktails;
     using ChristmasPastryShop.Models.Cocktails.Contracts;
     using ChristmasPastryShop.Models.Delicacies.Contracts;
     using ChristmasPastryShop.Repositories;
     using ChristmasPastryShop.Repositories.Contracts;
     using ChristmasPastryShop.Utilities.Messages;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public class Booth : IBooth
     {

@@ -7,8 +7,13 @@
 
     internal class PilotRepository : IRepository<IPilot>
     {
-        readonly List<IPilot> pilots;
-        public IReadOnlyCollection<IPilot> Models => pilots;
+        List<IPilot> pilots;
+
+        public PilotRepository()
+        {
+            pilots = new List<IPilot>();
+        }
+        public IReadOnlyCollection<IPilot> Models => pilots.AsReadOnly();
 
         public void Add(IPilot model)
         {

@@ -7,8 +7,6 @@ namespace ChristmasPastryShop.Models.Delicacies
     using ChristmasPastryShop.Utilities.Messages;
     public abstract class Delicacy : IDelicacy
     {
-
-
         string name;
         double price;
 

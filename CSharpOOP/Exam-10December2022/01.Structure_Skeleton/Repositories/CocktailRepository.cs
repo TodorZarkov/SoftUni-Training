@@ -1,10 +1,9 @@
 ﻿namespace ChristmasPastryShop.Repositories
 {
+    using System.Collections.Generic;
+
     using ChristmasPastryShop.Models.Cocktails.Contracts;
     using ChristmasPastryShop.Repositories.Contracts;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     public class CocktailRepository : IRepository<ICocktail>
     {
