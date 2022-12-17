@@ -11,7 +11,7 @@
     {
         public static Type GetIfType(string typeName)
         {
-            Assembly assembly = Assembly.GetEntryAssembly();
+            Assembly assembly = Assembly.GetExecutingAssembly();
             Type type = assembly.GetTypes().FirstOrDefault(t => t.Name == typeName);
             return type;
         }

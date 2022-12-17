@@ -13,19 +13,12 @@
 
     public class Booth : IBooth
     {
-        int boothId;
         int capacity;
-
-        IRepository<IDelicacy> delicacyMenu;
-        IRepository<ICocktail> cocktailMenu;
-        double currentBill;
-        double turnover;
-        bool isReserved;
 
         private Booth()
         {
-            delicacyMenu = new DelicacyRepository();
-            cocktailMenu = new CocktailRepository();
+            DelicacyMenu = new DelicacyRepository();
+            CocktailMenu = new CocktailRepository();
             CurrentBill = 0;
             Turnover = 0;
             IsReserved = false;
@@ -36,21 +29,14 @@
             Capacity = capacity;
         }
 
-        public int BoothId
-        {
-            get => boothId;
-            private set
-            {
-                boothId = value;
-            }
-        }
+        public int BoothId { get; private set; }
 
         public int Capacity
         {
             get => capacity;
             private set
             {
-                if (value <= 0)
+                if (value < 1)
                 {
                     throw new ArgumentException(ExceptionMessages.CapacityLessThanOne);
                 }
@@ -58,36 +44,15 @@
             }
         }
 
-        public IRepository<IDelicacy> DelicacyMenu => delicacyMenu;
+        public IRepository<IDelicacy> DelicacyMenu { get; private set; }
 
-        public IRepository<ICocktail> CocktailMenu => cocktailMenu;
+        public IRepository<ICocktail> CocktailMenu { get; private set; }
 
-        public double CurrentBill
-        {
-            get => currentBill;
-            private set
-            {
-                currentBill = value;
-            }
-        }
+        public double CurrentBill { get; private set; }
 
-        public double Turnover
-        {
-            get => turnover;
-            private set
-            {
-                turnover = value;
-            }
-        }
+        public double Turnover { get; private set; }
 
-        public bool IsReserved
-        {
-            get => isReserved;
-            set
-            {
-                isReserved = value;
-            }
-        }
+        public bool IsReserved { get; private set; }
 
 
 
@@ -115,14 +80,15 @@
             sb.AppendLine($"Turnover: {Turnover:F2} lv");
 
             sb.AppendLine($"-Cocktail menu:");
-            string coctailToPrint = string.Join(Environment.NewLine, cocktailMenu.Models.Select(c => $"--{c}"));
+            string coctailToPrint = string.Join(Environment.NewLine, CocktailMenu.Models.Select(c => $"--{c}"));
             if (coctailToPrint != "")
                 sb.AppendLine(coctailToPrint);
 
 
             sb.AppendLine($"-Delicacy menu:");
-            string delicacyToPrint = string.Join(Environment.NewLine, delicacyMenu.Models.Select(d => $"--{d}"));
-            sb.AppendLine(delicacyToPrint);
+            string delicacyToPrint = string.Join(Environment.NewLine, DelicacyMenu.Models.Select(d => $"--{d}"));
+            if (delicacyToPrint != "")
+                sb.AppendLine(delicacyToPrint);
 
 
             return sb.ToString().Trim();

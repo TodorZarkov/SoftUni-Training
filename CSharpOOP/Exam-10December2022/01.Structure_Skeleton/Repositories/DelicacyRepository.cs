@@ -7,15 +7,15 @@
 
     public class DelicacyRepository : IRepository<IDelicacy>
     {
-        readonly List<IDelicacy> delicacies;
+        private readonly ICollection<IDelicacy> delicacies;
 
         public DelicacyRepository()
         {
-            delicacies = new List<IDelicacy>();
+            delicacies = new HashSet<IDelicacy>();
         }
 
-        //TODO may be bether to create new list
-        public IReadOnlyCollection<IDelicacy> Models => delicacies;
+        
+        public IReadOnlyCollection<IDelicacy> Models => (IReadOnlyCollection<IDelicacy>)delicacies;
 
         public void AddModel(IDelicacy model)
         {

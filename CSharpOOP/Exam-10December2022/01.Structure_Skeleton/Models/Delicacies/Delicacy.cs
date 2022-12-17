@@ -7,8 +7,7 @@ namespace ChristmasPastryShop.Models.Delicacies
     using ChristmasPastryShop.Utilities.Messages;
     public abstract class Delicacy : IDelicacy
     {
-        string name;
-        double price;
+        private string name;
 
         protected Delicacy(string delicacyName, double price)
         {
@@ -32,14 +31,7 @@ namespace ChristmasPastryShop.Models.Delicacies
             }
         }
 
-        public double Price
-        {
-            get => price;
-            private set
-            {
-                price = value;
-            }
-        }
+        public double Price { get; private set; }
 
 
         public override string ToString()

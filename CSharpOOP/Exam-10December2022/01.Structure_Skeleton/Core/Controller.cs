@@ -8,15 +8,18 @@
     using ChristmasPastryShop.Core.Contracts;
     using ChristmasPastryShop.Models.Booths;
     using ChristmasPastryShop.Models.Booths.Contracts;
+    using ChristmasPastryShop.Models.Cocktails;
     using ChristmasPastryShop.Models.Cocktails.Contracts;
+    using ChristmasPastryShop.Models.Delicacies;
     using ChristmasPastryShop.Models.Delicacies.Contracts;
     using ChristmasPastryShop.Repositories;
     using ChristmasPastryShop.Utilities;
+    using ChristmasPastryShop.Utilities.Factories;
     using ChristmasPastryShop.Utilities.Messages;
 
     internal class Controller : IController
     {
-        BoothRepository booths;
+        private readonly BoothRepository booths;
 
         public Controller()
         {
@@ -32,7 +35,7 @@
 
         public string AddCocktail(int boothId, string cocktailTypeName, string cocktailName, string size)
         {
-            Assembly assembly = Assembly.GetEntryAssembly();
+            Assembly assembly = Assembly.GetExecutingAssembly();
             Type type = assembly.GetTypes().FirstOrDefault(t => t.Name == cocktailTypeName);
             if (type == null)
             {
@@ -52,8 +55,17 @@
                 return string.Format(OutputMessages.CocktailAlreadyAdded, size, cocktailName);
             }
 
-            ICocktail coctail = (ICocktail)Activator.CreateInstance(type, cocktailName,size);
-            booth.CocktailMenu.AddModel(coctail);
+            ICocktail cocktail;
+            try
+            {
+                cocktail = (ICocktail)Activator.CreateInstance(type, cocktailName, size);
+            }
+            catch (Exception e)
+            {
+
+                throw e.InnerException;
+            }
+            booth.CocktailMenu.AddModel(cocktail);
 
             return string.Format(OutputMessages.NewCocktailAdded, size, cocktailName, cocktailTypeName);
 
@@ -63,7 +75,7 @@
         {
             
 
-            Assembly assembly = Assembly.GetEntryAssembly();
+            Assembly assembly = Assembly.GetExecutingAssembly();
             Type type = assembly.GetTypes().FirstOrDefault(t => t.Name == delicacyTypeName);
             if(type == null)
             {
@@ -78,7 +90,16 @@
                 return string.Format(OutputMessages.DelicacyAlreadyAdded, delicacyName);
             }
 
-            IDelicacy delicacy = (IDelicacy)Activator.CreateInstance(type, delicacyName);
+            IDelicacy delicacy;
+            try
+            {
+                delicacy = (IDelicacy)Activator.CreateInstance(type, delicacyName);
+            }
+            catch (Exception e)
+            {
+
+                throw e.InnerException;
+            }
             booth.DelicacyMenu.AddModel(delicacy);
 
             return string.Format(OutputMessages.NewDelicacyAdded, delicacyTypeName, delicacyName);
@@ -114,56 +135,70 @@
                 return string.Format(OutputMessages.NoAvailableBooth, countOfPeople);
             }
 
-            availableBooth.IsReserved = true;
+            availableBooth.ChangeStatus();
             return string.Format(OutputMessages.BoothReservedSuccessfully, availableBooth.BoothId, countOfPeople);
         }
 
         public string TryOrder(int boothId, string order)
         {
             string[] data = order.Split("/");
+
             string itemTypeName = data[0];
             string itemName = data[1];
             int count = int.Parse(data[2]);
-            string cocktailSize = null;
+            string itemSize = null;
+
+            object[] constructorParams;
             if (data.Length == 4)
             {
-                cocktailSize = data[3];
+                itemSize = data[3];
+                constructorParams = new object[2] { itemName, itemSize};
             }
-
-
-            Type type = Validate.GetIfType(data[0]);
-            if(itemTypeName == null)
+            else
             {
-                return string.Format(OutputMessages.NotRecognizedType, itemTypeName);
+                constructorParams = new object[1] { itemName};
             }
 
             IBooth booth = booths.Models.FirstOrDefault(b => b.BoothId == boothId);
 
-            if(booth.DelicacyMenu.Models.FirstOrDefault(m=>m.Name == itemName) == null)
+            object item = Factory.Produce(itemTypeName, constructorParams);
+            if (item == null)
             {
-                if(cocktailSize == null)
-                {
-                    return string.Format(OutputMessages.NotRecognizedItemName, type.Name, itemName);
-                }
-                else if(booth.CocktailMenu.Models.FirstOrDefault(c => c.Name == itemName&& c.Size == cocktailSize) == null)
-                {
-                    return string.Format(OutputMessages.CocktailStillNotAdded, cocktailSize, itemName);
-                }
+                return String.Format(OutputMessages.NotRecognizedType, itemTypeName);
             }
 
-            if(data.Length == 3)
+            if (typeof(ICocktail).IsAssignableFrom(item.GetType()))
             {
-                IDelicacy delicacy = (IDelicacy)Activator.CreateInstance(type, itemName);
+                ICocktail coctail = (ICocktail)item;
+
+                if (booth.CocktailMenu.Models.
+                    FirstOrDefault(c => c.Name == itemName) == null)
+                {
+                    return String.Format(OutputMessages.NotRecognizedItemName, itemTypeName, itemName);
+                }
+
+                if (booth.CocktailMenu.Models.FirstOrDefault(c => c.Name == itemName && c.Size == itemSize) == null)
+                {
+                    return String.Format(OutputMessages.CocktailStillNotAdded, itemSize, itemName);
+                }
+
+                booth.UpdateCurrentBill(coctail.Price * count);
+            }
+            else //if (typeof(IDelicacy).IsAssignableFrom(item.GetType()))
+            {
+                IDelicacy delicacy = (IDelicacy)item;
+                if (booth.DelicacyMenu.Models.FirstOrDefault(d=>d.Name == itemName) == null)
+                {
+                    return String.Format(OutputMessages.DelicacyStillNotAdded, itemTypeName, itemName);
+                }
+
                 booth.UpdateCurrentBill(delicacy.Price * count);
-                return string.Format(OutputMessages.SuccessfullyOrdered, booth.BoothId, count, itemName);
+            }
 
-            }
-            else
-            {
-                ICocktail cocktail = (ICocktail)Activator.CreateInstance(type, itemName, cocktailSize);
-                booth.UpdateCurrentBill(cocktail.Price * count);
-                return string.Format(OutputMessages.SuccessfullyOrdered, booth.BoothId, count, itemName);
-            }
+            return String.Format(OutputMessages.SuccessfullyOrdered, booth.BoothId, count, itemName);
+            
+
+
 
 
         }

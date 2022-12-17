@@ -7,14 +7,14 @@
 
     public class CocktailRepository : IRepository<ICocktail>
     {
-        readonly List<ICocktail> cocktails;
+        private readonly ICollection<ICocktail> cocktails;
 
         public CocktailRepository()
         {
-            cocktails = new List<ICocktail>();
+            cocktails = new HashSet<ICocktail>();
         }
 
-        public IReadOnlyCollection<ICocktail> Models => cocktails;
+        public IReadOnlyCollection<ICocktail> Models => (IReadOnlyCollection<ICocktail>)cocktails;
 
 
         public void AddModel(ICocktail model)

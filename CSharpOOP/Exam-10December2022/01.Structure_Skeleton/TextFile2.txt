@@ -1,0 +1,35 @@
+﻿Added booth number 1 with capacity 5 in the pastry shop!
+Added booth number 2 with capacity 3 in the pastry shop!
+Added booth number 3 with capacity 3 in the pastry shop!
+Stolen Sugarcookie added to the pastry shop!
+Gingerbread Dwarfhat added to the pastry shop!
+Large Bluewater Hibernation added to the pastry shop!
+Small Bluewater Hibernation added to the pastry shop!
+Booth 3 has been reserved for 2 people!
+No available booth for 6 people!
+Booth 2 has been reserved for 3 people!
+There is no Middle Bluewater available!
+There is no Stolen Sugarcookie available!
+Bill 0.00 lv
+Booth 3 is now available!
+Bill 0.00 lv
+Booth 2 is now available!
+Booth: 1
+Capacity: 5
+Turnover: 0.00 lv
+-Cocktail menu:
+-Delicacy menu:
+--Sugarcookie - 3.50 lv
+Booth: 2
+Capacity: 3
+Turnover: 0.00 lv
+-Cocktail menu:
+-Delicacy menu:
+--Dwarfhat - 4.00 lv
+Booth: 3
+Capacity: 3
+Turnover: 0.00 lv
+-Cocktail menu:
+--Bluewater (Large) - 10.50 lv
+--Bluewater (Small) - 3.50 lv
+-Delicacy menu:

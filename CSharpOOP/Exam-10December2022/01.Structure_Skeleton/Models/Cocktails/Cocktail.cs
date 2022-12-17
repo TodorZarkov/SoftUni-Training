@@ -10,7 +10,6 @@
 
 
         string name;
-        string size;
         double price;
 
         protected Cocktail(string cocktailName, string size, double price)
@@ -33,14 +32,7 @@
             }
         }
 
-        public string Size
-        {
-            get => size;
-            private set
-            {
-                size = value;
-            }
-        }
+        public string Size { get; private set; }
 
         public double Price
         {
@@ -49,11 +41,11 @@
             {
                 if (Size == "Small")
                 {
-                    price = value / 3;
+                    price = value / 3.0;
                 }
                 else if (Size == "Middle")
                 {
-                    price = (value * 2) / 3;
+                    price = (value * 2.0) / 3.0;
                 }
                 else
                 {

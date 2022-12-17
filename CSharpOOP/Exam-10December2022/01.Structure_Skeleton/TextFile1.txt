@@ -1,0 +1,15 @@
+﻿Added booth number 1 with capacity 5 in the pastry shop!
+Gingerbread Santabiscuit added to the pastry shop!
+Middle Redstar MulledWine added to the pastry shop!
+Booth 1 has been reserved for 4 people!
+Booth 1 ordered 2 Redstar!
+Booth 1 ordered 2 Santabiscuit!
+Bill 26.00 lv
+Booth 1 is now available!
+Booth: 1
+Capacity: 5
+Turnover: 26.00 lv
+-Cocktail menu:
+--Redstar (Middle) - 9.00 lv
+-Delicacy menu:
+--Santabiscuit - 4.00 lv

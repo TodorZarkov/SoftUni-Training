@@ -1,4 +1,4 @@
-﻿namespace NavalVessels.IO
+﻿namespace ChristmasPastryShop.IO
 {
     using IO.Contracts;
     using System.IO;
