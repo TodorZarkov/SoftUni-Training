@@ -1,22 +1,22 @@
 ﻿namespace NavalVessels.Models.Concretes
 {
-    using NavalVessels.Models.Contracts;
-    using NavalVessels.Utilities.Messages;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
 
+    using NavalVessels.Models.Contracts;
+    using NavalVessels.Utilities.Messages;
+
     public class Captain : ICaptain
     {
+        const int increaseCombatExperience = 10;
         string fullName;
-        int combatExperience;
-        List<IVessel> vessels;
 
-        private Captain()
+        private Captain() 
         {
-            combatExperience = 0;
-            vessels = new List<IVessel>();
+            CombatExperience = 0;
+            Vessels = new HashSet<IVessel>();
         }
         public Captain(string fullName) : this()
         {
@@ -33,25 +33,15 @@
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException(string.Format(ExceptionMessages.InvalidCaptainName));
+                    throw new ArgumentNullException(ExceptionMessages.InvalidCaptainName);
                 }
                 fullName = value;
             }
         }
 
-        public int CombatExperience
-        {
-            get
-            {
-                return combatExperience;
-            }
-            private set
-            {
-                combatExperience = value;
-            }
-        }
+        public int CombatExperience { get; private set; }
 
-        public ICollection<IVessel> Vessels => vessels.AsReadOnly();
+        public ICollection<IVessel> Vessels { get; private set; }
 
 
 
@@ -62,20 +52,24 @@
                 throw new NullReferenceException(ExceptionMessages.InvalidVesselForCaptain);
             }
 
-            vessels.Add(vessel);
+            Vessels.Add(vessel);
         }
 
         public void IncreaseCombatExperience()
         {
-            CombatExperience += 10;
+            CombatExperience += increaseCombatExperience;
         }
 
         public string Report()
         {
             StringBuilder result = new StringBuilder();
-            result.AppendLine($"{FullName} has {CombatExperience} combat experience and commands {vessels.Count} vessels.");
-            result.AppendLine(String.Join(Environment.NewLine, vessels.Select(v => v.ToString())));
-            return result.ToString().Trim();
+            result.AppendLine($"{FullName} has {CombatExperience} combat experience and commands {Vessels.Count} vessels.");
+            foreach (IVessel vessel in Vessels)
+            {
+                result.AppendLine(vessel.ToString());
+            }
+            return result.ToString().TrimEnd();
+
         }
     }
 }

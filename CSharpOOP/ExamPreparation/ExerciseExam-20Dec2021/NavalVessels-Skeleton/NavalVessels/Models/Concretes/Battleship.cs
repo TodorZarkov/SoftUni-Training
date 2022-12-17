@@ -2,34 +2,41 @@
 {
     
     using Models;
-    using System.Runtime.InteropServices.WindowsRuntime;
+    using NavalVessels.Models.Contracts;
     using System.Text;
 
-    public class Battleship : Vessel
+    public class Battleship : Vessel, IBattleship
     {
-        bool sonarMode;
+        const double initialArmorThickness = 300;
+        const double caliberChange = 40;
+        const double speedChange = 5;
 
         
-        public Battleship(string name, double mainWeaponCaliber, double speed) : base(name, mainWeaponCaliber, speed, 300)
-        {
+        public Battleship(string name, double mainWeaponCaliber, double speed) : base(name, mainWeaponCaliber, speed, initialArmorThickness)
+        { 
             SonarMode = false;
         }
 
 
-        public bool SonarMode { get => sonarMode; private set => sonarMode = value; }
+        public bool SonarMode { get; private set; }
 
+        public override void RepairVessel()
+        {
+            ArmorThickness = initialArmorThickness;
+        }
+           
         public void ToggleSonarMode()
         {
             SonarMode = !SonarMode;
             if(SonarMode)
             {
-                MainWeaponCaliber += 40;
-                Speed -= 5;
+                MainWeaponCaliber += caliberChange;
+                Speed -= speedChange;
             }
             else
             {
-                MainWeaponCaliber -= 40;
-                Speed += 5;
+                MainWeaponCaliber -= caliberChange;
+                Speed += speedChange;
             }
         }
 
@@ -38,7 +45,7 @@
             StringBuilder result = new StringBuilder();
             result.AppendLine(base.ToString());
             result.AppendLine($" *Sonar mode: {(SonarMode ? "ON" : "OFF")}");
-            return result.ToString().Trim();
+            return result.ToString().TrimEnd();
         }
     }
 }
