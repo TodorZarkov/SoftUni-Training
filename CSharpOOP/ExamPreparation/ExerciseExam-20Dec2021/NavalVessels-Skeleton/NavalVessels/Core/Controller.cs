@@ -5,11 +5,11 @@
     using NavalVessels.Models.Contracts;
     using NavalVessels.Repositories;
     using NavalVessels.Repositories.Contracts;
+    using NavalVessels.Utilities.Factories;
     using NavalVessels.Utilities.Messages;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
 
     public class Controller : IController
     {
@@ -42,44 +42,16 @@
             {
                 return String.Format(OutputMessages.VesselIsAlreadyManufactured, existingVessel.GetType().Name, name);
             }
-
-            //IVessel vessel;
-            //if (vesselType == "Battleship")
-            //{
-            //    vessel = new Battleship(name, mainWeaponCaliber, speed);
-            //}
-            //else if (vesselType == "Submarine")
-            //{
-            //    vessel = new Submarine(name, mainWeaponCaliber, speed);
-            //}
-            //else
-            //{
-            //    return OutputMessages.InvalidVesselType;
-            //}
-
-            //vessels.Add(vessel);
-            //return String.Format(OutputMessages.SuccessfullyCreateVessel, vesselType, name, mainWeaponCaliber, speed);
-
-
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            Type type = assembly.GetTypes().FirstOrDefault(t => t.Name == vesselType);
-
-            if (type == null)
+            
+            IVessel vessel = (IVessel)Factory.Produce(vesselType, new object[] { name, mainWeaponCaliber, speed });
+            if(vessel == null)
             {
                 return OutputMessages.InvalidVesselType;
             }
 
-            IVessel vessel;
-            try
-            {
-                vessel = (IVessel)Activator.CreateInstance(type, new object[] { name, mainWeaponCaliber, speed });
-            }
-            catch (Exception e)
-            {
-                throw e.InnerException;
-            }
+
             vessels.Add(vessel);
-            return String.Format(OutputMessages.SuccessfullyCreateVessel, type.Name, name, mainWeaponCaliber, speed);
+            return String.Format(OutputMessages.SuccessfullyCreateVessel, vesselType, name, mainWeaponCaliber, speed);
         }
 
         public string AssignCaptain(string selectedCaptainName, string selectedVesselName)

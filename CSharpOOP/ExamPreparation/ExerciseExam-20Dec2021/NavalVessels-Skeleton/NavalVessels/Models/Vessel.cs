@@ -36,6 +36,7 @@ namespace NavalVessels.Models
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException(ExceptionMessages.InvalidVesselName);
+                    //throw new ArgumentException(ExceptionMessages.InvalidVesselName);
                 }
                 name = value;
             }
