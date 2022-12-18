@@ -1,0 +1,28 @@
+﻿Successfully added Sir Wilmetta to the collection.
+Successfully added Sir Dave to the collection.
+Successfully added Sir Serlon to the collection.
+Successfully added Sir ldis to the collection.
+Successfully added Barbarian Alessia to the collection.
+Successfully added Barbarian Casey to the collection.
+Successfully added Barbarian Emersyn to the collection.
+Successfully added Barbarian Attila to the collection.
+Successfully added Barbarian Berenger to the collection.
+A claymore Almace is added to the collection.
+A claymore Caliburn is added to the collection.
+A claymore Dainsleif is added to the collection.
+A claymore Durandal is added to the collection.
+A claymore Dyrnwyn is added to the collection.
+A mace Narcoleptic is added to the collection.
+A mace Stormcaller is added to the collection.
+A mace Willbreaker is added to the collection.
+A mace Justifier is added to the collection.
+Hero Serlon can participate in battle using a claymore.
+Hero ldis can participate in battle using a claymore.
+Hero Alessia can participate in battle using a claymore.
+Hero Casey can participate in battle using a mace.
+Hero Emersyn can participate in battle using a mace.
+Hero Attila can participate in battle using a mace.
+Hero Berenger can participate in battle using a mace.
+Hero Dave can participate in battle using a claymore.
+Hero Wilmetta can participate in battle using a claymore.
+The knights took 2 casualties but won the battle.
