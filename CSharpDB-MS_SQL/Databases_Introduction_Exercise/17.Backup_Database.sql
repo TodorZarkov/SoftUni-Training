@@ -1,5 +1,5 @@
 BACKUP DATABASE SoftUni
-TO DISK = '/var/opt/mssql/data/softuni-backup.bak'
+TO DISK = '/var/opt/mssql/data/softuni-backup-last.bak'
 
 USE master
 GO
@@ -11,5 +11,5 @@ DROP DATABASE SoftUni
 GO
 
 RESTORE DATABASE SoftUni
-    FROM DISK = '/var/opt/mssql/data/softuni-backup.bak'
+    FROM DISK = '/var/opt/mssql/data/softuni-backup-last.bak'
 
