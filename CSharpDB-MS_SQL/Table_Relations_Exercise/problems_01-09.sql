@@ -61,3 +61,42 @@ VALUES
     ('Model X', 2),
     ('Model 3', 2),
     ('Nova', 3)
+
+
+--problem 03. Many-To-Many Relationship
+CREATE TABLE [Students]
+(
+    StudentID BIGINT PRIMARY KEY IDENTITY,
+    [Name] NVARCHAR(200) NOT NULL
+)
+INSERT INTO [Students]
+VALUES
+    ('Mila'),
+    ('Toni'),
+    ('Ron')
+
+
+CREATE TABLE [Exams]
+(
+    ExamID INT PRIMARY KEY IDENTITY(101,1),
+    [Name] NVARCHAR(300) NOT NULL
+)
+INSERT INTO [Exams]
+VALUES
+    ('SpringMVC')
+    ,('Neo4j')
+    ,('Oracle 11g')
+
+CREATE TABLE [StudentsExams]
+(
+    StudentID BIGINT NOT NULL,
+    ExamID INT NOT NULL,
+        PRIMARY KEY (StudentID, ExamID),
+        FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+        FOREIGN KEY (ExamID) REFERENCES Exams(ExamID)
+)
+INSERT INTO [StudentsExams]
+VALUES
+    (1, 101),
+    (1, 102),
+    (2, 101)
