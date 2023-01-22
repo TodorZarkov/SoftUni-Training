@@ -31,4 +31,33 @@ VALUES
     ('Tom', 56100.00, 103),
     ('Yana', 60200.00, 101)
 
-----------------------------------------------
+
+--problem 02 One-To-Many Relationship
+CREATE TABLE [Manufacturers]
+(
+    ManufacturerID SMALLINT PRIMARY KEY IDENTITY,
+    [Name] NVARCHAR(100) NOT NULL,
+    EstablishedOn DATE
+)
+INSERT INTO Manufacturers
+VALUES
+    ('BMW', '1916-3-7'),
+    ('Tesla', '2003-1-1'),
+    ('Lada', '1966-5-1')
+
+
+CREATE TABLE [Models]
+(
+    ModelID INT PRIMARY KEY IDENTITY(101,1),
+    [Name] NVARCHAR(100) NOT NULL,
+    ManufacturerID SMALLINT,
+        FOREIGN KEY(ManufacturerID) REFERENCES Manufacturers(ManufacturerID)
+)
+INSERT INTO Models
+VALUES
+    ('X1', 1),
+    ('i6', 1),
+    ('Model S', 2),
+    ('Model X', 2),
+    ('Model 3', 2),
+    ('Nova', 3)
