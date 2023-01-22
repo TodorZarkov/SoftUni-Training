@@ -122,3 +122,44 @@ VALUES
     ('Ted',     105),
     ('Mark',    101),
     ('Greta',   101)
+
+
+--problem 06. University Database
+CREATE TABLE [Majors]
+(
+    MajorID INT PRIMARY KEY IDENTITY,
+    [Name] NVARCHAR(200) NOT NULL
+)
+
+CREATE TABLE [Subjects]
+(
+    SubjectID SMALLINT PRIMARY KEY IDENTITY,
+    [Name] NVARCHAR(200) NOT NULL
+)
+
+CREATE TABLE [Students1]
+(
+    StudentID BIGINT PRIMARY KEY IDENTITY,
+    StudentNumber BIGINT NOT NULL,
+    StudentName NVARCHAR(200) NOT NULL,
+    MajorID INT,
+        FOREIGN KEY(MajorID) REFERENCES Majors(MajorID)
+)
+
+CREATE TABLE [Payments]
+(
+    PaymentID BIGINT PRIMARY KEY IDENTITY,
+    PaymentDate DATE NOT NULL,
+    PaymentAmount SMALLMONEY NOT NULL,
+    StudentID BIGINT NOT NULL,
+        FOREIGN KEY(StudentID) REFERENCES Students1(StudentID)
+)
+
+CREATE TABLE [Agenda]
+(
+    StudentID BIGINT NOT NULL,
+    SubjectID SMALLINT NOT NULL,
+        PRIMARY KEY (StudentID, SubjectID),
+        FOREIGN KEY (StudentID) REFERENCES Students1(StudentID),
+        FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID) 
+)
