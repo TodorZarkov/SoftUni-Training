@@ -99,4 +99,26 @@ INSERT INTO [StudentsExams]
 VALUES
     (1, 101),
     (1, 102),
-    (2, 101)
+    (2, 101),
+    (3, 103),
+    (2, 102),
+    (2, 103)
+
+
+
+--problem 04. Self-Referencing 
+CREATE TABLE [Teachers]
+(
+    TeacherID INT PRIMARY KEY IDENTITY(101,1),
+    [Name] NVARCHAR(200) NOT NULL,
+    ManagerID INT,
+        FOREIGN KEY(ManagerID) REFERENCES Teachers(TeacherID)
+)
+INSERT INTO [Teachers]
+VALUES
+    ('John',    NULL),
+    ('Maya',    106),
+    ('Silvia',  106),
+    ('Ted',     105),
+    ('Mark',    101),
+    ('Greta',   101)
