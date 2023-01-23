@@ -220,3 +220,17 @@ CREATE TABLE [Agenda]
         FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
         FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID) 
 )
+
+
+--problem 09. *Peaks in Rila 
+USE [Geography]
+GO
+
+SELECT Mountains.MountainRange, Peaks.PeakName, Peaks.Elevation 
+FROM Peaks
+INNER JOIN Mountains ON Peaks.MountainId = Mountains.Id
+WHERE Mountains.MountainRange = 'Rila' 
+ORDER BY Elevation DESC
+
+SELECT * FROM Mountains
+SELECT * FROM Peaks
