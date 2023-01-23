@@ -124,7 +124,64 @@ VALUES
     ('Greta',   101)
 
 
+--problem 05. Online Store Database
+CREATE DATABASE OnlineStore
+GO
+USE OnlineStore
+GO
+
+CREATE TABLE Cities
+(
+    CityID INT PRIMARY KEY IDENTITY,
+    [Name] NVARCHAR(200) NOT NULL
+)
+
+CREATE TABLE Customers
+(
+    CustomerID BIGINT PRIMARY KEY IDENTITY,
+    [Name] NVARCHAR(200) NOT NULL,
+    Birthday DATE,
+    CityID INT,
+        FOREIGN KEY(CityID) REFERENCES Cities(CityID)
+)
+
+CREATE TABLE Orders
+(
+    OrderID BIGINT PRIMARY KEY IDENTITY,
+    CustomerID BIGINT,
+        FOREIGN KEY(CustomerID) REFERENCES Customers(CustomerID)
+)
+
+CREATE TABLE ItemTypes
+(
+    ItemTypeID INT PRIMARY KEY IDENTITY,
+    [Name] NVARCHAR(200) NOT NULL
+)
+
+CREATE TABLE Items
+(
+    ItemID BIGINT PRIMARY KEY IDENTITY,
+    [Name] NVARCHAR(200) NOT NULL,
+    ItemTypeID INT,
+        FOREIGN KEY(ItemTypeID) REFERENCES ItemTypes(ItemTypeID)
+)
+
+CREATE TABLE OrderItems
+(
+    OrderID BIGINT,
+    ItemID BIGINT,
+    PRIMARY KEY(OrderID, ItemID),
+    FOREIGN KEY(OrderID) REFERENCES Orders(OrderID),
+    FOREIGN KEY(ItemID) REFERENCES Items(ItemID)
+)
+
+
+
 --problem 06. University Database
+CREATE DATABASE University
+GO
+USE University
+GO
 CREATE TABLE [Majors]
 (
     MajorID INT PRIMARY KEY IDENTITY,
@@ -137,7 +194,7 @@ CREATE TABLE [Subjects]
     [Name] NVARCHAR(200) NOT NULL
 )
 
-CREATE TABLE [Students1]
+CREATE TABLE [Students]
 (
     StudentID BIGINT PRIMARY KEY IDENTITY,
     StudentNumber BIGINT NOT NULL,
@@ -152,7 +209,7 @@ CREATE TABLE [Payments]
     PaymentDate DATE NOT NULL,
     PaymentAmount SMALLMONEY NOT NULL,
     StudentID BIGINT NOT NULL,
-        FOREIGN KEY(StudentID) REFERENCES Students1(StudentID)
+        FOREIGN KEY(StudentID) REFERENCES Students(StudentID)
 )
 
 CREATE TABLE [Agenda]
@@ -160,6 +217,6 @@ CREATE TABLE [Agenda]
     StudentID BIGINT NOT NULL,
     SubjectID SMALLINT NOT NULL,
         PRIMARY KEY (StudentID, SubjectID),
-        FOREIGN KEY (StudentID) REFERENCES Students1(StudentID),
+        FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
         FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID) 
 )
