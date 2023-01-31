@@ -76,5 +76,13 @@ FROM Countries
 WHERE UPPER(CountryName) LIKE '%A%A%A%' 
 ORDER BY IsoCode
 
+--problem 13. Mix of Peak and River Names
+SELECT Peaks.PeakName , Rivers.RiverName 
+    , LOWER( CONCAT(Peaks.PeakName, STUFF(Rivers.RiverName,1,1,'') ) ) AS Mix
+FROM Peaks, Rivers
+WHERE LOWER(RIGHT(Peaks.PeakName,1)) = LOWER(LEFT(Rivers.RiverName,1))
+ORDER BY Mix
+ 
+
 
     
