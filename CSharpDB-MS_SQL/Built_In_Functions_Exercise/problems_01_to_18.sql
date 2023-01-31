@@ -92,4 +92,7 @@ WHERE YEAR([Start]) BETWEEN 2011 AND 2012
 ORDER BY [Start], [Name]
 
 
-    
+--problem 15. User Email Providers
+SELECT Username, STUFF(Email, 1, CHARINDEX('@', Email), '') AS [Email Provider]
+FROM Users
+ORDER BY [Email Provider], Username
