@@ -27,3 +27,9 @@ SELECT [Name]
 FROM Towns
 WHERE LEN([Name]) BETWEEN 5 AND 6
 ORDER BY [Name]
+
+--problem 06. Find Towns Starting With
+SELECT * 
+FROM Towns
+WHERE [Name] LIKE '[MKBE]%'
+ORDER BY [Name]
