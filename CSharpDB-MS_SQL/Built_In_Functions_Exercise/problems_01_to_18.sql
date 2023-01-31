@@ -96,3 +96,9 @@ ORDER BY [Start], [Name]
 SELECT Username, STUFF(Email, 1, CHARINDEX('@', Email), '') AS [Email Provider]
 FROM Users
 ORDER BY [Email Provider], Username
+
+--problem 16. Get Users with IP Address Like Pattern
+SELECT Username, IpAddress AS [IP Address]
+FROM Users
+WHERE IpAddress LIKE '___.1_%._%.___'
+ORDER BY Username
