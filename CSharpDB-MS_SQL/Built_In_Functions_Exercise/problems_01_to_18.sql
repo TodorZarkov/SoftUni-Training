@@ -39,3 +39,12 @@ SELECT TownID, [Name]
 FROM Towns
 WHERE [Name] LIKE '[^RBD]%'
 ORDER BY [Name]
+
+--problem 08. Create View Employees Hired After 2000 Year
+GO
+CREATE VIEW V_EmployeesHiredAfter2000 AS
+    SELECT FirstName, LastName
+    FROM Employees
+    WHERE YEAR(HireDate) > 2000
+GO
+
