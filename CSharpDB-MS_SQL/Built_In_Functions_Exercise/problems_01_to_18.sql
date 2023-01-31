@@ -16,3 +16,8 @@ WHERE CHARINDEX('ei', LastName) <> 0
 SELECT FirstName
 FROM Employees
 WHERE DepartmentID IN(3,10) AND YEAR(HireDate) BETWEEN 1995 AND 2005
+
+--problem 04. Find All Employees Except Engineers
+SELECT FirstName, LastName
+FROM Employees
+WHERE CHARINDEX('engineer', JobTitle) = 0
