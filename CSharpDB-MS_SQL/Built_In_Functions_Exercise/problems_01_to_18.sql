@@ -69,5 +69,12 @@ FROM    (SELECT EmployeeID, FirstName, LastName, Salary
 WHERE Rank = 2 
 ORDER BY Salary DESC
 
+--problem 12. Countries Holding 'A' 3 or More Times
+USE [Geography]
+SELECT CountryName AS [Country Name], IsoCode AS [ISO Code]
+FROM Countries
+WHERE UPPER(CountryName) LIKE '%A%A%A%' 
+ORDER BY IsoCode
+
 
     
