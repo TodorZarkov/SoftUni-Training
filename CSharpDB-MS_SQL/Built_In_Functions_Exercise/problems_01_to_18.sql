@@ -118,3 +118,11 @@ SELECT [Name] AS [Game]
     END AS [Duration]
 FROM Games
 ORDER BY Game , Duration , [Part of the Day]
+
+--problem 18. Orders Table
+SELECT ProductName, OrderDate
+,DATEADD(DAY,3,OrderDate)
+AS [Pay Due]
+,DATEADD(MONTH,1,OrderDate)
+AS [Deliver Due]
+FROM Orders
