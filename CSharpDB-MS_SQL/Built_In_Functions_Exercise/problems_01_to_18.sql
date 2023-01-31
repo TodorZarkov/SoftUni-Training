@@ -83,6 +83,13 @@ FROM Peaks, Rivers
 WHERE LOWER(RIGHT(Peaks.PeakName,1)) = LOWER(LEFT(Rivers.RiverName,1))
 ORDER BY Mix
  
+--problem 14. Games From 2011 and 2012 Year
+USE Diablo
+GO
+SELECT TOP(50) [Name], FORMAT([Start],'yyyy-MM-dd') AS [Start]
+FROM Games
+WHERE YEAR([Start]) BETWEEN 2011 AND 2012
+ORDER BY [Start], [Name]
 
 
     
