@@ -125,3 +125,20 @@ ON mc.MountainId = m.Id
 GROUP BY c.CountryCode
 
 --problem 14. Countries With or Without Rivers
+SELECT TOP(5)
+    c.CountryName
+    ,r.RiverName
+FROM Countries AS c
+LEFT JOIN CountriesRivers AS cr
+ON c.CountryCode = cr.CountryCode 
+LEFT JOIN Rivers AS r
+ON cr.RiverId = r.Id
+WHERE c.ContinentCode IN
+    (
+        SELECT co.ContinentCode
+        FROM Continents AS co
+        WHERE co.ContinentName = 'Africa'
+    )
+ORDER BY c.CountryName
+
+--problem 15. Continents and Currencies
