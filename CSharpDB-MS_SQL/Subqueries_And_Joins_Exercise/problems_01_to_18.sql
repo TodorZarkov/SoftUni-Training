@@ -31,3 +31,15 @@ ON d.DepartmentID = e.DepartmentID AND Salary > 15000
 ORDER BY e.DepartmentID
 
 --problem 05. Employees Without Projects
+SELECT TOP(3) e.EmployeeID, e.FirstName
+FROM Employees AS e
+LEFT JOIN EmployeesProjects AS ep
+ON e.EmployeeID = ep.EmployeeID
+LEFT JOIN Projects AS p
+ON ep.ProjectID = p.ProjectID
+WHERE ep.ProjectID IS NULL
+ORDER BY e.EmployeeID
+
+--problem 06. Employees Hired After
+
+
