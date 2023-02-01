@@ -59,3 +59,12 @@ WHERE p.StartDate > '08.13.2002' AND  p.EndDate IS NULL
 ORDER BY e.EmployeeID
 
 --problem 08. Employee 24
+SELECT e.EmployeeID, e.FirstName, p.Name AS ProjectName
+FROM Employees AS e
+JOIN EmployeesProjects AS ep
+ON e.EmployeeID = ep.EmployeeID
+LEFT JOIN Projects AS p
+ON ep.ProjectID = p.ProjectID  AND p.StartDate < '1.1.2005'
+WHERE e.EmployeeID = 24
+
+--problem 09. Employee Manager
