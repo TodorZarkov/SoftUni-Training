@@ -88,3 +88,12 @@ ON e.DepartmentID = d.DepartmentID
 ORDER BY e.EmployeeID
 
 --problem 11. Min Average Salary
+SELECT MIN(ms.MinSalary) AS MinAverageSalary
+FROM
+    (
+    SELECT AVG(e.Salary) AS MinSalary
+    FROM Employees AS e
+    GROUP BY e.DepartmentID 
+    )AS ms
+
+--problem 12. Highest Peaks in Bulgaria
