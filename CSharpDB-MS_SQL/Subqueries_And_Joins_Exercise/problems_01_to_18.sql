@@ -16,5 +16,11 @@ JOIN Towns AS t
 ON t.TownID = a.TownID
 ORDER BY e.FirstName, e.LastName
 
+--problem 03. Sales Employees
+SELECT e.EmployeeID, e.FirstName, e.LastName, d.Name AS DepartmentName
+FROM Employees AS e
+JOIN Departments AS d
+ON d.DepartmentID = e.DepartmentID AND d.Name = 'Sales'
+ORDER BY e.EmployeeID
 
-
+--problem 04. Employee Departments
