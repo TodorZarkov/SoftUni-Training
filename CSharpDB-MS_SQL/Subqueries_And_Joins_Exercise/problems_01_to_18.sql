@@ -24,3 +24,10 @@ ON d.DepartmentID = e.DepartmentID AND d.Name = 'Sales'
 ORDER BY e.EmployeeID
 
 --problem 04. Employee Departments
+SELECT TOP(5) e.EmployeeID, e.FirstName, e.Salary, d.Name AS DepartmentName
+FROM Employees AS e
+JOIN Departments AS d
+ON d.DepartmentID = e.DepartmentID AND Salary > 15000
+ORDER BY e.DepartmentID
+
+--problem 05. Employees Without Projects
