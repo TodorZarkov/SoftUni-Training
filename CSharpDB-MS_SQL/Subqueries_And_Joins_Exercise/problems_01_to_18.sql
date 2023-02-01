@@ -75,3 +75,16 @@ ON e.ManagerID = je.EmployeeID AND je.EmployeeID IN (3,7)
 ORDER BY e.EmployeeID
 
 --problem 10. Employees Summary
+SELECT TOP(50)
+    e.EmployeeID
+    , CONCAT_WS(' ', e.FirstName,e.LastName) AS EmployeeName
+    , CONCAT_WS(' ', je.FirstName,je.LastName) AS ManagerName
+    , d.Name AS DepartmentName
+FROM Employees AS e
+JOIN Employees AS je
+ON e.ManagerID = je.EmployeeID
+JOIN Departments AS d
+ON e.DepartmentID = d.DepartmentID
+ORDER BY e.EmployeeID
+
+--problem 11. Min Average Salary
