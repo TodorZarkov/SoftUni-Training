@@ -68,3 +68,10 @@ ON ep.ProjectID = p.ProjectID  AND p.StartDate < '1.1.2005'
 WHERE e.EmployeeID = 24
 
 --problem 09. Employee Manager
+SELECT e.EmployeeID, e.FirstName, e.ManagerID, je.FirstName AS ManagerName
+FROM Employees AS e
+JOIN Employees AS je
+ON e.ManagerID = je.EmployeeID AND je.EmployeeID IN (3,7)
+ORDER BY e.EmployeeID
+
+--problem 10. Employees Summary
