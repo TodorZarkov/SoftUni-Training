@@ -114,3 +114,14 @@ ON m.Id = p.MountainId AND p.Elevation > 2835
 ORDER BY p.Elevation DESC
 
 --problem 13. Count Mountain Ranges
+SELECT 
+    c.CountryCode
+    ,COUNT(m.MountainRange) ASMountainRanges
+FROM Countries AS c
+JOIN MountainsCountries AS mc
+ON  c.CountryCode = mc.CountryCode AND c.CountryName IN('United States', 'Russia', 'Bulgaria')
+JOIN Mountains AS m
+ON mc.MountainId = m.Id
+GROUP BY c.CountryCode
+
+--problem 14. Countries With or Without Rivers
