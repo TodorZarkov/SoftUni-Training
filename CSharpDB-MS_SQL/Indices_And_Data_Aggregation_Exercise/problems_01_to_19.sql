@@ -122,3 +122,11 @@ GROUP BY e.DepartmentID
 ORDER BY e.DepartmentID
 
 --problem 14. Employees Minimum Salaries
+SELECT 
+    e.DepartmentID
+    ,MIN(Salary) AS MinimumSalary
+FROM Employees  AS e
+WHERE e.DepartmentID IN(2, 5, 7) AND e.HireDate > '1-1-2000'
+GROUP BY e.DepartmentID
+
+--problem 15. Employees Average Salaries 
