@@ -130,3 +130,27 @@ WHERE e.DepartmentID IN(2, 5, 7) AND e.HireDate > '1-1-2000'
 GROUP BY e.DepartmentID
 
 --problem 15. Employees Average Salaries 
+SELECT
+    *
+    INTO newEmployees
+FROM Employees AS oe
+WHERE oe.Salary > 30000
+
+DELETE 
+FROM newEmployees
+WHERE newEmployees.ManagerID = 42
+
+UPDATE newEmployees
+SET newEmployees.Salary += 5000
+WHERE newEmployees.DepartmentID = 1
+
+SELECT 
+    ne.DepartmentID
+    ,AVG(ne.Salary) AS AverageSalary
+FROM newEmployees AS ne
+GROUP BY ne.DepartmentID
+
+
+--problem 16. Employees Maximum Salaries 
+
+
