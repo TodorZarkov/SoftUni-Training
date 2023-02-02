@@ -182,6 +182,17 @@ FROM
 WHERE hs = 3
 
 --problem 19. **Salary Challenge
-
+SELECT TOP(10)
+    e.FirstName
+    ,e.LastName
+    ,e.DepartmentID
+FROM Employees AS e
+WHERE e.Salary > (
+    SELECT
+        AVG(ein.Salary)
+    FROM Employees AS ein
+    WHERE ein.DepartmentID = e.DepartmentID
+)
+ORDER BY e.DepartmentID
 
 
