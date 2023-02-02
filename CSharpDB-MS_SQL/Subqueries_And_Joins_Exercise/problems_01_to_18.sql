@@ -140,5 +140,25 @@ WHERE c.ContinentCode IN
         WHERE co.ContinentName = 'Africa'
     )
 ORDER BY c.CountryName
-
+   
 --problem 15. Continents and Currencies
+SELECT 
+    ContinentCode
+    ,CurrencyCode
+    ,CurrencyUssage
+FROM
+    (
+    SELECT 
+        co.ContinentCode
+        ,COUNT(c.CurrencyCode) AS CurrencyUssage
+        ,c.CurrencyCode
+        ,DENSE_RANK() OVER 
+        (PARTITION BY co.ContinentCode ORDER BY COUNT(c.CurrencyCode) DESC) AS Rank
+    FROM Continents AS co
+    JOIN Countries AS c
+    ON co.ContinentCode = c.ContinentCode
+    GROUP BY co.ContinentCode, c.CurrencyCode
+    ) AS iq
+    WHERE Rank = 1 AND CurrencyUssage <> 1
+
+
