@@ -168,4 +168,20 @@ WHERE ManagerID IS NULL
 
 
 --problem 18. *3rd Highest Salary
+SELECT DISTINCT DepartmentID
+        ,ThirdHighestSalary
+FROM
+(
+    SELECT 
+        e.DepartmentID AS DepartmentID
+        ,e.Salary AS ThirdHighestSalary
+        ,DENSE_RANK() OVER
+        (PARTITION BY e.DepartmentID ORDER BY e.Salary DESC) AS hs
+    FROM Employees AS e
+)AS in1
+WHERE hs = 3
+
+--problem 19. **Salary Challenge
+
+
 
