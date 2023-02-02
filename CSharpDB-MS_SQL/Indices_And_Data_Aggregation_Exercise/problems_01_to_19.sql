@@ -160,4 +160,12 @@ GROUP BY e.DepartmentID
 HAVING MAX(e.Salary) NOT BETWEEN 30000 AND 70000
 
 
---problem 17. Employees Count Salaries
+--problem 17. Employees Count Salaries.
+SELECT 
+    COUNT(Salary) AS [Count]
+FROM Employees AS e
+WHERE ManagerID IS NULL
+
+
+--problem 18. *3rd Highest Salary
+
