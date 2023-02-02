@@ -34,3 +34,11 @@ FROM WizzardDeposits AS w
 GROUP BY w.DepositGroup
 
 --problem 06. Deposits Sum for Ollivander Family
+SELECT
+    w.DepositGroup
+    ,SUM(w.DepositAmount)
+FROM WizzardDeposits AS w
+GROUP BY w.DepositGroup , w.MagicWandCreator
+HAVING w.MagicWandCreator = 'Ollivander family'
+
+--problem 07. Deposits Filter
