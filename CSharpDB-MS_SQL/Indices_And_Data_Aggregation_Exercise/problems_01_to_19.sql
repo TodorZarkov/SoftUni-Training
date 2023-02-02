@@ -99,3 +99,16 @@ GROUP BY w.DepositGroup, w.IsDepositExpired
 ORDER BY w.DepositGroup DESC, IsDepositExpired
 
 --problem 12. *Rich Wizard, Poor Wizard
+SELECT
+    --  wh.FirstName AS        HostName
+    -- ,wh.DepositAmount AS    HostDeposit
+    -- ,wh.Id AS               HostId
+    -- ,wg.FirstName AS        GuestName
+    -- ,wg.DepositAmount AS    GuestDeposit
+    -- ,wg.Id AS               GuestId
+    SUM(wh.DepositAmount - wg.DepositAmount) AS [SumDifference]
+FROM WizzardDeposits AS wh
+JOIN WizzardDeposits AS wg
+ON wh.Id = (wg.Id - 1)
+
+--problem 13. Departments Total Salaries
