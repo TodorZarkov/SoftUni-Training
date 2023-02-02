@@ -15,3 +15,15 @@ FROM WizzardDeposits AS w
 GROUP BY w.DepositGroup
 
 --problem 04. Smallest Deposit Group per Magic Wand Size
+SELECT DepositGroup
+FROM
+(
+    SELECT TOP(2)
+        w.DepositGroup AS DepositGroup
+        ,AVG(w.MagicWandSize) AS a
+    FROM WizzardDeposits AS w
+    GROUP BY w.DepositGroup
+    ORDER BY a  
+)AS b
+
+--problem 05. Deposits Sum
