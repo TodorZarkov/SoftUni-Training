@@ -161,4 +161,11 @@ FROM
     ) AS iq
     WHERE Rank = 1 AND CurrencyUssage <> 1
 
+--problem 16. Countries Without any Mountains
+SELECT COUNT(c.CountryCode) AS Count
+FROM Countries AS c
+LEFT JOIN MountainsCountries AS mc
+ON c.CountryCode = mc.CountryCode
+WHERE mc.MountainId IS NULL
 
+--problem 17. Highest Peak and Longest River by Country
