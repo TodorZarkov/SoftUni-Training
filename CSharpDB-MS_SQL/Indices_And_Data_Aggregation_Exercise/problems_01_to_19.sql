@@ -80,3 +80,12 @@ FROM
 GROUP BY AgeGroup
 
 --problem 10. First Letter
+SELECT
+    LEFT(w.FirstName,1) AS FirstLetter
+    --,COUNT(*)
+FROM WizzardDeposits AS w
+WHERE w.DepositGroup = 'Troll Chest'
+GROUP BY LEFT(w.FirstName,1)
+ORDER BY FirstLetter
+
+--problem 11. Average Interest
