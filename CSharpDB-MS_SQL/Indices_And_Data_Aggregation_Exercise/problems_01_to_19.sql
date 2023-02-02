@@ -27,3 +27,10 @@ FROM
 )AS b
 
 --problem 05. Deposits Sum
+SELECT
+    w.DepositGroup
+    ,SUM(w.DepositAmount)
+FROM WizzardDeposits AS w
+GROUP BY w.DepositGroup
+
+--problem 06. Deposits Sum for Ollivander Family
