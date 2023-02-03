@@ -12,3 +12,14 @@ WHERE e.Salary > 35000
 GO
 
 --problem 02. Employees with Salary Above Number
+CREATE PROC usp_GetEmployeesSalaryAboveNumber(@salaryThreshold DECIMAL(18, 4))
+AS
+SELECT 
+    e.FirstName
+    ,e.LastName
+FROM Employees AS e
+WHERE e.Salary >= @salaryThreshold
+GO
+
+--problem 03. Town Names Starting With
+
