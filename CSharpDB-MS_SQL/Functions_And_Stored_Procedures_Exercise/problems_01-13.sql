@@ -59,5 +59,16 @@ BEGIN
     RETURN @result
 END
 
+GO
 --problem 06. Employees by Salary Level
+CREATE PROC usp_EmployeesBySalaryLevel(@levelOfSalary VARCHAR(7))
+AS
+SELECT
+    e.FirstName AS [First Name]
+    ,e.LastName AS [Last Name]
+FROM Employees AS e
+WHERE @levelOfSalary = dbo.ufn_GetSalaryLevel(e.Salary)
+GO
+
+--problem 07. Define Function
 
