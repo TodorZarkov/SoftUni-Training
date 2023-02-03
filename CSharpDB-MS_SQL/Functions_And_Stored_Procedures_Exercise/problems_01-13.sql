@@ -22,4 +22,14 @@ WHERE e.Salary >= @salaryThreshold
 GO
 
 --problem 03. Town Names Starting With
+USE [SoftUni]
+GO
+CREATE PROC usp_GetTownsStartingWith(@startString NVARCHAR(MAX))
+AS
+SELECT
+    t.Name AS Town
+FROM Towns AS t
+WHERE LEFT(t.Name,LEN(@startString)) = @startString
+GO
 
+--problem 04. Employees from Town
