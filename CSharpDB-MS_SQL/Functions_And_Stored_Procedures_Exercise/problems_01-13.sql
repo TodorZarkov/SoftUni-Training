@@ -71,4 +71,28 @@ WHERE @levelOfSalary = dbo.ufn_GetSalaryLevel(e.Salary)
 GO
 
 --problem 07. Define Function
+CREATE FUNCTION dbo.ufn_IsWordComprised(@setOfLetters NVARCHAR(MAX), @word NVARCHAR(MAX))
+RETURNS BIT
+AS
+BEGIN
+    DECLARE @result BIT = 1
+    DECLARE @i INT = 0
+    WHILE @i < LEN(@word)
+    BEGIN
+        SET @i += 1 
+        IF CHARINDEX(SUBSTRING(@word,@i,1),@setOfLetters) = 0
+        BEGIN
+            SET @result = 0
+            BREAK
+        END
+    END
+    RETURN @result
+END
+GO
 
+
+DECLARE @isIn BIT
+SET @isIn = dbo.ufn_IsWordComprised('oistmiahf', 'Sofia')
+SELECT @isIn
+
+--problem 08. *Delete Employees and Departments
