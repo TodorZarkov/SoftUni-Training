@@ -94,5 +94,77 @@ GO
 DECLARE @isIn BIT
 SET @isIn = dbo.ufn_IsWordComprised('oistmiahf', 'Sofia')
 SELECT @isIn
+GO
 
 --problem 08. *Delete Employees and Departments
+BACKUP DATABASE SoftUni
+TO DISK = '/var/opt/mssql/data/softuni-backup-4-2-2023.bak'
+GO
+
+
+
+CREATE PROC usp_DeleteEmployeesFromDepartment (@departmentId INT)
+AS
+
+ALTER TABLE Departments 
+ALTER COLUMN ManagerID INT NULL
+
+DELETE FROM  EmployeesProjects
+WHERE EmployeeID IN (
+    SELECT e.EmployeeID  FROM Employees AS e
+    WHERE e.DepartmentID = @departmentId
+)
+
+UPDATE Departments
+SET ManagerID = NULL
+WHERE ManagerID IN (
+    SELECT e.EmployeeID  FROM Employees AS e
+    WHERE e.DepartmentID = @departmentId
+)
+
+UPDATE Employees
+SET ManagerID = NULL
+WHERE EmployeeID IN (
+    SELECT e.EmployeeID  FROM Employees AS e
+    WHERE e.DepartmentID = @departmentId
+)
+
+ALTER TABLE Employees NOCHECK CONSTRAINT [FK_Employees_Employees]
+
+DELETE FROM Employees
+WHERE EmployeeID IN (
+    SELECT e.EmployeeID  FROM Employees AS e
+    WHERE e.DepartmentID = @departmentId
+)
+
+ALTER TABLE Employees CHECK CONSTRAINT [FK_Employees_Employees]
+
+SELECT COUNT(*) FROM Employees AS e
+WHERE e.DepartmentID = @departmentId
+
+GO
+
+BEGIN TRANSACTION
+
+EXEC dbo.usp_DeleteEmployeesFromDepartment 12
+
+ROLLBACK
+
+SELECT COUNT(*) FROM Employees AS e
+WHERE e.DepartmentID = 12
+
+
+USE master
+GO
+
+ALTER DATABASE SoftUni SET SINGLE_USER WITH ROLLBACK IMMEDIATE
+GO
+
+DROP DATABASE SoftUni
+GO
+
+RESTORE DATABASE SoftUni
+    FROM DISK = '/var/opt/mssql/data/softuni-backup-4-2-2023.bak'
+
+--problem 09. Find Full Name
+
