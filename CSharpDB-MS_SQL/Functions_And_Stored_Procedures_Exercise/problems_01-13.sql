@@ -167,4 +167,11 @@ RESTORE DATABASE SoftUni
     FROM DISK = '/var/opt/mssql/data/softuni-backup-4-2-2023.bak'
 
 --problem 09. Find Full Name
+CREATE PROC usp_GetHoldersFullName
+AS
+SELECT CONCAT_WS(' ',a.FirstName, a.LastName) AS [Full Name]
+FROM AccountHolders AS a 
 
+GO
+
+--problem 10. People with Balance Higher Than 
