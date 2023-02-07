@@ -130,3 +130,142 @@ SELECT * FROM Accounts
 WHERE Id IN(1,5)
 
 --problem 06. *Massive Shopping
+USE Diablo
+GO
+
+BEGIN TRANSACTION
+DECLARE @startItemLevel INT = 11
+DECLARE @endItemLevel INT = 12
+DECLARE @user NVARCHAR(200) = 'Stamat'
+DECLARE @game NVARCHAR(300) = 'Safflower'
+DECLARE @userGameId INT
+DECLARE @moneyLeft MONEY
+
+SELECT 
+     @userGameId = ug.Id
+    ,@moneyLeft = ug.Cash
+FROM Users AS u
+JOIN UsersGames AS ug
+ON ug.UserId = u.Id
+JOIN UserGameItems ugi
+ON ugi.UserGameId = ug.Id
+JOIN Games AS g
+ON g.Id = ug.GameId
+JOIN Items AS i
+ON i.Id = ugi.ItemId
+WHERE u.Username = @user AND g.Name = @game
+
+DECLARE @currToPay MONEY = 0
+SELECT @currToPay = SUM(i.Price) FROM Items AS i
+WHERE i.MinLevel BETWEEN @startItemLevel AND @endItemLevel
+
+IF @currToPay > @moneyLeft
+BEGIN
+    ROLLBACK
+    RETURN
+END
+ELSE
+BEGIN
+    UPDATE UsersGames
+    SET Cash -= @currToPay
+    WHERE Id = @userGameId
+    BEGIN TRY
+        INSERT INTO UserGameItems(ItemId, UserGameId)
+        SELECT i.Id, @userGameId
+        FROM Items AS i
+        WHERE i.MinLevel BETWEEN @startItemLevel AND @endItemLevel
+        COMMIT
+    END TRY
+    BEGIN CATCH
+        ROLLBACK
+        RETURN
+    END CATCH
+END
+
+
+BEGIN TRANSACTION
+SET @startItemLevel = 19
+SET @endItemLevel = 21
+
+SELECT 
+     @userGameId = ug.Id
+    ,@moneyLeft = ug.Cash
+FROM Users AS u
+JOIN UsersGames AS ug
+ON ug.UserId = u.Id
+JOIN UserGameItems ugi
+ON ugi.UserGameId = ug.Id
+JOIN Games AS g
+ON g.Id = ug.GameId
+JOIN Items AS i
+ON i.Id = ugi.ItemId
+WHERE u.Username = @user AND g.Name = @game
+
+SET @currToPay = 0
+SELECT @currToPay = SUM(i.Price) FROM Items AS i
+WHERE i.MinLevel BETWEEN @startItemLevel AND @endItemLevel
+
+IF @currToPay > @moneyLeft
+BEGIN
+    ROLLBACK
+    RETURN
+END
+ELSE
+BEGIN
+    UPDATE UsersGames
+    SET Cash -= @currToPay
+    WHERE Id = @userGameId
+    BEGIN TRY
+        INSERT INTO UserGameItems(ItemId, UserGameId)
+        SELECT i.Id, @userGameId
+        FROM Items AS i
+        WHERE i.MinLevel BETWEEN @startItemLevel AND @endItemLevel
+        COMMIT
+    END TRY
+    BEGIN CATCH
+        ROLLBACK
+        RETURN
+    END CATCH
+END
+
+SELECT 
+    i.Name as [Item Name]
+FROM Users AS u
+JOIN UsersGames AS ug
+ON ug.UserId = u.Id
+JOIN UserGameItems ugi
+ON ugi.UserGameId = ug.Id
+JOIN Games AS g
+ON g.Id = ug.GameId
+JOIN Items AS i
+ON i.Id = ugi.ItemId
+WHERE u.Username = @user AND g.Name = @game
+ORDER BY i.Name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT * FROM Items 
+WHERE MinLevel IN (11, 12, 19, 20, 21)
+ORDER BY [Name]
+
+ 
+
+ SELECT * FROM UserGameItems
+ BEGIN TRANSACTION
+ INSERT INTO UserGameItems(ItemId, UserGameId)
+     VALUES (1,33)
+ ROLLBACK
