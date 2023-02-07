@@ -57,23 +57,76 @@ SELECT * FROM NotificationEmails
 GO
 
 --problem 03. Deposit Money
-CREATE PROC usp_DepositMoney(@AccountId INT, @MoneyAmount MONEY)
+CREATE OR ALTER PROC usp_DepositMoney(@AccountId INT, @MoneyAmount MONEY)
 AS
     IF @MoneyAmount > 0
     BEGIN
         UPDATE Accounts
         SET Balance += @MoneyAmount
+        WHERE Id = @AccountId
     END
 GO
 
 --problem 04. Withdraw Money Procedure
-CREATE PROC usp_WithdrawMoney(@AccountId INT, @MoneyAmount MONEY)
+CREATE OR ALTER PROC usp_WithdrawMoney(@AccountId INT, @MoneyAmount MONEY)
 AS
     IF @MoneyAmount > 0
     BEGIN
         UPDATE Accounts
         SET Balance -= @MoneyAmount
+        WHERE Id = @AccountId
     END
 GO
 
 --problem 05. Money Transfer
+CREATE OR ALTER PROC usp_TransferMoney(@SenderId INT, @ReceiverId INT, @Amount MONEY)
+AS
+    BEGIN TRANSACTION
+
+    DECLARE @beforeAmmount MONEY
+    SELECT @beforeAmmount = a.Balance
+    FROM Accounts AS a
+    WHERE a.Id = @SenderId
+
+    EXEC dbo.usp_WithdrawMoney @SenderId, @Amount
+
+    DECLARE @afterAmmount MONEY
+    SELECT @afterAmmount = a.Balance
+    FROM Accounts AS a
+    WHERE a.Id = @SenderId
+
+    IF ROUND(@afterAmmount,4) <> ROUND((@beforeAmmount - @Amount),4)
+        BEGIN
+            ROLLBACK
+            RETURN
+        END
+    ELSE
+        BEGIN
+            SELECT @beforeAmmount = a.Balance
+            FROM Accounts AS a
+            WHERE a.Id = @ReceiverId
+
+            EXEC dbo.usp_DepositMoney @ReceiverId, @Amount
+
+            SELECT @afterAmmount = a.Balance
+            FROM Accounts AS a
+            WHERE a.Id = @ReceiverId
+
+            IF ROUND(@afterAmmount,4) <> ROUND((@beforeAmmount + @Amount),4)
+                BEGIN
+                    ROLLBACK
+                    RETURN
+                END
+            ELSE
+                BEGIN
+                    COMMIT
+                END
+        END
+GO
+
+EXEC dbo.usp_TransferMoney 5, 1, 5000
+
+SELECT * FROM Accounts
+WHERE Id IN(1,5)
+
+--problem 06. *Massive Shopping
