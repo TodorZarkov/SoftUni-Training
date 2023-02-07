@@ -2,7 +2,7 @@
 USE SoftUni
 GO
 
-CREATE PROC usp_GetEmployeesSalaryAbove35000
+CREATE OR ALTER PROC usp_GetEmployeesSalaryAbove35000
 AS
 SELECT 
     e.FirstName
@@ -12,7 +12,7 @@ WHERE e.Salary > 35000
 GO
 
 --problem 02. Employees with Salary Above Number
-CREATE PROC usp_GetEmployeesSalaryAboveNumber(@salaryThreshold DECIMAL(18, 4))
+CREATE OR ALTER PROC usp_GetEmployeesSalaryAboveNumber(@salaryThreshold DECIMAL(18, 4))
 AS
 SELECT 
     e.FirstName
@@ -22,7 +22,7 @@ WHERE e.Salary >= @salaryThreshold
 GO
 
 --problem 03. Town Names Starting With
-CREATE PROC usp_GetTownsStartingWith(@startString NVARCHAR(MAX))
+CREATE OR ALTER PROC usp_GetTownsStartingWith(@startString NVARCHAR(MAX))
 AS
 SELECT
     t.Name AS Town
@@ -31,7 +31,7 @@ WHERE LEFT(t.Name,LEN(@startString)) = @startString
 GO
 
 --problem 04. Employees from Town
-CREATE PROC usp_GetEmployeesFromTown(@townName NVARCHAR(200))
+CREATE OR ALTER PROC usp_GetEmployeesFromTown(@townName NVARCHAR(200))
 AS
 SELECT  
     e.FirstName
@@ -45,7 +45,7 @@ WHERE t.Name = @townName
 GO
 
 --problem 05. Salary Level Function
-CREATE FUNCTION ufn_GetSalaryLevel(@salary DECIMAL(18,4))
+CREATE OR ALTER FUNCTION ufn_GetSalaryLevel(@salary DECIMAL(18,4))
 RETURNS VARCHAR(7)
 AS
 BEGIN
@@ -61,7 +61,7 @@ END
 
 GO
 --problem 06. Employees by Salary Level
-CREATE PROC usp_EmployeesBySalaryLevel(@levelOfSalary VARCHAR(7))
+CREATE OR ALTER PROC usp_EmployeesBySalaryLevel(@levelOfSalary VARCHAR(7))
 AS
 SELECT
     e.FirstName AS [First Name]
@@ -71,7 +71,7 @@ WHERE @levelOfSalary = dbo.ufn_GetSalaryLevel(e.Salary)
 GO
 
 --problem 07. Define Function
-CREATE FUNCTION dbo.ufn_IsWordComprised(@setOfLetters NVARCHAR(MAX), @word NVARCHAR(MAX))
+CREATE OR ALTER FUNCTION dbo.ufn_IsWordComprised(@setOfLetters NVARCHAR(MAX), @word NVARCHAR(MAX))
 RETURNS BIT
 AS
 BEGIN
@@ -103,7 +103,7 @@ GO
 
 
 
-CREATE PROC usp_DeleteEmployeesFromDepartment (@departmentId INT)
+CREATE OR ALTER PROC usp_DeleteEmployeesFromDepartment (@departmentId INT)
 AS
 
 ALTER TABLE Departments 
@@ -165,9 +165,13 @@ GO
 
 RESTORE DATABASE SoftUni
     FROM DISK = '/var/opt/mssql/data/softuni-backup-4-2-2023.bak'
+GO
 
 --problem 09. Find Full Name
-CREATE PROC usp_GetHoldersFullName
+USE Bank
+GO
+
+CREATE OR ALTER PROC usp_GetHoldersFullName
 AS
 SELECT CONCAT_WS(' ',a.FirstName, a.LastName) AS [Full Name]
 FROM AccountHolders AS a 
@@ -175,7 +179,7 @@ FROM AccountHolders AS a
 GO
 
 --problem 10. People with Balance Higher Than 
-CREATE PROC usp_GetHoldersWithBalanceHigherThan(@moneyThreshold MONEY)
+CREATE OR ALTER PROC usp_GetHoldersWithBalanceHigherThan(@moneyThreshold MONEY)
 AS
     SELECT 
         ah.FirstName AS [First Name]
@@ -203,7 +207,7 @@ SELECT dbo.ufn_CalculateFutureValue(1000, 0.1, 5)
 GO
 
 --problem 12. Calculating Interest
-CREATE PROC usp_CalculateFutureValueForAccount(@accountId INT, @yearlyInterestRate FLOAT(53))
+CREATE OR ALTER PROC usp_CalculateFutureValueForAccount(@accountId INT, @yearlyInterestRate FLOAT(53))
 AS
     SELECT 
         a.Id AS [Account Id]
@@ -221,7 +225,7 @@ GO
 USE Diablo
 GO
 
-CREATE FUNCTION ufn_CashInUsersGames(@gameName NVARCHAR(400))
+CREATE OR ALTER FUNCTION ufn_CashInUsersGames(@gameName NVARCHAR(400))
 RETURNS TABLE
 AS
 RETURN 
