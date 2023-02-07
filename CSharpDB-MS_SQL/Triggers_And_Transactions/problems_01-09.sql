@@ -67,3 +67,13 @@ AS
 GO
 
 --problem 04. Withdraw Money Procedure
+CREATE PROC usp_WithdrawMoney(@AccountId INT, @MoneyAmount MONEY)
+AS
+    IF @MoneyAmount > 0
+    BEGIN
+        UPDATE Accounts
+        SET Balance -= @MoneyAmount
+    END
+GO
+
+--problem 05. Money Transfer
