@@ -10,7 +10,7 @@ CREATE TABLE Logs (
 )
 GO
 
-CREATE TRIGGER tr_AddToLogsOnAccountUpdate
+CREATE OR ALTER TRIGGER tr_AddToLogsOnAccountUpdate
 ON Accounts FOR UPDATE
 AS
     INSERT INTO Logs(AccountId, OldSum, NewSum)
@@ -26,7 +26,7 @@ SELECT * FROM Accounts
 SELECT * FROM Logs
 
 UPDATE Accounts
-SET Balance = 200
+SET Balance = 123.12
 WHERE Id = 1
 GO
 
@@ -41,7 +41,7 @@ CREATE TABLE NotificationEmails
 )
 GO
 
-CREATE TRIGGER tr_Email_On_Log_Update
+CREATE OR ALTER TRIGGER tr_Email_On_Log_Update
 ON Logs FOR INSERT
 AS
     INSERT INTO NotificationEmails (Recipient, [Subject], Body)
@@ -54,6 +54,16 @@ AS
 GO
 
 SELECT * FROM NotificationEmails
+GO
 
 --problem 03. Deposit Money
+CREATE PROC usp_DepositMoney(@AccountId INT, @MoneyAmount MONEY)
+AS
+    IF @MoneyAmount > 0
+    BEGIN
+        UPDATE Accounts
+        SET Balance += @MoneyAmount
+    END
+GO
 
+--problem 04. Withdraw Money Procedure
