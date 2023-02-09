@@ -181,7 +181,7 @@ BEGIN
         RETURN
     END CATCH
 END
-
+--------------------------------------------------
 
 BEGIN TRANSACTION
 SET @startItemLevel = 19
@@ -242,30 +242,33 @@ ON i.Id = ugi.ItemId
 WHERE u.Username = @user AND g.Name = @game
 ORDER BY i.Name
 
+--problem 07.Employees with Three Projects.
+USE SoftUni
+GO
+CREATE OR ALTER PROC usp_AssignProject(@emloyeeId INT, @projectID INT)
+AS
+    BEGIN TRANSACTION
+    INSERT INTO EmployeesProjects(EmployeeID, ProjectID)
+    VALUES (@emloyeeId, @projectID)
+    
+    DECLARE @numberOfProjects INT
+    SELECT 
+        @numberOfProjects = COUNT(*)
+    FROM EmployeesProjects AS ep
+    WHERE ep.EmployeeID = @emloyeeId
 
+    IF @numberOfProjects > 3
+    BEGIN
+        ROLLBACK;
+        THROW 50003, 'The employee has too many projects!', 1
+    END
+    ELSE
+    BEGIN
+    COMMIT
+    END
+GO
 
+SELECT * FROM EmployeesProjects WHERE EmployeeID = 27
+EXEC dbo.usp_AssignProject 27, 114
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-SELECT * FROM Items 
-WHERE MinLevel IN (11, 12, 19, 20, 21)
-ORDER BY [Name]
-
- 
-
- SELECT * FROM UserGameItems
- BEGIN TRANSACTION
- INSERT INTO UserGameItems(ItemId, UserGameId)
-     VALUES (1,33)
- ROLLBACK
+--problem 09.Delete Employees
