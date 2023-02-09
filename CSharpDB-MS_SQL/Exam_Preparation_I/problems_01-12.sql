@@ -66,3 +66,49 @@ CREATE TABLE Volunteers
 GO
 
 --problem 2. DML
+INSERT INTO Volunteers([Name], PhoneNumber ,[Address], AnimalId, DepartmentId)
+VALUES
+    ('Anita Kostova'     ,'0896365412', 'Sofia, 5 Rosa str.', 15, 1),
+    ('Dimitur Stoev'     ,'0877564223',  null  , 42, 4),
+    ('Kalina Evtimova'   ,'0896321112', 'Silistra, 21 Breza str.', 9, 7),
+    ('Stoyan Tomov'      ,'0898564100', 'Montana, 1 Bor str.', 18, 8),
+    ('Boryana Mileva'    ,'0888112233',  null, 31, 5)
+
+INSERT INTO Animals([Name], BirthDate, OwnerId, AnimalTypeId)
+VALUES 
+    ('Giraffe', '2018-09-21', 21, 1),
+    ('Harpy Eagle', '2015-04-17', 15, 3),
+    ('Hamadryas Baboon', '2017-11-02', null, 1),
+    ('Tuatara', '2021-06-30', 2, 4)
+GO
+
+UPDATE Animals
+SET OwnerId =
+(
+    SELECT o.Id
+    FROM Owners AS o
+    WHERE o.Name = 'Kaloqn Stoqnov'
+)
+WHERE OwnerId IS NULL
+GO
+
+DELETE FROM Volunteers
+WHERE DepartmentId = 
+(
+    SELECT 
+        vd.Id
+    FROM VolunteersDepartments AS vd
+    WHERE vd.DepartmentName = 'Education program assistant'
+)
+
+DELETE FROM VolunteersDepartments
+WHERE Id = 
+(
+    SELECT 
+        vd.Id
+    FROM VolunteersDepartments AS vd
+    WHERE vd.DepartmentName = 'Education program assistant'
+)
+GO
+
+--problem 3. Querying (40 pts)
