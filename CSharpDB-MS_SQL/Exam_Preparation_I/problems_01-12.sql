@@ -181,4 +181,39 @@ ORDER BY a.Name
 GO
 
 --problem 4. Programmability (20 pts)
+CREATE FUNCTION udf_GetVolunteersCountFromADepartment (@VolunteersDepartment VARCHAR(30))
+RETURNS INT
+AS
+BEGIN
+    DECLARE @count INT
+    SELECT 
+        @count = COUNT(*)
+    FROM Volunteers AS v
+    WHERE v.DepartmentId = 
+    (
+        SELECT vd.Id FROM VolunteersDepartments AS vd
+        WHERE vd.DepartmentName = @VolunteersDepartment  --'Education program assistant'
+    )
+    RETURN @count
+END
+GO
 
+SELECT dbo.udf_GetVolunteersCountFromADepartment('Education program assistant')
+SELECT dbo.udf_GetVolunteersCountFromADepartment('Guest engagement')
+SELECT dbo.udf_GetVolunteersCountFromADepartment('Zoo events')
+GO
+
+CREATE PROC usp_AnimalsWithOwnersOrNot(@AnimalName VARCHAR(30))
+AS
+    SELECT 
+         a.Name
+        ,IIF(o.Name IS NULL,'For adoption', o.Name) AS OwnersName
+    FROM Animals AS a
+    LEFT JOIN Owners AS o
+    ON o.Id = a.OwnerId
+    WHERE a.Name = @AnimalName
+GO
+
+EXEC dbo.usp_AnimalsWithOwnersOrNot 'Pumpkinseed Sunfish'
+EXEC dbo.usp_AnimalsWithOwnersOrNot 'Hippo'
+EXEC dbo.usp_AnimalsWithOwnersOrNot 'Brown bear'
