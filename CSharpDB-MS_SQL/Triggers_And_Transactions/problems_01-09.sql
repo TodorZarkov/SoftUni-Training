@@ -272,3 +272,22 @@ SELECT * FROM EmployeesProjects WHERE EmployeeID = 27
 EXEC dbo.usp_AssignProject 27, 114
 
 --problem 09.Delete Employees
+CREATE TABLE Deleted_Employees
+(
+      EmployeeId INT PRIMARY KEY
+    , FirstName VARCHAR(50) NOT NULL
+    , LastName VARCHAR(50) NOT NULL
+    , MiddleName VARCHAR(50) NULL
+    , JobTitle VARCHAR(50) NOT NULL
+    , DepartmentId INT NOT NULL
+    , Salary MONEY NOT NULL
+)
+GO
+
+CREATE TRIGGER tr_RecordDeletedEmployees
+ON Employees FOR DELETE
+AS
+    INSERT INTO Deleted_Employees(EmployeeId, FirstName, LastName, MiddleName, JobTitle, DepartmentId, Salary)
+    SELECT d.EmployeeID, d.FirstName, d.LastName, d.MiddleName, d.JobTitle, d.DepartmentID, d.Salary
+    FROM deleted AS d
+GO
