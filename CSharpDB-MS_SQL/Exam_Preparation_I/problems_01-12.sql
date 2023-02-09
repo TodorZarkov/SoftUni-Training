@@ -31,7 +31,7 @@ CREATE TABLE Animals
      Id             INT PRIMARY KEY IDENTITY
     ,[Name]         VARCHAR(30) NOT NULL
     ,BirthDate      DATE NOT NULL
-    ,OwnerId        INT NOT NULL
+    ,OwnerId        INT NULL
         ,FOREIGN KEY(OwnerId) REFERENCES Owners(Id)
     ,AnimalTypeId   INT NOT NULL
         ,FOREIGN KEY(AnimalTypeId) REFERENCES AnimalTypes(Id)
@@ -65,4 +65,4 @@ CREATE TABLE Volunteers
 )
 GO
 
-
+--problem 2. DML
