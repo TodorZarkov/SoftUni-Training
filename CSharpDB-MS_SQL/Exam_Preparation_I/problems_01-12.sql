@@ -112,3 +112,73 @@ WHERE Id =
 GO
 
 --problem 3. Querying (40 pts)
+USE master
+GO
+
+ALTER DATABASE Zoo SET SINGLE_USER WITH ROLLBACK IMMEDIATE
+GO
+
+DROP DATABASE Zoo
+GO
+
+        --CREATE AND POPULATE AS IN PROBLEM 01
+USE Zoo
+GO
+SELECT 
+     v.Name
+    ,v.PhoneNumber
+    ,v.Address
+    ,v.AnimalId
+    ,v.DepartmentId
+FROM Volunteers as v
+ORDER BY v.Name, v.Id, v.DepartmentId
+GO
+
+SELECT 
+    a.[Name]
+    ,ant.AnimalType
+    ,FORMAT(a.BirthDate, 'dd.MM.yyyy')
+FROM Animals AS a
+LEFT JOIN AnimalTypes AS ant
+ON ant.Id = a.AnimalTypeId
+ORDER BY a.Name
+
+SELECT 
+     CONCAT_WS('-', o.Name, a.Name) AS OwnersAnimals
+    ,o.PhoneNumber
+    ,ac.CageId
+FROM Owners AS o
+JOIN Animals AS a
+ON o.Id = a.OwnerId
+JOIN AnimalTypes AS atps
+ON a.AnimalTypeId = atps.Id
+JOIN AnimalsCages AS ac
+ON ac.AnimalId = a.Id 
+WHERE atps.AnimalType = 'Mammals'
+ORDER BY o.Name, a.Name DESC
+GO
+
+SELECT 
+    v.Name
+    ,v.PhoneNumber
+    ,TRIM(REPLACE(REPLACE(v.[Address], 'Sofia',''), ',',''))
+FROM Volunteers AS v
+JOIN VolunteersDepartments AS vd
+ON v.DepartmentId = vd.Id AND vd.DepartmentName = 'Education program assistant'
+WHERE CHARINDEX('Sofia', v.Address) <> 0
+ORDER BY v.Name
+GO
+
+SELECT 
+    a.Name
+    ,a.BirthDate
+    ,atps.AnimalType
+FROM Animals AS a
+JOIN AnimalTypes AS atps 
+ON a.AnimalTypeId = atps.Id AND atps.AnimalType <> 'Birds'
+WHERE DATEADD(YEAR, 4 , a.BirthDate) >= '01-01-2022' AND a.OwnerId IS NULL
+ORDER BY a.Name
+GO
+
+--problem 4. Programmability (20 pts)
+
