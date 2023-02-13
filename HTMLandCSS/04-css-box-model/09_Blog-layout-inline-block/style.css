@@ -6,25 +6,38 @@ html {
 body {
     background-color: rgb(238, 238, 238);
     line-height: 1.5;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 0;
 }
 
 article {
+    font-size: 16px;
+    background-color: green;
     box-sizing: border-box;
     display: inline-block;
     width: 75%;
     padding: 50px;
+    margin: 0;
+    vertical-align: top;
+}
+
+aside {
+    font-size: 16px;
+    background-color: blue;
+    margin: 0;
+    box-sizing: border-box;
+    display: inline-block;
+    width: calc(25% - 10px);
+    margin-left: 10px;
+    vertical-align: top;
+    padding: 50px 50px 50px 0;
+    
 }
 
 section>img {
     width: 600px;
-}
-
-aside {
-    box-sizing: border-box;
-    display: block;
-    float: right;
-    width: 25%;
-    padding: 50px 50px 50px 0;
 }
 
 ul {
