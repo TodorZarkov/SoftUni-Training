@@ -1,0 +1,38 @@
+html{
+    font-family: Helvetica, sans-serif;
+}
+
+body {
+    margin: 50px;
+}
+
+
+
+header>h1{
+    display: inline-block;
+    margin-right: 50px;
+}
+
+header>nav{
+    display: inline-block;
+}
+
+header>nav>ul>li{
+    display: inline-block;
+    margin: 10px;
+}
+
+header>nav>ul>li>a{
+    text-decoration: none;
+    color: green;
+}
+
+body>main>h2{
+    font-family: serif;
+    border-top: 2px solid black;
+    padding-top: 26px;
+}
+
+main>p {
+    line-height: 1.5;
+}
