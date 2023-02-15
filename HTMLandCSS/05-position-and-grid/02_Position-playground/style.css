@@ -1,0 +1,37 @@
+@import 'https://use.fontawesome.com/releases/v5.6.3/css/all.css';
+
+.viewport.first {
+    background-image:  linear-gradient(to right, #185A9D, #42CDA2);
+}
+
+.viewport.second {
+    background-image: linear-gradient(to right, #A83279, #D38312);
+}
+
+.viewport {
+    height: 905px;
+    position: relative;
+}
+
+.card {
+    display: block;
+    position: absolute;
+    right: calc(50% - 250px)
+}
+
+.first .card {
+    top: calc(50% - 333px/2);
+}
+
+.second .card {
+    top: calc(50% - 750px/2);
+}
+
+i {
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+    color: white;
+}
+
+
