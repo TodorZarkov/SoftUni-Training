@@ -9,7 +9,7 @@ html {
 
 
 
-div {
+body>div {
     display: flex;
     align-items: center;
     max-width: 15vw;
@@ -25,7 +25,9 @@ span {
     
     width: 120px;
     height: 70px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 span:nth-child(11) {order: 1;}
