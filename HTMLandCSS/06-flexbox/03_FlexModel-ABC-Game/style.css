@@ -1,0 +1,22 @@
+html {
+    font-family: Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+div {
+    display: flex;
+    align-items: center;
+    max-width: 15vw;
+    height: 35rem;
+    flex-wrap: wrap-reverse;
+    gap: 4px;
+}
+
+span {
+    border: 1px solid black;
+    width: 40px;
+    height: 25px;
+    align-items: center;
+    text-align: center;
+    align-self:stretch;
+}
