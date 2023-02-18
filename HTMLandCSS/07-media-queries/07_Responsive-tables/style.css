@@ -1,0 +1,46 @@
+
+body {
+    background-color: lightgrey;
+}
+
+table {
+    margin: auto;
+    width:90%;
+    border-collapse:collapse;
+    border: 1px solid grey; 
+	
+}
+
+.table-header {
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-size: 16px;
+    background-color: black;
+    color: white;
+}
+
+.table-rows {
+    background-color: rgb(211, 205, 189);
+}
+
+td, th {
+    padding: 3px;;
+    border: 1px solid grey;
+}
+
+.table-header {
+    border: 1px solid gray;
+    text-align: left;
+}
+
+.table-rows:nth-child(2n + 3) {
+    background-color: #fff;
+}
+
+
+
+
+
+
+
+
+
