@@ -1,7 +1,8 @@
-@import url("./reset.css");
-@import url("./typography.css");
-@import url("./buttons.css");
-@import url("./forms.css");
+@import './reset.css';
+@import './typography.css';
+@import './buttons.css';
+@import './forms.css';
+@import 'https://use.fontawesome.com/releases/v5.15.4/css/all.css';
 
 /* <i class="fas fa-globe-americas"></i> */
 
@@ -9,4 +10,55 @@
 /* <i class="fas fa-envelope"></i> */
 /* <i class="fas fa-clock"></i> */
 /* <i class="fas fa-map-marked"></i> */
+
+/* <i class="fas fa-user"></i> */
+
+/* <i class="fas fa-bars"></i> */
+
+
+body {
+    background-color: #FAFAFA;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin: 20px 350px  200px 300px;
+}
+
+.title-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-container h1 {
+    color: #800080;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 300;
+    line-height: 30px;
+}
+
+.title-container p {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: small;
+    margin-right: 0px;
+    padding: 0;
+    transform: scaleX(0.55);
+    letter-spacing: 1px;
+    
+}
+
+.header ul {
+    display: inline-flex;
+    gap: 30px;
+    margin-right: 50px;
+    margin-left: auto;
+}
 

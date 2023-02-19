@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import 'https://use.fontawesome.com/releases/v5.15.4/css/all.css';
+
+html {
+    font-family: Montserrat, sans-serif;
+}
+
+body {
+    display: flex;
+    gap: 10px;
+    background-color: #F6E0B5;
+    justify-content: center;
+    align-items: start;
+    padding: 50px;
+}
+
+.main {
+    display: inline-grid;
+    grid-template-columns: repeat(2,378px);
+    grid-template-rows: repeat(2, 1fr);
+    justify-content: start;
+    gap: 30px;
+}
+
+.card {
+    width: 378px;
+    border: 1px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 1px 1px 50px 0px rgba(0, 0, 0, 0.621);
+}
+
+.card img {
+    width: 100%;
+    height: 225px;
+    object-fit:cover;
+}
+
+.content {
+    background-color: #66545E;
+    color: white;
+    padding: 8px 4px;
+    font-weight: bold;
+}
+
+aside {
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 30px;
+}
+
+.nav {
+    color: #62515D;
+    font-weight: bold;
+}
+
+.nav h2 {
+    font-size: 18px;
+}

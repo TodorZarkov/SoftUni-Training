@@ -1,0 +1,13 @@
+.button {
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 4px 16px;
+    border-color: #333333;
+    color: #333333;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: .1px;
+}
