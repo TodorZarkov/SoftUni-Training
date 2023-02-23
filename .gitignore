@@ -403,4 +403,6 @@ FodyWeavers.xsd
 
 #npm files
 package-lock.json
-/CSharp-Entity_Framework_Core/ADO.NET-Exercise/P02.VillainNames/Config.cs
+
+#ado.net/entity framework configs
+Config.cs
