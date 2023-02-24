@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P02.VillainNames", "P02.VillainNames\P02.VillainNames.csproj", "{8A2A38AD-BF29-47F7-8904-C58C03EA9454}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProblemsOnADO.NET", "P02.VillainNames\ProblemsOnADO.NET.csproj", "{8A2A38AD-BF29-47F7-8904-C58C03EA9454}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
