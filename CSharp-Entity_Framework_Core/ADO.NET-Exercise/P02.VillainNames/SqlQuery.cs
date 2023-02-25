@@ -30,5 +30,41 @@
                 @"
                     SELECT Name FROM Villains WHERE Id = @Id
                 ";
+
+        public const string GetVillainIdByName =
+                @"
+                    SELECT Id FROM Villains WHERE Name = @Name
+                ";
+
+        public const string GetMinionIdByName =
+                @"
+                    SELECT Id FROM Minions WHERE Name = @Name
+                ";
+
+        public const string GetTownIdByName =
+                @"
+                    SELECT Id FROM Towns WHERE Name = @townName
+                ";
+
+        public const string AddMinion =
+
+                @"
+                    INSERT INTO Minions (Name, Age, TownId) VALUES (@name, @age, @townId)
+                ";
+
+        public const string AddTown =
+                @"
+                    INSERT INTO Towns (Name) VALUES (@townName)
+                ";
+
+        public const string AddVillain =
+                @"
+                    INSERT INTO Villains (Name, EvilnessFactorId)  VALUES (@villainName, 4)
+                ";
+
+        public const string AddMinionsVillainsIdKey =
+                @"
+                    INSERT INTO MinionsVillains (MinionId, VillainId) VALUES (@minionId, @villainId)
+                ";
     }
 }
