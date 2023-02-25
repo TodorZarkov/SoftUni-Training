@@ -1,6 +1,7 @@
 ﻿namespace ProblemsOnADO.NET
 {
     using Microsoft.Data.SqlClient;
+    using Microsoft.IdentityModel.Tokens;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Common;
     using System.Text;
@@ -19,7 +20,8 @@
 
             //Console.WriteLine(await AddMinionAsync(connection));
 
-            Console.WriteLine(await TownsToUpperAsync(connection, Console.ReadLine()));
+            //Console.WriteLine(await TownsToUpperAsync(connection, Console.ReadLine()));
+            Console.WriteLine(await RemoveVillainAsync(connection, int.Parse(Console.ReadLine())));
         }
 
 
@@ -227,6 +229,60 @@
             }
 
             return sb.ToString().Trim();
+        }
+
+        //P06.*Remove Villain 
+        async static Task<string?> GetVillainNameAsync(SqlConnection conneciton, int id)
+        {
+            SqlCommand getNameCommand = new SqlCommand(SqlQuery.GetVillianNameById, conneciton);
+            getNameCommand.Parameters.AddWithValue("@villainId", id);
+
+            return (string?) await getNameCommand.ExecuteScalarAsync();
+        }
+
+        async static Task<int> DeleteMinionVillainKeys(SqlConnection connection, SqlTransaction transaction, int id)
+        {
+            SqlCommand deleteKeysCommand = new SqlCommand(SqlQuery.DeleteMinionVillainsKey, connection, transaction);
+            deleteKeysCommand.Parameters.AddWithValue("@villainId", id);
+
+            return await deleteKeysCommand.ExecuteNonQueryAsync();
+        }
+
+        async static Task<int> DeleteVillain(SqlConnection connection, SqlTransaction transaciton, int id)
+        {
+            SqlCommand deleteVillainCommand = new SqlCommand(SqlQuery.DeleteVillain, connection, transaciton);
+            deleteVillainCommand.Parameters.AddWithValue("@villainId", id);
+
+            return await deleteVillainCommand.ExecuteNonQueryAsync();
+        }
+
+        async static Task<string> RemoveVillainAsync(SqlConnection connection, int id)
+        {
+            await connection.OpenAsync();
+
+            string? villainName =await GetVillainNameAsync(connection, id);
+            if (string.IsNullOrEmpty(villainName))
+            {
+                return $"No such villain was found.";
+            }
+
+            SqlTransaction transaction = connection.BeginTransaction();
+            try
+            {
+                int minionsFreed = await DeleteMinionVillainKeys(connection, transaction, id);
+                await DeleteVillain(connection, transaction, id);
+                await transaction.CommitAsync();
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"{villainName} was deleted.");
+                sb.AppendLine($"{minionsFreed} minions were released.");
+                return sb.ToString().Trim();
+            }
+            catch (Exception e)
+            {
+                await transaction.RollbackAsync();
+                Console.WriteLine("Database unchanged!");
+                throw e;
+            }
         }
     }
 }

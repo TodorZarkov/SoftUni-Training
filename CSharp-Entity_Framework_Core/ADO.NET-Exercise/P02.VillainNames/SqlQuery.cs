@@ -81,5 +81,22 @@
                         JOIN Countries AS c ON c.Id = t.CountryCode
                     WHERE c.Name = @countryName
                 ";
+
+        public const string GetVillianNameById =
+                @"
+                    SELECT Name FROM Villains WHERE Id = @villainId
+                ";
+
+        public const string DeleteMinionVillainsKey =
+                @"
+                    DELETE FROM MinionsVillains 
+                          WHERE VillainId = @villainId
+                ";
+
+        public const string DeleteVillain =
+                @"
+                    DELETE FROM Villains
+                          WHERE Id = @villainId
+                ";
     }
 }
