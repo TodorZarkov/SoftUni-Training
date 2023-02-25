@@ -2,7 +2,9 @@
 {
     using Microsoft.Data.SqlClient;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Common;
     using System.Text;
+    using System.Transactions;
 
     internal class StartUp
     {
@@ -15,7 +17,7 @@
 
             //Console.WriteLine(await MinionNames(connection, 8));
 
-            Console.WriteLine(await AddMinion(connection));
+            Console.WriteLine(await AddMinionAsync(connection));
         }
 
 
@@ -74,110 +76,118 @@
         }
 
         //P04.Add Minion
-        static string[]? getMinionDataFromConsole()
+        static string[]? GetMinionDataFromConsole()
         {
             return Console.ReadLine()?
                 .Split(" ", StringSplitOptions.RemoveEmptyEntries)
                 .ToList().Skip(1).ToArray();
 
         }
-        static string? getVillainNameFromConsole()
+        static string? GetVillainNameFromConsole()
         {
             return Console.ReadLine()?.Split(" ", StringSplitOptions.RemoveEmptyEntries)[1];
         }
 
-        async static Task<int?> getIdOrCreateAsync(SqlCommand getCommand, SqlCommand insertCommand)
+        async static Task<int?> GetTownIdAsync(SqlConnection connection, string minionTown, StringBuilder sb)
         {
-            int? id = (int?)await getCommand.ExecuteScalarAsync();
-            if (id == null)
-            {
-                await insertCommand.ExecuteNonQueryAsync();
-                id = (int?)await getCommand.ExecuteScalarAsync();
-            }
-            return id;
-        }
-        async static Task<string> AddMinion(SqlConnection connection)
-        {
-            string[] minionData = getMinionDataFromConsole();
-
-            string villainName = getVillainNameFromConsole();
-
-
-            string minionName = minionData[0];
-            int minionAge = int.Parse(minionData[1]);
-            string minionTown = minionData[2];
-
-            await connection.OpenAsync();
-
-
-
-            SqlCommand beginTransactionCommand = new SqlCommand("BEGIN TRANSACTION", connection);
-
-            SqlCommand rollbackTransactionCommand = new SqlCommand("ROLLBACK", connection);
-
-            SqlCommand commitTransactionCommand = new SqlCommand("COMMIT", connection);
-
-            SqlCommand getMinionIdCommand = new SqlCommand(SqlQuery.GetMinionIdByName, connection);
-            getMinionIdCommand.Parameters.AddWithValue("@Name", minionName);
-
-            SqlCommand getVillainIdCommand = new SqlCommand(SqlQuery.GetVillainIdByName, connection);
-            getVillainIdCommand.Parameters.AddWithValue("@Name", villainName);
-
-            SqlCommand insertVillainCommand = new SqlCommand(SqlQuery.AddVillain, connection);
-            insertVillainCommand.Parameters.AddWithValue("@villainName", villainName);
-
             SqlCommand getTownIdCommand = new SqlCommand(SqlQuery.GetTownIdByName, connection);
             getTownIdCommand.Parameters.AddWithValue("@townName", minionTown);
 
             SqlCommand insertTownCommand = new SqlCommand(SqlQuery.AddTown, connection);
             insertTownCommand.Parameters.AddWithValue("@townName", minionTown);
 
+            int? townId = (int?)await getTownIdCommand.ExecuteScalarAsync();
+            if (townId == null)
+            {
+                await insertTownCommand.ExecuteNonQueryAsync();
+                townId = (int?)await getTownIdCommand.ExecuteScalarAsync();
+                sb.AppendLine($"Town {minionTown} was added to the database.");
+            }
+
+            return townId;
+        }
+
+        async static Task<int?> GetVillainIdAsync(SqlConnection connection, string villainName, StringBuilder sb)
+        {
+            SqlCommand getVillainIdCommand = new SqlCommand(SqlQuery.GetVillainIdByName, connection);
+            getVillainIdCommand.Parameters.AddWithValue("@Name", villainName);
+
+            SqlCommand insertVillainCommand = new SqlCommand(SqlQuery.AddVillain, connection);
+            insertVillainCommand.Parameters.AddWithValue("@villainName", villainName);
+
+            int? villainId = (int?)await getVillainIdCommand.ExecuteScalarAsync();
+            if (villainId == null)
+            {
+                await insertVillainCommand.ExecuteNonQueryAsync();
+                villainId = (int?)await getVillainIdCommand.ExecuteScalarAsync();
+                sb.AppendLine($"Villain {villainName} was added to the database.");
+            }
+
+            return villainId;
+        }
+
+        async static Task<int?> GetMinionIdAsync(SqlConnection connection, string minionName, int minionAge, int townId)
+        {
+            SqlCommand getMinionIdCommand = new SqlCommand(SqlQuery.GetMinionIdByName, connection);
+            getMinionIdCommand.Parameters.AddWithValue("@Name", minionName);
+
+            int? minionId = (int?)await getMinionIdCommand.ExecuteScalarAsync();
+            if (minionId == null)
+            {
+                SqlCommand insertMinionCommand = new SqlCommand(SqlQuery.AddMinion, connection);
+                insertMinionCommand.Parameters.AddWithValue("@name", minionName);
+                insertMinionCommand.Parameters.AddWithValue("@age", minionAge);
+                insertMinionCommand.Parameters.AddWithValue("@townId", townId);
+                await insertMinionCommand.ExecuteNonQueryAsync();
+                minionId = (int?)await getMinionIdCommand.ExecuteScalarAsync();
+            }
+
+            return minionId;
+        }
+
+        async static Task AssignMinionToVillain(SqlConnection connection, int minionId, int villainId, string minionName, string villainName, StringBuilder sb)
+        {
+            SqlCommand insertMinionVillainKeyCommand = new SqlCommand(SqlQuery.AddMinionsVillainsIdKey, connection);
+            insertMinionVillainKeyCommand.Parameters.AddWithValue("@minionId", minionId);
+            insertMinionVillainKeyCommand.Parameters.AddWithValue("@villainId", villainId);
+            await insertMinionVillainKeyCommand.ExecuteNonQueryAsync();
+
+            sb.AppendLine($"Successfully added {minionName} to be minion of {villainName}.");
+        }
+
+        async static Task<string> AddMinionAsync(SqlConnection connection)
+        {
+            string[] minionData = GetMinionDataFromConsole();
+            string villainName = GetVillainNameFromConsole();
+            string minionName = minionData[0];
+            int minionAge = int.Parse(minionData[1]);
+            string minionTown = minionData[2];
+
+            await connection.OpenAsync();
+
+            SqlCommand beginTrans = new SqlCommand("BEGIN TRANSACTION", connection);
+            SqlCommand commitTrans = new SqlCommand("COMMIT", connection);
+            SqlCommand rollbackTrans = new SqlCommand("ROLLBACK", connection);
+
+            //SqlTransaction transaction = connection.BeginTransaction();
+            await beginTrans.ExecuteNonQueryAsync();
             try
             {
-                await beginTransactionCommand.ExecuteNonQueryAsync();
                 StringBuilder result = new StringBuilder();
 
-                int? townId = (int?)await getTownIdCommand.ExecuteScalarAsync();
-                if (townId == null)
-                {
-                    await insertTownCommand.ExecuteNonQueryAsync();
-                    townId = (int?)await getTownIdCommand.ExecuteScalarAsync();
-                    result.AppendLine($"Town {minionTown} was added to the database.");
-                }
+                int townId = (int)await GetTownIdAsync(connection, minionTown, result);
+                int villainId = (int)await GetVillainIdAsync(connection, villainName, result);
+                int minionId = (int)await GetMinionIdAsync(connection, minionName, minionAge, townId);
+                await AssignMinionToVillain(connection, minionId, villainId, minionName, villainName, result);
 
-                int? villainId = (int?)await getVillainIdCommand.ExecuteScalarAsync();
-                if (villainId == null)
-                {
-                    await insertVillainCommand.ExecuteNonQueryAsync();
-                    villainId = (int?)await getVillainIdCommand.ExecuteScalarAsync();
-                    result.AppendLine($"Villain {villainName} was added to the database.");
-                }
-
-                int? minionId = (int?)await getMinionIdCommand.ExecuteScalarAsync();
-                if (minionId == null)
-                {
-                    SqlCommand insertMinionCommand = new SqlCommand(SqlQuery.AddMinion, connection);
-                    insertMinionCommand.Parameters.AddWithValue("@name", minionName);
-                    insertMinionCommand.Parameters.AddWithValue("@age", minionAge);
-                    insertMinionCommand.Parameters.AddWithValue("@townId", townId);
-                    await insertMinionCommand.ExecuteNonQueryAsync();
-                    minionId = (int?)await getMinionIdCommand.ExecuteScalarAsync();
-                }
-
-                SqlCommand insertMinionVillainKeyCommand = new SqlCommand(SqlQuery.AddMinionsVillainsIdKey, connection);
-                insertMinionVillainKeyCommand.Parameters.AddWithValue("@minionId", minionId);
-                insertMinionVillainKeyCommand.Parameters.AddWithValue("@villainId", villainId);
-                await insertMinionVillainKeyCommand.ExecuteNonQueryAsync();
-
-                await commitTransactionCommand.ExecuteNonQueryAsync();
-
-                result.AppendLine($"Successfully added {minionName} to be minion of {villainName}.");
-
+                //await transaction.CommitAsync();
+                await commitTrans.ExecuteNonQueryAsync();
                 return result.ToString().Trim();
             }
             catch (Exception e)
             {
-                await rollbackTransactionCommand.ExecuteNonQueryAsync();
+                //await transaction.RollbackAsync();
+                await rollbackTrans.ExecuteNonQueryAsync();
                 Console.WriteLine("Database not modified! The transaction failed.");
                 throw e;
             }
