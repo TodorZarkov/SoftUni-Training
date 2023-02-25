@@ -17,7 +17,9 @@
 
             //Console.WriteLine(await MinionNames(connection, 8));
 
-            Console.WriteLine(await AddMinionAsync(connection));
+            //Console.WriteLine(await AddMinionAsync(connection));
+
+            Console.WriteLine(await TownsToUpperAsync(connection, Console.ReadLine()));
         }
 
 
@@ -191,6 +193,40 @@
                 Console.WriteLine("Database not modified! The transaction failed.");
                 throw e;
             }
+        }
+
+        //P05.Change Town Names Casing
+        async static Task<string> TownsToUpperAsync(SqlConnection connection, string countryName)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            await connection.OpenAsync();
+            SqlCommand toUpperCommand = new SqlCommand(SqlQuery.TownsToUpper, connection);
+            toUpperCommand.Parameters.AddWithValue("@countryName", countryName);
+            int rowsAffected = (int) await toUpperCommand.ExecuteNonQueryAsync();
+
+            
+            if (rowsAffected != 0)
+            {
+                sb.AppendLine($"{rowsAffected} town names were affected.");
+                SqlCommand getAffected = new SqlCommand(SqlQuery.GetAffectedTowns, connection);
+                getAffected.Parameters.AddWithValue("@countryName", countryName);
+                SqlDataReader reader = await getAffected.ExecuteReaderAsync();
+                List<string> townsAffected = new List<string>(rowsAffected);
+                while (reader.Read())
+                {
+                    townsAffected.Add((string)reader["Name"]);
+                }
+                sb.Append('[');
+                sb.Append(string.Join(", ", townsAffected));
+                sb.AppendLine("]");
+            }
+            else
+            {
+                sb.AppendLine("No town names were affected.");
+            }
+
+            return sb.ToString().Trim();
         }
     }
 }
