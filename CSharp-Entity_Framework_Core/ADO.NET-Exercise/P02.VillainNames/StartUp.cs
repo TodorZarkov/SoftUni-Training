@@ -86,15 +86,15 @@
             return Console.ReadLine()?.Split(" ", StringSplitOptions.RemoveEmptyEntries)[1];
         }
 
-        static int getIdOrCreate(SqlCommand getCommand, SqlCommand insertCommand)
+        async static Task<int?> getIdOrCreateAsync(SqlCommand getCommand, SqlCommand insertCommand)
         {
-            int? id = (int?)await getTownIdCommand.ExecuteScalarAsync();
+            int? id = (int?)await getCommand.ExecuteScalarAsync();
             if (id == null)
             {
-                await insertTownCommand.ExecuteNonQueryAsync();
-                id = (int?)await getTownIdCommand.ExecuteScalarAsync();
-                result.AppendLine($"Town {minionTown} was added to the database.");
+                await insertCommand.ExecuteNonQueryAsync();
+                id = (int?)await getCommand.ExecuteScalarAsync();
             }
+            return id;
         }
         async static Task<string> AddMinion(SqlConnection connection)
         {
