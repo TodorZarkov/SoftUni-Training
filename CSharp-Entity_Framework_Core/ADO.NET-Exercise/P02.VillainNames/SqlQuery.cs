@@ -98,5 +98,10 @@
                     DELETE FROM Villains
                           WHERE Id = @villainId
                 ";
+
+        public const string GetAllMinionsNames =
+                @"
+                    SELECT Name FROM Minions
+                ";
     }
 }

@@ -21,7 +21,10 @@
             //Console.WriteLine(await AddMinionAsync(connection));
 
             //Console.WriteLine(await TownsToUpperAsync(connection, Console.ReadLine()));
-            Console.WriteLine(await RemoveVillainAsync(connection, int.Parse(Console.ReadLine())));
+
+            //Console.WriteLine(await RemoveVillainAsync(connection, int.Parse(Console.ReadLine())));
+
+            Console.WriteLine(await PrintMinionsNames(connection));
         }
 
 
@@ -283,6 +286,35 @@
                 Console.WriteLine("Database unchanged!");
                 throw e;
             }
+        }
+
+        //P07.Print All Minion Names
+        async static Task<string> PrintMinionsNames(SqlConnection connection)
+        {
+            await connection.OpenAsync();
+            SqlCommand getNamesCommand = new SqlCommand(SqlQuery.GetAllMinionsNames, connection);
+            SqlDataReader reader = await getNamesCommand.ExecuteReaderAsync();
+            List<string> Names = new List<string>();
+            while (await reader.ReadAsync())
+            {
+                string name = (string) reader["Name"];
+                Names.Add(name);
+                Console.WriteLine(name);
+
+            }
+            StringBuilder sb = new StringBuilder();
+            int length = Names.Count;
+            for (int i = 0; i < length/2; i++)
+            {
+                sb.AppendLine(Names[i]);
+                sb.AppendLine(Names[length - 1 - i]);
+            }
+            if (length%2 != 0)
+            {
+                sb.AppendLine(Names[length / 2]);
+            }
+
+            return sb.ToString().Trim();
         }
     }
 }
