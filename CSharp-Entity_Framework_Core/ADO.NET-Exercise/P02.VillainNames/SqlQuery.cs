@@ -103,5 +103,17 @@
                 @"
                     SELECT Name FROM Minions
                 ";
+
+        public const string ChangeYearsAndNamesOfMinionsById =
+                @"
+                    UPDATE Minions
+                       SET Name = LOWER(LEFT(Name, 1)) + SUBSTRING(Name, 2, LEN(Name)), Age += 1
+                     WHERE Id = @Id
+                ";
+
+        public const string GetNameAndAgeFromMinions =
+                @"
+                    SELECT Name, Age FROM Minions
+                ";
     }
 }

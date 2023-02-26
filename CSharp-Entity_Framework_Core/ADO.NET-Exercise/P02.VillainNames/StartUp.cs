@@ -24,7 +24,13 @@
 
             //Console.WriteLine(await RemoveVillainAsync(connection, int.Parse(Console.ReadLine())));
 
-            Console.WriteLine(await PrintMinionsNames(connection));
+            //Console.WriteLine(await PrintMinionsNames(connection));
+
+            Console.WriteLine(await IncrementMinionsAgeAsync(connection,
+                Console.ReadLine()
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(id => int.Parse(id))
+                .ToArray()));
         }
 
 
@@ -208,9 +214,9 @@
             await connection.OpenAsync();
             SqlCommand toUpperCommand = new SqlCommand(SqlQuery.TownsToUpper, connection);
             toUpperCommand.Parameters.AddWithValue("@countryName", countryName);
-            int rowsAffected = (int) await toUpperCommand.ExecuteNonQueryAsync();
+            int rowsAffected = (int)await toUpperCommand.ExecuteNonQueryAsync();
 
-            
+
             if (rowsAffected != 0)
             {
                 sb.AppendLine($"{rowsAffected} town names were affected.");
@@ -240,7 +246,7 @@
             SqlCommand getNameCommand = new SqlCommand(SqlQuery.GetVillianNameById, conneciton);
             getNameCommand.Parameters.AddWithValue("@villainId", id);
 
-            return (string?) await getNameCommand.ExecuteScalarAsync();
+            return (string?)await getNameCommand.ExecuteScalarAsync();
         }
 
         async static Task<int> DeleteMinionVillainKeys(SqlConnection connection, SqlTransaction transaction, int id)
@@ -263,7 +269,7 @@
         {
             await connection.OpenAsync();
 
-            string? villainName =await GetVillainNameAsync(connection, id);
+            string? villainName = await GetVillainNameAsync(connection, id);
             if (string.IsNullOrEmpty(villainName))
             {
                 return $"No such villain was found.";
@@ -297,21 +303,45 @@
             List<string> Names = new List<string>();
             while (await reader.ReadAsync())
             {
-                string name = (string) reader["Name"];
+                string name = (string)reader["Name"];
                 Names.Add(name);
                 Console.WriteLine(name);
 
             }
             StringBuilder sb = new StringBuilder();
             int length = Names.Count;
-            for (int i = 0; i < length/2; i++)
+            for (int i = 0; i < length / 2; i++)
             {
                 sb.AppendLine(Names[i]);
                 sb.AppendLine(Names[length - 1 - i]);
             }
-            if (length%2 != 0)
+            if (length % 2 != 0)
             {
                 sb.AppendLine(Names[length / 2]);
+            }
+
+            return sb.ToString().Trim();
+        }
+
+        //P08.Increase Minion Age
+        async static Task<string> IncrementMinionsAgeAsync(SqlConnection connection, int[] ids)
+        {
+            await connection.OpenAsync();
+
+            foreach (int id in ids)
+            {
+                SqlCommand updateMinionsCommand = new SqlCommand(SqlQuery.ChangeYearsAndNamesOfMinionsById, connection);
+                updateMinionsCommand.Parameters.AddWithValue("@Id", id);
+                await updateMinionsCommand.ExecuteNonQueryAsync();
+                await updateMinionsCommand.DisposeAsync();
+            }
+
+            SqlCommand getMinionsCommand = new SqlCommand(SqlQuery.GetNameAndAgeFromMinions, connection);
+            SqlDataReader reader = await getMinionsCommand.ExecuteReaderAsync();
+            StringBuilder sb = new StringBuilder();
+            while (reader.Read())
+            {
+                sb.AppendLine($"{reader["Name"]} {reader["Age"]}");
             }
 
             return sb.ToString().Trim();
