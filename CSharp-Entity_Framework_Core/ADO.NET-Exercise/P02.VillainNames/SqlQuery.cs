@@ -115,5 +115,9 @@
                 @"
                     SELECT Name, Age FROM Minions
                 ";
+        public const string GetNameAndAgeFromMinion =
+                @"
+                    SELECT Name, Age FROM Minions WHERE Id = @Id
+                ";
     }
 }

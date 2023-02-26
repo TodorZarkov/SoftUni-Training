@@ -26,11 +26,14 @@
 
             //Console.WriteLine(await PrintMinionsNames(connection));
 
-            Console.WriteLine(await IncrementMinionsAgeAsync(connection,
-                Console.ReadLine()
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                .Select(id => int.Parse(id))
-                .ToArray()));
+            //Console.WriteLine(await IncrementMinionsAgeAsync(connection,
+            //    Console.ReadLine()
+            //    .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            //    .Select(id => int.Parse(id))
+            //    .ToArray()));
+
+            //Console.WriteLine(await UseStoredProcedureGetOldAsync(connection,
+            //    int.Parse(Console.ReadLine())));
         }
 
 
@@ -342,6 +345,27 @@
             while (reader.Read())
             {
                 sb.AppendLine($"{reader["Name"]} {reader["Age"]}");
+            }
+
+            return sb.ToString().Trim();
+        }
+
+        //P09.Increase Age Stored Procedure 
+        async static Task<string> UseStoredProcedureGetOldAsync(SqlConnection connection, int id)
+        {
+            await connection.OpenAsync();
+            SqlCommand procCommand = new SqlCommand("usp_GetOlder @id", connection);
+            procCommand.Parameters.AddWithValue("@id", id);
+            await procCommand.ExecuteNonQueryAsync();
+
+            SqlCommand getNameAgeCommand = new SqlCommand(SqlQuery.GetNameAndAgeFromMinion, connection);
+            getNameAgeCommand.Parameters.AddWithValue("@Id", id);
+            SqlDataReader reader = await getNameAgeCommand.ExecuteReaderAsync();
+
+            StringBuilder sb = new StringBuilder();
+            while (reader.Read())
+            {
+                sb.AppendLine($"{reader["Name"]} – {reader["Age"]} years old");
             }
 
             return sb.ToString().Trim();
