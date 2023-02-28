@@ -250,7 +250,7 @@ public abstract class DbContext
 
     private string GetTableName(Type tableTtype)
     {
-        string tableName = tableTtype.GetCustomAttribute<TableAttribute>().Name;
+        string? tableName = tableTtype.GetCustomAttribute<TableAttribute>()?.Name;
         if (tableName == null)
         {
             tableName = this._dbSetProperties[tableTtype].Name;
