@@ -1,7 +1,6 @@
 ﻿namespace MiniORM
 {
     using System;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Reflection;
 
@@ -72,7 +71,7 @@
 
         private bool IsModified(T entity, T proxyEntity)
         {
-            PropertyInfo[] monitoredProperties = typeof(T).GetProperties()
+            var monitoredProperties = typeof(T).GetProperties()
                 .Where(pi => DbContext.AllowedSqlTypes.Contains(pi.PropertyType));
             PropertyInfo[] modifiedProperties = monitoredProperties
                 .Where(pi => !Equals(pi.GetValue(entity), pi.GetValue(proxyEntity)))
