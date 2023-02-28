@@ -57,8 +57,14 @@ internal class ChangeTracker<T> where T : class, new()
         foreach (var proxyEntity in AllEntiites)
         {
             IEnumerable<object> primaryKeyVaues = GetPrimaryKeyValues(primaryKeys, proxyEntity).ToArray();
-            T entity = dbSet.Entities
-                .Single(e => GetPrimaryKeyValues(primaryKeys, e).SequenceEqual(primaryKeyVaues));
+            T? entity = dbSet.Entities
+                .FirstOrDefault(e => GetPrimaryKeyValues(primaryKeys, e).SequenceEqual(primaryKeyVaues));
+
+            if (entity == null)
+            {
+                continue;
+            }
+
             bool isModified = IsModified(entity, proxyEntity);
             if (isModified)
             {
