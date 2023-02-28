@@ -27,6 +27,6 @@ public class Employee
 
     public Department Department { get; set; }
 
-    public ICollection<EmployeeProject> EmployeeProjects { get; }
+    public ICollection<EmployeeProject> EmployeeProjects { get; set; }
 
 }

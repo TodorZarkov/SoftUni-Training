@@ -11,5 +11,5 @@ public class Project
     [StringLength(50)]
     public string Name { get; set; }
 
-    public ICollection<EmployeeProject> EmployeeProjects { get; }
+    public ICollection<EmployeeProject> EmployeeProjects { get; set; }
 }

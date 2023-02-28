@@ -3,7 +3,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-internal class EmployeeProject
+public class EmployeeProject
 {
     [Key]
     [ForeignKey(nameof(Employee))]
