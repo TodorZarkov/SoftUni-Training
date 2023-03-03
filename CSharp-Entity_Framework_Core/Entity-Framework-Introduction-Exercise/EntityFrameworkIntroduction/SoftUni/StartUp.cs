@@ -19,9 +19,11 @@ public class StartUp
         //string result = GetEmployeesFromResearchAndDevelopment(dbContext);
         //Console.WriteLine(result);
 
-         string result = AddNewAddressToEmployee(dbContext);
-        Console.WriteLine(result);
+        //string result = AddNewAddressToEmployee(dbContext);
+        //Console.WriteLine(result);
 
+        string result = GetEmployeesInPeriod(dbContext);
+        Console.WriteLine(result);
 
     }
 
@@ -138,23 +140,59 @@ public class StartUp
             .Employees
             .AsNoTracking()
             .OrderByDescending(e => e.AddressId)
+            .Select(e =>  e.Address.AddressText)
+            .Take(10)
+            .ToArray();
+
+        return string.Join(Environment.NewLine, employeesAddress);
+    }
+
+    //07. Employees and Projects 
+    public static string GetEmployeesInPeriod(SoftUniContext context)
+    {
+        var employees = context
+            .Employees
+            .AsNoTracking()
+            //.Where(e => e.EmployeesProjects.Any(ep =>
+            //    ep.Project.StartDate.Year >= 2001 &&
+            //    ep.Project.StartDate.Year <= 2003
+            //))
             .Select(e => new
             {
-                adress = e.Address.AddressText
+                e.FirstName
+                , e.LastName
+                , ManagerFirstName = e.Manager.FirstName
+                , ManagerLastName = e.Manager.LastName
+                , Projects = e
+                    .EmployeesProjects
+                    .Where(ep => ep.Project.StartDate.Year >= 2001 &&
+                                 ep.Project.StartDate.Year <= 2003)
+                    .Select(ep => new
+                    {
+                        ep.Project.Name
+                        , StartDate = ep.Project.StartDate.ToString("M/d/yyyy h:mm:ss tt")
+                        , EndDate = ep.Project.EndDate.HasValue?
+                            ep.Project.EndDate.Value.ToString("M/d/yyyy h:mm:ss tt"):
+                            "not finished"
+                    })
+                    .ToArray()
             })
             .Take(10)
             .ToArray();
 
         StringBuilder sb = new StringBuilder();
-        foreach (var a in employeesAddress)
+        foreach (var employee in employees)
         {
-            sb.AppendLine(a.adress);
+            sb.AppendLine($"{employee.FirstName} {employee.LastName} - Manager: {employee.ManagerFirstName} {employee.ManagerLastName}");
+            foreach (var project in employee.Projects)
+            {
+                sb.AppendLine($"--{project.Name} - {project.StartDate} - {project.EndDate}");
+            }
         }
 
         return sb.ToString().TrimEnd();
     }
 
-    //07. Employees and Projects 
-
+    //08. Addresses by Town
 
 }
