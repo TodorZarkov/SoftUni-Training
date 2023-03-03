@@ -25,7 +25,7 @@ public class SoftUniContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer("");
+            optionsBuilder.UseSqlServer("e");
         }
     }
 
