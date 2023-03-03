@@ -22,7 +22,10 @@ public class StartUp
         //string result = AddNewAddressToEmployee(dbContext);
         //Console.WriteLine(result);
 
-        string result = GetEmployeesInPeriod(dbContext);
+        //string result = GetEmployeesInPeriod(dbContext);
+        //Console.WriteLine(result);
+
+        string result = GetAddressesByTown(dbContext);
         Console.WriteLine(result);
 
     }
@@ -194,5 +197,31 @@ public class StartUp
     }
 
     //08. Addresses by Town
+    public static string GetAddressesByTown(SoftUniContext context)
+    {
+        var addresses = context
+            .Addresses
+            .OrderByDescending(a => a.Employees.Count)
+            .ThenBy(a => a.Town.Name)
+            .ThenBy(a => a.AddressText)
+            .Select(a => new
+            {
+                a.AddressText
+                ,TownName = a.Town.Name
+                ,EmployeesCount = a.Employees.Count
+            })
+            .Take(10)
+            .ToArray();
+
+        StringBuilder sb = new StringBuilder();
+        foreach (var a in addresses)
+        {
+            sb.AppendLine($"{a.AddressText}, {a.TownName} - {a.EmployeesCount} employees");
+        }
+
+        return sb.ToString().TrimEnd();
+    }
+
+    //09. Employee 147 
 
 }
