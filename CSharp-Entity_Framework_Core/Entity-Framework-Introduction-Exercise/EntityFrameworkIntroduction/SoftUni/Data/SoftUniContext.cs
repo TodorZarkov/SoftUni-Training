@@ -25,7 +25,7 @@ public class SoftUniContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer("Server=.;Database=SoftUni;User Id=SA;Password=barabinecSA!;TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer("");
         }
     }
 
