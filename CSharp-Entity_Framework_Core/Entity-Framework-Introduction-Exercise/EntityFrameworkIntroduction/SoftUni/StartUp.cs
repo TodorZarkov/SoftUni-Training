@@ -2,6 +2,7 @@
 
 using Data;
 using Microsoft.EntityFrameworkCore;
+using SoftUni.Models;
 using System.Text;
 
 public class StartUp
@@ -15,7 +16,10 @@ public class StartUp
         //string result = GetEmployeesWithSalaryOver50000(dbContext);
         //Console.WriteLine(result);
 
-        string result = GetEmployeesFromResearchAndDevelopment(dbContext);
+        //string result = GetEmployeesFromResearchAndDevelopment(dbContext);
+        //Console.WriteLine(result);
+
+         string result = AddNewAddressToEmployee(dbContext);
         Console.WriteLine(result);
 
 
@@ -109,5 +113,48 @@ public class StartUp
     }
 
     //06. Adding a New Address and Updating Employee
+    public static string AddNewAddressToEmployee(SoftUniContext context)
+    {
+
+        Address addedAddress = new Address
+        {
+            TownId = 4
+            ,AddressText = "Vitoshka 15"
+        };
+
+        Employee[] employeesNakov = context
+            .Employees
+            .Where(e => e.LastName == "Nakov")
+            .ToArray();
+
+        foreach (Employee e in employeesNakov)
+        {
+            e.Address = addedAddress;
+        }
+
+        context.SaveChanges();
+
+        var employeesAddress = context
+            .Employees
+            .AsNoTracking()
+            .OrderByDescending(e => e.AddressId)
+            .Select(e => new
+            {
+                adress = e.Address.AddressText
+            })
+            .Take(10)
+            .ToArray();
+
+        StringBuilder sb = new StringBuilder();
+        foreach (var a in employeesAddress)
+        {
+            sb.AppendLine(a.adress);
+        }
+
+        return sb.ToString().TrimEnd();
+    }
+
+    //07. Employees and Projects 
+
 
 }
