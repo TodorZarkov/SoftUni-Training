@@ -31,7 +31,10 @@ public class StartUp
         //string result = GetEmployee147(dbContext);
         //Console.WriteLine(result);
 
-        string result = GetDepartmentsWithMoreThan5Employees(dbContext);
+        //string result = GetDepartmentsWithMoreThan5Employees(dbContext);
+        //Console.WriteLine(result);
+
+        string result = GetLatestProjects(dbContext);
         Console.WriteLine(result);
 
     }
@@ -297,5 +300,35 @@ public class StartUp
     }
 
     //11. Find Latest 10 Projects
+    public static string GetLatestProjects(SoftUniContext context)
+    {
 
+        var projects = context
+            .Projects
+            .OrderByDescending(p => p.StartDate)
+            .Select(p => new
+            {
+                p.Name
+                ,
+                p.Description
+                ,
+                StartDate = p.StartDate.ToString("M/d/yyyy h:mm:ss tt")
+            })
+            .Take(10)
+            .OrderBy(p => p.Name)
+            .ThenBy(p => p.Name.Length)
+            .ToList();
+
+        StringBuilder sb = new StringBuilder();
+        foreach (var p in projects)
+        {
+            sb.AppendLine(p.Name);
+            sb.AppendLine(p.Description);
+            sb.AppendLine(p.StartDate);
+        }
+
+        return sb.ToString().Trim();
+    }
+
+    //12. Increase Salaries
 }
