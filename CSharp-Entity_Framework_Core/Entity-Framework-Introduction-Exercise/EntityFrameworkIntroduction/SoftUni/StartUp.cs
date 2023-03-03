@@ -43,8 +43,11 @@ public class StartUp
         //string result = GetEmployeesByFirstNameStartingWithSa(dbContext);
         //Console.WriteLine(result);
 
-        string result = DeleteProjectById(dbContext);
-        Console.WriteLine(result);
+        //string result = DeleteProjectById(dbContext);
+        //Console.WriteLine(result);
+
+        //string result = RemoveTown(dbContext);
+        //Console.WriteLine(result);
 
     }
 
@@ -429,5 +432,40 @@ public class StartUp
             .Take(10)
             .ToArray();
         return string.Join(Environment.NewLine, projects);
+    }
+
+    //15. Remove Town
+    public static string? RemoveTown(SoftUniContext context)
+    {
+        Town? town = context.Towns.FirstOrDefault(t => t.Name == "Seattle");
+        if (town == null)
+        {
+            return null;
+        }
+        
+        var employeesToDelAddressFrom = context
+            .Employees
+            .Where( e => e.Address != null &&
+                    e.Address.Town != null &&
+                    e.Address.Town == town);
+        foreach (var e in employeesToDelAddressFrom)
+        {
+            e.AddressId = null;
+        }
+
+        context.Addresses.RemoveRange(context
+            .Addresses
+            .Where(a => a.Town == town));
+
+        context.Towns.Remove(town);
+
+        int count = context
+            .Addresses
+            .Where(a => a.Town == town)
+            .Count();
+
+        context.SaveChanges();
+
+        return $"{count} addresses in Seattle were deleted";
     }
 }
