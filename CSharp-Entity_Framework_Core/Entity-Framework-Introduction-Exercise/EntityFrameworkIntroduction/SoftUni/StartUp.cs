@@ -28,7 +28,10 @@ public class StartUp
         //string result = GetAddressesByTown(dbContext);
         //Console.WriteLine(result);
 
-         string result = GetEmployee147(dbContext);
+        //string result = GetEmployee147(dbContext);
+        //Console.WriteLine(result);
+
+        string result = GetDepartmentsWithMoreThan5Employees(dbContext);
         Console.WriteLine(result);
 
     }
@@ -256,4 +259,43 @@ public class StartUp
     }
 
     //10. Departments with More Than 5 Employees
+    public static string GetDepartmentsWithMoreThan5Employees(SoftUniContext context)
+    {
+        var departments = context
+            .Departments
+            .Where(d => d.Employees.Count > 5)
+            .OrderBy(d => d.Employees.Count)
+            .OrderBy(d => d.Name)//to check alphabetically
+            .Select(d => new
+            {
+                d.Name
+                ,ManagerFirstName = d.Manager.FirstName
+                ,ManagerLastName = d.Manager.LastName
+                ,Employees = d.Employees
+                    .OrderBy(e => e.FirstName)
+                    .ThenBy(e => e.LastName)
+                    .Select(e => new
+                    {
+                         e.FirstName
+                        ,e.LastName
+                        ,e.JobTitle
+                    })
+                    .ToArray()
+            })
+            .ToArray();
+
+        StringBuilder sb = new StringBuilder();
+        foreach (var d in departments)
+        {
+            sb.AppendLine($"{d.Name} – {d.ManagerFirstName} {d.ManagerLastName}");
+            foreach (var e in d.Employees)
+            {
+                sb.AppendLine($"{e.FirstName} {e.LastName} - {e.JobTitle}");
+            }
+        }
+        return sb.ToString().Trim();
+    }
+
+    //11. Find Latest 10 Projects
+
 }
