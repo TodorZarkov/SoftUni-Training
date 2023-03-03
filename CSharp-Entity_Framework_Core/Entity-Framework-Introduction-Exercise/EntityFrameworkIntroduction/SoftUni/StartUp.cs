@@ -25,7 +25,10 @@ public class StartUp
         //string result = GetEmployeesInPeriod(dbContext);
         //Console.WriteLine(result);
 
-        string result = GetAddressesByTown(dbContext);
+        //string result = GetAddressesByTown(dbContext);
+        //Console.WriteLine(result);
+
+         string result = GetEmployee147(dbContext);
         Console.WriteLine(result);
 
     }
@@ -223,5 +226,34 @@ public class StartUp
     }
 
     //09. Employee 147 
+    public static string GetEmployee147(SoftUniContext context)
+    {
+        var employee = context
+            .Employees
+            .Where(e => e.EmployeeId == 147)
+            .Select(e => new
+            {
+                e.FirstName
+                ,
+                e.LastName
+                ,
+                e.JobTitle
+                ,
+                Projects =
+                    e
+                    .EmployeesProjects
+                    .Select(ep => ep.Project.Name)
+                    .OrderBy(n => n)
+                    .ToArray()
+            })
+            .FirstOrDefault();
 
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine($"{employee.FirstName} {employee.LastName} - {employee.JobTitle}");
+        sb.Append(string.Join(Environment.NewLine,employee.Projects));
+
+        return sb.ToString().Trim();
+    }
+
+    //10. Departments with More Than 5 Employees
 }
