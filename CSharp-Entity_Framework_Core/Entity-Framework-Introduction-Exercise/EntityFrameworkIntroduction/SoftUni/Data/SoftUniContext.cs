@@ -13,7 +13,7 @@ public class SoftUniContext : DbContext
         : base(options)
     {
     }
-
+    
     public virtual DbSet<Address> Addresses { get; set; } = null!;
     public virtual DbSet<Department> Departments { get; set; } = null!;
     public virtual DbSet<Employee> Employees { get; set; } = null!;
@@ -25,7 +25,7 @@ public class SoftUniContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer("Server=.;Database=SoftUni;User Id=*;Password=*;TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer("Server=.;Database=SoftUni;User Id=SA;Password=barabinecSA!;TrustServerCertificate=true");
         }
     }
 
