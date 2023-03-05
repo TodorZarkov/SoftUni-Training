@@ -407,3 +407,4 @@ package-lock.json
 #Configuration files with connection strings and other sensitive data
 Config.cs
 DbConfig.cs
+Configuration.cs
