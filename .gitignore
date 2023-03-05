@@ -404,5 +404,6 @@ FodyWeavers.xsd
 #npm files
 package-lock.json
 
-#ado.net/entity framework configs
+#Configuration files with connection strings and other sensitive data
 Config.cs
+DbConfig.cs
