@@ -6,8 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 public class Album
 {
-    private decimal price;
-
     public Album()
     {
         Songs = new HashSet<Song>();
@@ -24,11 +22,8 @@ public class Album
     [NotMapped]
     public decimal Price
     {
-        get => price;
-        set
-        {
-            price = Songs.Sum(s => s.Price);
-        }
+        get => Songs.Sum(s => s.Price);
+        private set { }
     }
     
 
