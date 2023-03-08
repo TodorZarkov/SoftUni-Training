@@ -20,11 +20,7 @@ public class Album
     public DateTime ReleaseDate { get; set; }
 
     [NotMapped]
-    public decimal Price
-    {
-        get => Songs.Sum(s => s.Price);
-        private set { }
-    }
+    public decimal Price => Songs.Sum(s => s.Price);
     
 
     public int? ProducerId { get; set; }

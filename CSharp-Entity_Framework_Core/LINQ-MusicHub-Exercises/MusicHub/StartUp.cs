@@ -14,7 +14,7 @@
             MusicHubDbContext context =
             new MusicHubDbContext();
 
-            //DbInitializer.ResetDatabase(context);
+            DbInitializer.ResetDatabase(context);
 
             //Test your solutions here
             Console.WriteLine(ExportAlbumsInfo(context,9));
@@ -28,7 +28,6 @@
             StringBuilder sb = new StringBuilder();
 
             var albums = context.Albums
-                .AsNoTracking()
                 .Where(a => a.ProducerId.HasValue && a.ProducerId.Value == producerId)
                 .Select(a => new
                 {
@@ -44,7 +43,8 @@
                         .OrderByDescending(s => s.Name)
                         .ThenBy(s => s.WriterName)
                         .ToList(),
-                    Price = a.Price
+                    Price = a.Price,
+                    StringPrice = a.Price.ToString("f2")
                 })
                 .ToArray()
                 .OrderByDescending(a => a.Price);
@@ -66,7 +66,7 @@
                         .AppendLine($"---Writer: {s.WriterName}");
                     songNumber++;
                 }
-                sb.AppendLine($"-AlbumPrice: {a.Price:f2}");
+                sb.AppendLine($"-AlbumPrice: {a.StringPrice}");
             }
 
             return sb.ToString().TrimEnd();
