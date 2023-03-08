@@ -14,10 +14,10 @@
             MusicHubDbContext context =
             new MusicHubDbContext();
 
-            DbInitializer.ResetDatabase(context);
+            //DbInitializer.ResetDatabase(context);
 
             //Test your solutions here
-            //Console.WriteLine(ExportAlbumsInfo(context,9));
+            Console.WriteLine(ExportAlbumsInfo(context,9));
 
             //Console.WriteLine(ExportSongsAboveDuration(context, 4));
 
@@ -27,31 +27,48 @@
         {
             StringBuilder sb = new StringBuilder();
 
-            var albums = context.Producers
-                .Where(p => p.Id == producerId)
-                .Select(p => p.Albums)
-                .Single()
+            var albums = context.Albums
+                .AsNoTracking()
+                .Where(a => a.ProducerId.HasValue && a.ProducerId.Value == producerId)
+                .Select(a => new
+                {
+                    a.Name,
+                    ReleaseDate = a.ReleaseDate.ToString("MM/dd/yyyy"),
+                    ProducerName = a.Producer.Name,
+                    Songs = a.Songs.Select(s => new
+                    {
+                        s.Name,
+                        Price = s.Price.ToString("f2"),
+                        WriterName = s.Writer.Name
+                    })
+                        .OrderByDescending(s => s.Name)
+                        .ThenBy(s => s.WriterName)
+                        .ToList(),
+                    Price = a.Price
+                })
+                .ToArray()
                 .OrderByDescending(a => a.Price);
 
             foreach (var a in albums)
             {
-                sb.AppendLine($"-AlbumName: {a.Name}");
-                sb.AppendLine($"-ReleaseDate: {a.ReleaseDate.ToString("MM/dd/yyyy")}");
-                sb.AppendLine($"-ProducerName: {a.Producer?.Name}");
-                sb.AppendLine($"-Songs:");
-                var songs = a.Songs
-                    .OrderByDescending(s => s.Name)
-                    .ThenBy(s => s.Writer)
-                    .ToArray();
-                for (int i = 0; i < songs.Length; i++)
+                sb
+                    .AppendLine($"-AlbumName: {a.Name}")
+                    .AppendLine($"-ReleaseDate: {a.ReleaseDate}")
+                    .AppendLine($"-ProducerName: {a.ProducerName}")
+                    .AppendLine($"-Songs:");
+                int songNumber = 1;
+                foreach (var s in a.Songs)
                 {
-                    sb.AppendLine($"---{'#'}{i + 1}");
-                    sb.AppendLine($"---SongName: {songs[i].Name}");
-                    sb.AppendLine($"---Price: {songs[i].Price:f2}");
-                    sb.AppendLine($"---Writer: {songs[i].Writer.Name}");
+                    sb
+                        .AppendLine($"---{'#'}{songNumber}")
+                        .AppendLine($"---SongName: {s.Name}")
+                        .AppendLine($"---Price: {s.Price}")
+                        .AppendLine($"---Writer: {s.WriterName}");
+                    songNumber++;
                 }
                 sb.AppendLine($"-AlbumPrice: {a.Price:f2}");
             }
+
             return sb.ToString().TrimEnd();
         }
 
