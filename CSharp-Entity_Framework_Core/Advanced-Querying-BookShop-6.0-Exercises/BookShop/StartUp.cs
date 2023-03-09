@@ -15,7 +15,8 @@ public class StartUp
 
         //Console.WriteLine(GetBooksByAgeRestriction(db, "teEN"));
         //Console.WriteLine(GetGoldenBooks(db));
-        Console.WriteLine(GetBooksByPrice(db));
+        //Console.WriteLine(GetBooksByPrice(db));
+        Console.WriteLine(GetBooksNotReleasedIn(db, 1998));
     }
 
     //p.02. Age Restriction 
@@ -71,7 +72,24 @@ public class StartUp
     }
 
     //p.05. Not Released In
+    public static string GetBooksNotReleasedIn(BookShopContext context, int year)
+    {
+        var bookTitlesFiltered = context.Books
+            .Where(b => b.ReleaseDate.HasValue &&
+                        b.ReleaseDate.Value.Year != year)
+            .Select(b => b.Title)
+            .ToList();
 
+        StringBuilder sb = new StringBuilder();
+        bookTitlesFiltered.ForEach(t => sb.AppendLine(t));
+        return sb.ToString().TrimEnd();
+    }
+
+    //p.06. Book Titles by Category
+    public static string GetBooksByCategory(BookShopContext context, string input)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 
