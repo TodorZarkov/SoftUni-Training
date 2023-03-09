@@ -14,7 +14,8 @@ public class StartUp
         //DbInitializer.ResetDatabase(db);
 
         //Console.WriteLine(GetBooksByAgeRestriction(db, "teEN"));
-        Console.WriteLine(GetGoldenBooks(db));
+        //Console.WriteLine(GetGoldenBooks(db));
+        Console.WriteLine(GetBooksByPrice(db));
     }
 
     //p.02. Age Restriction 
@@ -55,6 +56,22 @@ public class StartUp
     }
 
     //p.04. Books by Price 
+    public static string GetBooksByPrice(BookShopContext context)
+    {
+        var booksByPrice = context.Books
+            .Where(b => b.Price > 40m)
+            .OrderByDescending(b => b.Price)
+            .Select(b => $"{b.Title} - ${b.Price:f2}")
+            .ToList();
+
+        StringBuilder sb = new StringBuilder();
+        booksByPrice.ForEach(tp => sb.AppendLine(tp));
+
+        return sb.ToString().TrimEnd();
+    }
+
+    //p.05. Not Released In
+
 }
 
 
