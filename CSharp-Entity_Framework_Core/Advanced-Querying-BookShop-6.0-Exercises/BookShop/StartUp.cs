@@ -12,9 +12,12 @@ public class StartUp
     {
         using var db = new BookShopContext();
         //DbInitializer.ResetDatabase(db);
-        Console.WriteLine(GetBooksByAgeRestriction(db, "teEN"));
+
+        //Console.WriteLine(GetBooksByAgeRestriction(db, "teEN"));
+        Console.WriteLine(GetGoldenBooks(db));
     }
 
+    //p.02. Age Restriction 
     public static string GetBooksByAgeRestriction(BookShopContext context, string command)
     {
         command = new CultureInfo("en-US").TextInfo.ToTitleCase(command);
@@ -35,6 +38,23 @@ public class StartUp
 
         return sb.ToString().TrimEnd();
     }
+
+    //p.03. Golden Books
+    public static string GetGoldenBooks(BookShopContext context)
+    {
+        var goldenBooks = context.Books
+            .Where(b => b.EditionType == EditionType.Gold &&
+                        b.Copies < 5000)
+            .Select(b => b.Title)
+            .ToList();
+
+        StringBuilder sb = new StringBuilder();
+        goldenBooks.ForEach(t => sb.AppendLine(t));
+
+        return sb.ToString().TrimEnd();
+    }
+
+    //p.04. Books by Price 
 }
 
 
