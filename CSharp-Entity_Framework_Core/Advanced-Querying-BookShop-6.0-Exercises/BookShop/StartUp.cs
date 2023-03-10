@@ -19,7 +19,8 @@ public class StartUp
         //Console.WriteLine(GetGoldenBooks(db));
         //Console.WriteLine(GetBooksByPrice(db));
         //Console.WriteLine(GetBooksNotReleasedIn(db, 1998));
-        Console.WriteLine(GetBooksByCategory(db, "horror mystery drama"));
+        //Console.WriteLine(GetBooksByCategory(db, "horror mystery drama"));
+        Console.WriteLine(GetBooksReleasedBefore(db, "12-04-1992"));
     }
 
     //p.02. Age Restriction 
@@ -120,6 +121,34 @@ public class StartUp
     }
 
     //p.07. Released Before Date
+    public static string GetBooksReleasedBefore(BookShopContext context, string date)
+    {
+        DateTime dateFormated;
+        if (!DateTime.TryParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture ,DateTimeStyles.None, out dateFormated))
+        {
+            return string.Empty;
+        }
+
+        var booksInfo = context
+            .Books
+            .Where(b => b.ReleaseDate < dateFormated)
+            .OrderByDescending(b => b.ReleaseDate)
+            .Select(b => new
+            {
+                Title = b.Title,
+                EditionType = b.EditionType.ToString(),
+                Price = b.Price.ToString("f2")
+            })
+            //.ToQueryString();
+            .ToList();
+
+        StringBuilder sb = new StringBuilder();
+        booksInfo.ForEach(bi => sb.AppendLine($"{bi.Title} - {bi.EditionType} - ${bi.Price}"));
+
+        return sb.ToString().TrimEnd();
+    }
+
+    //p.08. Author Search
 
 }
 
