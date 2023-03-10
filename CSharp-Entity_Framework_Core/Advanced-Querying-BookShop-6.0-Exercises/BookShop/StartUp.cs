@@ -20,7 +20,8 @@ public class StartUp
         //Console.WriteLine(GetBooksByPrice(db));
         //Console.WriteLine(GetBooksNotReleasedIn(db, 1998));
         //Console.WriteLine(GetBooksByCategory(db, "horror mystery drama"));
-        Console.WriteLine(GetBooksReleasedBefore(db, "12-04-1992"));
+        //Console.WriteLine(GetBooksReleasedBefore(db, "12-04-1992"));
+        Console.WriteLine(GetAuthorNamesEndingIn(db, "e"));
     }
 
     //p.02. Age Restriction 
@@ -149,6 +150,23 @@ public class StartUp
     }
 
     //p.08. Author Search
+    public static string GetAuthorNamesEndingIn(BookShopContext context, string input)
+    {
+        var authorsInfo = context
+            .Authors
+            .Where(a => a.FirstName.EndsWith(input))
+            .OrderBy(a => a.FirstName + " " + a.LastName)
+            .Select(a => new { a.FirstName, a.LastName })
+            //.ToQueryString;
+            .ToList();
+
+        StringBuilder sb = new StringBuilder();
+        authorsInfo.ForEach(ai => sb.AppendLine($"{ai.FirstName} {ai.LastName}"));
+
+        return sb.ToString().TrimEnd();
+    }
+
+    //p.09. Book Search
 
 }
 
