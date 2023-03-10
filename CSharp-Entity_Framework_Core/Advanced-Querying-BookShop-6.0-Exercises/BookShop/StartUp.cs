@@ -23,7 +23,8 @@ public class StartUp
         //Console.WriteLine(GetBooksReleasedBefore(db, "12-04-1992"));
         //Console.WriteLine(GetAuthorNamesEndingIn(db, "e"));
         //Console.WriteLine(GetBookTitlesContaining(db, "WOR"));
-        Console.WriteLine(GetBooksByAuthor(db,  "po"));
+        //Console.WriteLine(GetBooksByAuthor(db,  "po"));
+        Console.WriteLine(CountBooks(db, 40));
     }
 
     //p.02. Age Restriction 
@@ -205,6 +206,17 @@ public class StartUp
     }
 
     //p.11. Count Books
+    public static int CountBooks(BookShopContext context, int lengthCheck)
+    {
+        int bookCount = context
+            .Books
+            .Where(b => b.Title.Length > lengthCheck)
+            .Count();
+
+        return bookCount;
+    }
+
+    //p.12. Total Book Copies
 
 }
 
