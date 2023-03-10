@@ -3,6 +3,8 @@
 using BookShop.Models.Enums;
 using Data;
 using Initializer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Globalization;
 using System.Text;
 
@@ -16,7 +18,8 @@ public class StartUp
         //Console.WriteLine(GetBooksByAgeRestriction(db, "teEN"));
         //Console.WriteLine(GetGoldenBooks(db));
         //Console.WriteLine(GetBooksByPrice(db));
-        Console.WriteLine(GetBooksNotReleasedIn(db, 1998));
+        //Console.WriteLine(GetBooksNotReleasedIn(db, 1998));
+        Console.WriteLine(GetBooksByCategory(db, "horror mystery drama"));
     }
 
     //p.02. Age Restriction 
@@ -88,8 +91,36 @@ public class StartUp
     //p.06. Book Titles by Category
     public static string GetBooksByCategory(BookShopContext context, string input)
     {
-        throw new NotImplementedException();
+        HashSet<string> inputCategories = input
+            .Split(" ", StringSplitOptions.RemoveEmptyEntries)
+            .Select(c => c.ToLower())
+            .ToHashSet();
+
+        var titlesByCategory = context.Books
+            .Join(
+                context.BooksCategories,
+                b => b.BookId,
+                bc => bc.BookId,
+                (b, bc) => new { b, bc })
+            .Join(
+                context.Categories,
+                bbc => bbc.bc.CategoryId,
+                c => c.CategoryId,
+                (bbc, c) => new { bbc, c })
+            .Where(bbcc => inputCategories.Contains(bbcc.c.Name.ToLower()))
+            .Select(bbcc => bbcc.bbc.b.Title)
+            .OrderBy(t => t)
+            .ToList();
+        //.ToQueryString();
+
+        StringBuilder sb = new StringBuilder();
+        titlesByCategory.ForEach(t => sb.AppendLine(t));
+
+        return sb.ToString().TrimEnd();
     }
+
+    //p.07. Released Before Date
+
 }
 
 
