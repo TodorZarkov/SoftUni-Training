@@ -312,6 +312,9 @@ public class StartUp
         booksFilteredByDate.ForEach(b => b.Price += 5);
         context.SaveChanges();
     }
+
+    //p.16. Remove Books 
+
 }
 
 
