@@ -6,6 +6,7 @@ using Initializer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Globalization;
+using System.Reflection.Metadata;
 using System.Text;
 
 public class StartUp
@@ -13,7 +14,7 @@ public class StartUp
     public static void Main()
     {
         using var db = new BookShopContext();
-        //DbInitializer.ResetDatabase(db);
+        DbInitializer.ResetDatabase(db);
 
         //Console.WriteLine(GetBooksByAgeRestriction(db, "teEN"));
         //Console.WriteLine(GetGoldenBooks(db));
@@ -25,7 +26,10 @@ public class StartUp
         //Console.WriteLine(GetBookTitlesContaining(db, "WOR"));
         //Console.WriteLine(GetBooksByAuthor(db,  "po"));
         //Console.WriteLine(CountBooks(db, 40));
-        Console.WriteLine(CountCopiesByAuthor(db));
+        //Console.WriteLine(CountCopiesByAuthor(db));
+        //Console.WriteLine(GetTotalProfitByCategory(db));
+        //Console.WriteLine(GetMostRecentBooks(db));
+        IncreasePrices(db);
     }
 
     //p.02. Age Restriction 
@@ -237,7 +241,77 @@ public class StartUp
     }
 
     //p.13. Profit by Category
+    public static string GetTotalProfitByCategory(BookShopContext context)
+    {
+        var categoriesInfo = context
+            .Categories
+            .Select(c => new
+            {
+                c.Name,
 
+                TotalProfit = c.CategoryBooks
+                .Sum(b => (b.Book.Copies * b.Book.Price)),
+
+                TotalProfitFormated = c.CategoryBooks
+                .Sum(b => (b.Book.Copies * b.Book.Price))
+                .ToString("f2")
+            })
+            .OrderBy(c => c.Name)
+            .OrderByDescending(c => c.TotalProfit)
+            .ToList();
+
+        StringBuilder sb = new StringBuilder();
+        categoriesInfo.ForEach(c => sb.AppendLine($"{c.Name} ${c.TotalProfitFormated}"));
+
+        return sb.ToString().TrimEnd();
+    }
+
+    //p.14. Most Recent Books 
+    public static string GetMostRecentBooks(BookShopContext context)
+    {
+        var categoriesInfo = context
+            .Categories
+            .Select(c => new
+            {
+                CategoryName = c.Name,
+                BookTitleAndDate = c.CategoryBooks.Select(cb => new
+                {
+                    BookTitle = cb.Book.Title,
+                    BookReleaseDate = cb.Book.ReleaseDate,
+                    BookReleasedYear = cb.Book.ReleaseDate.Value.Year
+                })
+                .OrderByDescending(b => b.BookReleaseDate)
+                .Take(3)
+                .ToList()
+            })
+            .OrderBy(c => c.CategoryName)
+            .ToList();
+
+        StringBuilder sb = new StringBuilder();
+        foreach (var ci in categoriesInfo)
+        {
+            sb.AppendLine($"--{ci.CategoryName}");
+            foreach (var btd in ci.BookTitleAndDate)
+            {
+                sb.AppendLine($"{btd.BookTitle} ({btd.BookReleasedYear})");
+            }
+        }
+
+        return sb.ToString().TrimEnd();
+    }
+
+    //p.15. Increase Prices 
+    public static void IncreasePrices(BookShopContext context)
+    {
+        DateTime dateToFilterBy = new DateTime(2010, 1, 1);
+        var booksFilteredByDate = context
+            .Books
+            .Where(b => b.ReleaseDate < dateToFilterBy)
+            .ToList();
+
+        booksFilteredByDate.ForEach(b => b.Price += 5);
+        context.SaveChanges();
+    }
 }
 
 
