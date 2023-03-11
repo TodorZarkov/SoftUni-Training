@@ -1,5 +1,6 @@
 ﻿namespace BookShop;
 
+using BookShop.Models;
 using BookShop.Models.Enums;
 using Data;
 using Initializer;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Globalization;
 using System.Reflection.Metadata;
 using System.Text;
+using Z.EntityFramework.Plus;
 
 public class StartUp
 {
@@ -29,8 +31,8 @@ public class StartUp
         //Console.WriteLine(CountCopiesByAuthor(db));
         //Console.WriteLine(GetTotalProfitByCategory(db));
         //Console.WriteLine(GetMostRecentBooks(db));
-        //IncreasePrices(db);
-        Console.WriteLine(RemoveBooks(db));
+        IncreasePrices(db);
+        //Console.WriteLine(RemoveBooks(db));
     }
 
     //p.02. Age Restriction 
@@ -308,10 +310,7 @@ public class StartUp
         var booksFilteredByDate = context
             .Books
             .Where(b => b.ReleaseDate < dateToFilterBy)
-            .ToList();
-
-        booksFilteredByDate.ForEach(b => b.Price += 5);
-        context.SaveChanges();
+            .Update(b => new Book() { Price = b.Price + 5 });
     }
 
     //p.16. Remove Books 
