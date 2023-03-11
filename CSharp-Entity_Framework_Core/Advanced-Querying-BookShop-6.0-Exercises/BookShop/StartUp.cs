@@ -24,7 +24,8 @@ public class StartUp
         //Console.WriteLine(GetAuthorNamesEndingIn(db, "e"));
         //Console.WriteLine(GetBookTitlesContaining(db, "WOR"));
         //Console.WriteLine(GetBooksByAuthor(db,  "po"));
-        Console.WriteLine(CountBooks(db, 40));
+        //Console.WriteLine(CountBooks(db, 40));
+        Console.WriteLine(CountCopiesByAuthor(db));
     }
 
     //p.02. Age Restriction 
@@ -217,6 +218,25 @@ public class StartUp
     }
 
     //p.12. Total Book Copies
+    public static string CountCopiesByAuthor(BookShopContext context)
+    {
+        var authorInfo = context
+            .Authors
+            .Select(a => new
+            {
+                Name = string.Concat(a.FirstName, " ", a.LastName),
+                BooksCount = a.Books.Sum(b => b.Copies)
+            })
+            .OrderByDescending(a => a.BooksCount)
+            .ToList();
+
+        StringBuilder sb = new StringBuilder();
+        authorInfo.ForEach(a => sb.AppendLine($"{a.Name} - {a.BooksCount}"));
+
+        return sb.ToString().TrimEnd();
+    }
+
+    //p.13. Profit by Category
 
 }
 
