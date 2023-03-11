@@ -16,7 +16,7 @@ public class StartUp
     public static void Main()
     {
         using var db = new BookShopContext();
-        //DbInitializer.ResetDatabase(db);
+        DbInitializer.ResetDatabase(db);
 
         //Console.WriteLine(GetBooksByAgeRestriction(db, "teEN"));
         //Console.WriteLine(GetGoldenBooks(db));
@@ -31,7 +31,7 @@ public class StartUp
         //Console.WriteLine(CountCopiesByAuthor(db));
         //Console.WriteLine(GetTotalProfitByCategory(db));
         //Console.WriteLine(GetMostRecentBooks(db));
-        IncreasePrices(db);
+        //IncreasePrices(db);
         //Console.WriteLine(RemoveBooks(db));
     }
 
@@ -320,12 +320,9 @@ public class StartUp
         var booksWithNumberOfCopiesFilter = context
             .Books
             .Where(b => b.Copies < copiesToFilterby)
-            .ToArray();
+            .Delete();
 
-        context.Books.RemoveRange(booksWithNumberOfCopiesFilter);
-        context.SaveChanges();
-
-        return booksWithNumberOfCopiesFilter.Length;
+        return booksWithNumberOfCopiesFilter;
     }
 }
 
