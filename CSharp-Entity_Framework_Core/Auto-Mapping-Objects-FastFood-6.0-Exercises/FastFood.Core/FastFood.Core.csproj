@@ -17,7 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FastFood.Common\FastFood.Common.csproj" />
     <ProjectReference Include="..\FastFood.Data\FastFood.Data.csproj" />
+    <ProjectReference Include="..\FastFood.Models\FastFood.Models.csproj" />
+    <ProjectReference Include="..\FastFood.Services.Data\FastFood.Services.Data.csproj" />
+    <ProjectReference Include="..\FastFood.Services.Mapping\FastFood.Services.Mapping.csproj" />
   </ItemGroup>
 
 </Project>
