@@ -1,5 +1,6 @@
 ﻿namespace FastFood.Models
 {
+    using FastFood.Common.EntityConfiguration;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -14,7 +15,7 @@
         public int Id { get; set; }
 
 
-        [StringLength(30, MinimumLength = 3)]
+        [MaxLength(EntitiesValidation.PositionNameMaxLength)]
         public string Name { get; set; } = null!;
 
 

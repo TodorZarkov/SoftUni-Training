@@ -12,7 +12,7 @@
         }
 
 
-        [MaxLength(ValidationConstants.GuidMaxLength)]
+        [MaxLength(EntitiesValidation.GuidMaxLength)]
         public string OrderId { get; set; }
 
 

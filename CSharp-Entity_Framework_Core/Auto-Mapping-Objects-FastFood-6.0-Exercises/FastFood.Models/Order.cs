@@ -16,7 +16,7 @@
             Id = Guid.NewGuid().ToString();
         }
 
-        [MaxLength(ValidationConstants.GuidMaxLength)]
+        [MaxLength(EntitiesValidation.GuidMaxLength)]
         public string Id { get; set; }
 
 

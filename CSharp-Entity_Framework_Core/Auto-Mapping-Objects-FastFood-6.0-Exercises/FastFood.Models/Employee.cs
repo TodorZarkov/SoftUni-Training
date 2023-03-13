@@ -14,11 +14,11 @@ public class Employee
     }
 
 
-    [MaxLength(ValidationConstants.GuidMaxLength)]
+    [MaxLength(EntitiesValidation.GuidMaxLength)]
     public string Id { get; set; }
 
  
-    [StringLength(ValidationConstants.EmployeeNameMaxLength, MinimumLength = 3)]
+    [StringLength(EntitiesValidation.EmployeeNameMaxLength, MinimumLength = 3)]
     public string Name { get; set; } = null!;
 
 
@@ -28,7 +28,7 @@ public class Employee
 
 
 
-    [StringLength(ValidationConstants.EmployeeAddressMaxLength, MinimumLength = 3)]
+    [StringLength(EntitiesValidation.EmployeeAddressMaxLength, MinimumLength = 3)]
     public string Address { get; set; } = null!;
 
 
