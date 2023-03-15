@@ -13,7 +13,7 @@
 
         public int Id { get; set; }
 
-        [StringLength(EntitiesValidation.CategoryNameMaxLength, MinimumLength = 3)]
+        [MaxLength(EntitiesValidation.CategoryNameMaxLength)]
         public string Name { get; set; } = null!;
 
         public virtual ICollection<Item> Items { get; set; }

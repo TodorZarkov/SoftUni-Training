@@ -1,36 +1,43 @@
-﻿namespace FastFood.Core.Controllers
+﻿namespace FastFood.Core.Controllers;
+
+using FastFood.Services.Data;
+using Microsoft.AspNetCore.Mvc;
+
+using ViewModels.Categories;
+
+public class CategoriesController : Controller
 {
-    using System;
-    using AutoMapper;
-    using Data;
-    using Microsoft.AspNetCore.Mvc;
-    using ViewModels.Categories;
+    private readonly ICategoryService categoryService;
 
-    public class CategoriesController : Controller
+    public CategoriesController(ICategoryService categoryService)
     {
-        private readonly FastFoodContext _context;
-        private readonly IMapper _mapper;
+        this.categoryService = categoryService;
+    }
 
-        public CategoriesController(FastFoodContext context, IMapper mapper)
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateCategoryInputModel model)
+    {
+        if (!ModelState.IsValid)
         {
-            _context = context;
-            _mapper = mapper;
+            return RedirectToAction("Error", "Home");
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
+        await categoryService.CreateAsync(model);
 
-        [HttpPost]
-        public IActionResult Create(CreateCategoryInputModel model)
-        {
-            throw new NotImplementedException();
-        }
+        return RedirectToAction("All");
+    }
 
-        public IActionResult All()
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<IActionResult> All()
+    {
+        IEnumerable<CategoryAllViewModel> categories =
+            await categoryService.GetAllAsync();
+
+        return View(categories.ToList());
     }
 }

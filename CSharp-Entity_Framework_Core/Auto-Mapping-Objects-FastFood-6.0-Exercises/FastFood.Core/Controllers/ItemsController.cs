@@ -1,33 +1,40 @@
 ﻿namespace FastFood.Core.Controllers
 {
     using System;
-    using System.Linq;
     using AutoMapper;
-    using AutoMapper.QueryableExtensions;
-    using Data;
+    using FastFood.Data;
+    using FastFood.Models;
+    using FastFood.Services.Data;
     using Microsoft.AspNetCore.Mvc;
+
     using ViewModels.Items;
 
     public class ItemsController : Controller
     {
-        private readonly FastFoodContext _context;
-        private readonly IMapper _mapper;
+        private readonly IItemService itemService;
+        private readonly IMapper mapper;
+        private readonly FastFoodContext context;
 
-        public ItemsController(FastFoodContext context, IMapper mapper)
+        public ItemsController(IItemService itemService, IMapper mapper, FastFoodContext context)
         {
-            _context = context;
-            _mapper = mapper;
+            this.itemService = itemService;
+            this.mapper = mapper;
+            this.context = context;
         }
 
-        public IActionResult Create()
+        [HttpGet]
+        public async Task<IActionResult> Create()
         {
-            throw new NotImplementedException();
+            IEnumerable<CreateItemViewModel> availableCategories =
+                await itemService.GetAllAvailableCategoriesAsync();
+
+            return View(availableCategories.ToList());
         }
 
         [HttpPost]
-        public IActionResult Create(CreateItemInputModel model)
+        public async Task<IActionResult> Create(CreateItemInputModel model)
         {
-            throw new NotImplementedException();
+            IEnumerable<Item> createdItems = 
         }
 
         public IActionResult All()

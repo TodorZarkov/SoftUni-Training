@@ -2,7 +2,7 @@
 {
     public class CreateItemInputModel
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         public decimal Price { get; set; }
 

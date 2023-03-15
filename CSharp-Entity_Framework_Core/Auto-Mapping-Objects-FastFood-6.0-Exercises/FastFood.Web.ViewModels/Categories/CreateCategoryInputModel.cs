@@ -1,7 +1,12 @@
 ﻿namespace FastFood.Core.ViewModels.Categories
 {
+    using FastFood.Common.EntityConfiguration;
+    using System.ComponentModel.DataAnnotations;
+
     public class CreateCategoryInputModel
     {
-        public string CategoryName { get; set; }
+        [MinLength(ViewModelsValidation.CategoryNameMinLength)]
+        [MaxLength(ViewModelsValidation.CategoryNameMaxLength)]
+        public string CategoryName { get; set; } = null!;
     }
 }
