@@ -17,6 +17,7 @@
             _mapper = mapper;
         }
 
+        [HttpGet]
         public IActionResult Register()
         {
             throw new NotImplementedException();

@@ -9,7 +9,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using FastFood.Core.ViewModels.Items;
 using FastFood.Data;
-
+using FastFood.Models;
 
 public class ItemService : IItemService
 {
@@ -22,8 +22,24 @@ public class ItemService : IItemService
         this.context = context;
     }
 
+
+    public async Task CreateAsync(CreateItemInputModel model)
+    {
+        Item item = mapper.Map<Item>(model);
+        await context.Items.AddAsync(item);
+
+        await context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<ItemsAllViewModels>> GetAllAsync()
+        => await context.Items
+                .ProjectTo<ItemsAllViewModels>(mapper.ConfigurationProvider)
+                .ToArrayAsync();
+
     public async Task<IEnumerable<CreateItemViewModel>> GetAllAvailableCategoriesAsync()
         => await context.Categories
         .ProjectTo<CreateItemViewModel>(mapper.ConfigurationProvider)
         .ToArrayAsync();
+
+    
 }

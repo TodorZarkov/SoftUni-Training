@@ -6,21 +6,18 @@
     using FastFood.Models;
     using FastFood.Services.Data;
     using Microsoft.AspNetCore.Mvc;
-
+    using Microsoft.EntityFrameworkCore.Metadata.Internal;
     using ViewModels.Items;
 
     public class ItemsController : Controller
     {
         private readonly IItemService itemService;
-        private readonly IMapper mapper;
-        private readonly FastFoodContext context;
 
-        public ItemsController(IItemService itemService, IMapper mapper, FastFoodContext context)
+        public ItemsController(IItemService itemService)
         {
             this.itemService = itemService;
-            this.mapper = mapper;
-            this.context = context;
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Create()
@@ -34,12 +31,22 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateItemInputModel model)
         {
-            IEnumerable<Item> createdItems = 
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            await itemService.CreateAsync(model);
+
+            return RedirectToAction("All");
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            throw new NotImplementedException();
+            IEnumerable<ItemsAllViewModels> items =
+                await itemService.GetAllAsync();
+
+            return View(items.ToList());
         }
     }
 }

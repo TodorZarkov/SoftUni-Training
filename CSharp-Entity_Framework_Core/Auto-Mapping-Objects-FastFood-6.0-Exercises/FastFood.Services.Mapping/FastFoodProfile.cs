@@ -32,6 +32,18 @@
                     opt => opt.MapFrom(s => s.Id))
                 .ForMember(d => d.CategoryName,
                     opt => opt.MapFrom(s => s.Name));
+
+            CreateMap<CreateItemInputModel, Item>()
+                .ForMember(d => d.Name,
+                    opt => opt.MapFrom(s => s.Name))
+                .ForMember(d => d.Price,
+                    opt => opt.MapFrom(s => s.Price))
+                .ForMember(d => d.CategoryId,
+                    opt => opt.MapFrom(s => s.CategoryId));
+
+            CreateMap<Item, ItemsAllViewModels>()
+                .ForMember(d => (object)d.Category,
+                    opt => opt.MapFrom(s => s.Category.Name));
         }
     }
 }
