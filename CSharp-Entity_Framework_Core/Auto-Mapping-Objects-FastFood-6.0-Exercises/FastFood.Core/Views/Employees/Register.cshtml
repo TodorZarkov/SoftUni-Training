@@ -1,4 +1,4 @@
-﻿@model IList<FastFood.Core.ViewModels.Employees.RegisterEmployeeViewModel>
+﻿@model IEnumerable<FastFood.Core.ViewModels.Employees.RegisterEmployeeViewModel>
 
 @{
     ViewData["Title"] = "Register Employee";
@@ -19,7 +19,7 @@
         <select id="position" class="form-control" name="PositionId">
             @foreach (var position in Model)
             {
-                <option value="@position.PositionId">@position.PositionId</option>
+                <option value="@position.PositionId">@position.PositionName</option>
             }
         </select>
     </div>
