@@ -23,6 +23,7 @@ builder.Services.AddTransient<IPositionsService, PositionsService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<IItemService, ItemService>();
 builder.Services.AddTransient<IEmployeesService, EmployeesService>();
+builder.Services.AddTransient<IOrdersService, OrdersService>();
 
 var app = builder.Build();
 

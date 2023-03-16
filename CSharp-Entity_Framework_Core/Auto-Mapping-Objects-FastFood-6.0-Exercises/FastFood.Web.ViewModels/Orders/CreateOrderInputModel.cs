@@ -1,13 +1,19 @@
 ﻿namespace FastFood.Core.ViewModels.Orders
 {
+    using FastFood.Common.EntityConfiguration;
+    using System.ComponentModel.DataAnnotations;
+
     public class CreateOrderInputModel
     {
-        public string Customer { get; set; }
+        [MinLength(ViewModelsValidation.CustomerMinLength)]
+        [MaxLength(ViewModelsValidation.CustomerMaxLength)]
+        public string Customer { get; set; } = null!;
 
-        public int ItemId { get; set; }
+        public string ItemId { get; set; } = null!;
 
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; } = null!;
 
+        [Range(1, int.MaxValue)]
         public int Quantity { get; set; }
     }
 }

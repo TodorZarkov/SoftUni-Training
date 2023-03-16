@@ -30,10 +30,11 @@
 
 
         [NotMapped]
-        public decimal TotalPrice { get; set; }
+        public decimal TotalPrice => 
+            OrderItems != null ? OrderItems.Sum(i => i.Item.Price * i.Quantity) : 0m;
 
 
-        public string EmployeeId { get; set; }
+        public string EmployeeId { get; set; } = null!;
 
 
         public virtual Employee Employee { get; set; } = null!;

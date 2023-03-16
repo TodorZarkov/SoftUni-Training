@@ -4,6 +4,7 @@
     using FastFood.Core.ViewModels.Categories;
     using FastFood.Core.ViewModels.Employees;
     using FastFood.Core.ViewModels.Items;
+    using FastFood.Core.ViewModels.Orders;
     using FastFood.Models;
     using ViewModels.Positions;
 
@@ -43,7 +44,7 @@
                     opt => opt.MapFrom(s => s.CategoryId));
 
             CreateMap<Item, ItemsAllViewModels>()
-                .ForMember(d => (object)d.Category,
+                .ForMember(d => d.Category,
                     opt => opt.MapFrom(s => s.Category.Name));
 
             //Employees
@@ -58,6 +59,15 @@
             CreateMap<Employee, EmployeesAllViewModel>()
                 .ForMember(d => d.Position,
                     opt => opt.MapFrom(s => s.Position.Name));
+
+            //Orders
+            CreateMap<Order, OrderAllViewModel>()
+                .ForMember(d => d.Employee,
+                    opt => opt.MapFrom(s => s.Employee.Name))
+                .ForMember(d => d.DateTime,
+                    opt => opt.MapFrom(s => s.DateTime.ToString()))
+                .ForMember(d => d.OrderId,
+                    opt => opt.MapFrom(s => s.Id));
         }
     }
 }

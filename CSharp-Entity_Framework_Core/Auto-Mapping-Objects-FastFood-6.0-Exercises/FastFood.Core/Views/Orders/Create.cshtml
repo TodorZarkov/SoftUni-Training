@@ -13,18 +13,18 @@
     <div class="form-group">
         <label for="employee">Employee Id</label>
         <select id="employee" class="form-control" name="EmployeeId">
-            @foreach (var employee in Model.Employees)
+            @foreach(Tuple<string,string> e in Model.Employees)
             {
-                <option value="@employee">@employee</option>
+                <option value="@e.Item1">@e.Item2</option>
             }
         </select>
     </div>
     <div class="form-group">
         <label for="item">Item Id</label>
         <select id="item" class="form-control" name="ItemId">
-            @foreach (var item in Model.Items)
+            @foreach(var i in Model.Items)
             {
-                <option value="@item">@item</option>
+                <option value="@i.Item1">@i.Item2</option>
             }
         </select>
     </div>

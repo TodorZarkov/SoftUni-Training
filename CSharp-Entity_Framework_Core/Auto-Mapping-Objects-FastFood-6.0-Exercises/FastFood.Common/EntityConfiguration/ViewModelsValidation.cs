@@ -19,4 +19,7 @@ public static class ViewModelsValidation
 
     public const int EmployeeAddressMinLength = 3;
     public const int EmployeeAddressMaxLength = 30;
+    
+    public const int CustomerMinLength = 1;
+    public const int CustomerMaxLength = 30;
 }
