@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Datasets", "Datasets", "{C4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Results", "Results", "{441979EB-BDD5-4F25-BEFA-AB475701AFD6}"
 	ProjectSection(SolutionItems) = preProject
+		Results\categories-by-products.json = Results\categories-by-products.json
 		Results\products-in-range.json = Results\products-in-range.json
 		Results\users-sold-products.json = Results\users-sold-products.json
 	EndProjectSection

@@ -34,10 +34,15 @@ public class StartUp
         //string productsJsonString = GetProductsInRange(context);
         //File.WriteAllText(@"..\..\..\..\Results\products-in-range.json", productsJsonString);
 
-        string soldProductsJsonString = GetSoldProducts(context);
+        //string soldProductsJsonString = GetSoldProducts(context);
+        //File.WriteAllText(
+        //    @"..\..\..\..\Results\users-sold-products.json", 
+        //    soldProductsJsonString);
+
+        string categoriesJsonString = GetCategoriesByProductsCount(context);
         File.WriteAllText(
-            @"..\..\..\..\Results\users-sold-products.json", 
-            soldProductsJsonString);
+            @"..\..\..\..\Results\categories-by-products.json",
+            categoriesJsonString);
     }
 
     //Mapper
@@ -193,5 +198,24 @@ public class StartUp
     }
 
     //p.07. Export Categories By Products Count
+    public static string GetCategoriesByProductsCount(ProductShopContext context)
+    {
+        var categories = context.Categories
+            .OrderByDescending(c => c.CategoryProducts.Count)
+            .Select(c => new
+            {
+                Category = c.Name,
+                ProductsCount = c.CategoryProducts.Count,
+                AveragePrice = c.CategoryProducts.Average(cp => cp.Product.Price).ToString("f2"),
+                TotalRevenue = c.CategoryProducts.Sum(cp => cp.Product.Price).ToString("f2")
+            })
+            .ToArray();
+
+        var jsonSettings = CreateSettingsCamelIncludeNullIndented();
+
+        return JsonConvert.SerializeObject(categories, jsonSettings);
+    }
+
+    //p.08. Export Users and Products 
 
 }
