@@ -9,6 +9,8 @@ using ProductShop.Data;
 using ProductShop.Dto.Export;
 using ProductShop.Dto.Import;
 using ProductShop.Models;
+using System.Diagnostics.Metrics;
+using System.Linq;
 using System.Text.Json;
 
 public class StartUp
@@ -39,10 +41,16 @@ public class StartUp
         //    @"..\..\..\..\Results\users-sold-products.json", 
         //    soldProductsJsonString);
 
-        string categoriesJsonString = GetCategoriesByProductsCount(context);
+        //string categoriesJsonString = GetCategoriesByProductsCount(context);
+        //File.WriteAllText(
+        //    @"..\..\..\..\Results\categories-by-products.json",
+        //    categoriesJsonString);
+        
+        string usersJsonString = GetUsersWithProducts(context);
         File.WriteAllText(
-            @"..\..\..\..\Results\categories-by-products.json",
-            categoriesJsonString);
+            @"..\..\..\..\Results\users-and-products.json",
+            usersJsonString);
+
     }
 
     //Mapper
@@ -217,5 +225,39 @@ public class StartUp
     }
 
     //p.08. Export Users and Products 
+    public static string GetUsersWithProducts(ProductShopContext context)
+    {
+        var users = new
+        {
+            UsersCount = context.Users
+                .Count(u => u.ProductsSold.Any(ps => ps.BuyerId.HasValue)),
+            Users = context.Users
+                .OrderByDescending(u => u.ProductsSold.Count(p => p.BuyerId.HasValue))
+                .Where(u => u.ProductsSold.Any(ps => ps.BuyerId.HasValue))
+                .Select(u => new
+                {
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Age = u.Age,
+                    SoldProducts = new
+                    {
+                        Count = u.ProductsSold.Count(p => p.BuyerId.HasValue),
+                        Products = u.ProductsSold
+                        .Where(p => p.BuyerId.HasValue)
+                        .Select(ps => new
+                        {
+                            Name = ps.Name,
+                            Price = ps.Price
+                        }).ToArray()
+                    }
+                }).ToArray()
+        };
+
+        var jsonSettings = CreateSettingsIdentedCamel();
+
+        return JsonConvert.SerializeObject(users, jsonSettings);
+    }
+
+    //p.09. Import Suppliers
 
 }
