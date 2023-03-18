@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProductShop.Data\ProductShop.Data.csproj" />
+    <ProjectReference Include="..\ProductShop.Dto.Export\ProductShop.Dto.Export.csproj" />
     <ProjectReference Include="..\ProductShop.Dto.Import\ProductShop.Dto.Import.csproj" />
   </ItemGroup>
 

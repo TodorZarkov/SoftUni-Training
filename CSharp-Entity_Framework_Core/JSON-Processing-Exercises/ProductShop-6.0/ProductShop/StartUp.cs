@@ -1,8 +1,11 @@
 ﻿namespace ProductShop;
 
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using ProductShop.Data;
+using ProductShop.Dto.Export;
 using ProductShop.Dto.Import;
 using ProductShop.Models;
 using System.Text.Json;
@@ -24,8 +27,13 @@ public class StartUp
         //string categoryString = File.ReadAllText(@"..\..\..\..\Datasets\categories.json");
         //Console.WriteLine(ImportCategories(context, categoryString));
 
-        string categoryProductString = File.ReadAllText(@"..\..\..\..\Datasets\categories-products.json");
-        Console.WriteLine(ImportCategoryProducts(context,categoryProductString));
+        //string categoryProductString = File.ReadAllText(@"..\..\..\..\Datasets\categories-products.json");
+        //Console.WriteLine(ImportCategoryProducts(context,categoryProductString));
+
+        //string productsJsonString = GetProductsInRange(context);
+        //File.WriteAllText(@"..\..\..\..\Results\products-in-range.json", productsJsonString);
+
+
     }
 
     //Mapper
@@ -106,5 +114,32 @@ public class StartUp
     }
 
     //p.05. Export Products In Range 
+    public static string GetProductsInRange(ProductShopContext context)
+    {
+        IMapper mapper = CreateMapper();
+
+
+        ProductDtoExport[] productsDto =
+            context.Products
+            .Where(p => p.Price >= 500m &&
+                        p.Price <= 1000m)
+            .OrderBy(p => p.Price)
+            .ProjectTo<ProductDtoExport>(mapper.ConfigurationProvider)
+            .ToArray();
+
+
+        var settings = new JsonSerializerSettings
+        {
+            Formatting = Formatting.Indented,
+            ContractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            }
+        };
+
+        return JsonConvert.SerializeObject(productsDto, settings);
+    }
+
+    //p.06. Export Sold Products 
 
 }
