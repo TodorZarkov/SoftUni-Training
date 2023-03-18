@@ -2,6 +2,7 @@
 
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Castle.Core.Internal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using ProductShop.Data;
@@ -33,7 +34,10 @@ public class StartUp
         //string productsJsonString = GetProductsInRange(context);
         //File.WriteAllText(@"..\..\..\..\Results\products-in-range.json", productsJsonString);
 
-
+        string soldProductsJsonString = GetSoldProducts(context);
+        File.WriteAllText(
+            @"..\..\..\..\Results\users-sold-products.json", 
+            soldProductsJsonString);
     }
 
     //Mapper
@@ -41,6 +45,33 @@ public class StartUp
     {
         return new Mapper(new MapperConfiguration(c =>
             c.AddProfile<ProductShopProfile>()));
+    }
+
+    //JsonSettings
+    public static JsonSerializerSettings CreateSettingsIdentedCamel()
+    {
+        return new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            Formatting = Formatting.Indented,
+            ContractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            }
+        };
+    }
+    public static JsonSerializerSettings CreateSettingsCamelIncludeNullIndented()
+    {
+        return new JsonSerializerSettings
+        {
+            
+            NullValueHandling = NullValueHandling.Include,
+            Formatting = Formatting.Indented,
+            ContractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy(false, true)
+            }
+        };
     }
 
 
@@ -128,18 +159,39 @@ public class StartUp
             .ToArray();
 
 
-        var settings = new JsonSerializerSettings
-        {
-            Formatting = Formatting.Indented,
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy()
-            }
-        };
+        var settings = CreateSettingsIdentedCamel();
 
         return JsonConvert.SerializeObject(productsDto, settings);
     }
 
     //p.06. Export Sold Products 
+    public static string GetSoldProducts(ProductShopContext context)
+    {
+        var persons = context.Users
+            .Where(u => u.ProductsSold.Any(ps => ps.BuyerId.HasValue))
+            .OrderBy(u => u.LastName)
+            .ThenBy(u => u.FirstName)
+            .Select(u => new
+            {
+                u.FirstName,
+                u.LastName,
+                SoldProducts = u.ProductsSold
+                .Where(sp => sp.BuyerId.HasValue)
+                .Select(sp => new
+                {
+                    sp.Name,
+                    Price = sp.Price,
+                    BuyerFirstName = sp.Buyer.FirstName,
+                    BuyerLastName = sp.Buyer.LastName
+                }).ToArray()
+            }).ToArray();
+
+
+        var jsonSettings = CreateSettingsCamelIncludeNullIndented();
+
+        return JsonConvert.SerializeObject(persons, jsonSettings);
+    }
+
+    //p.07. Export Categories By Products Count
 
 }
