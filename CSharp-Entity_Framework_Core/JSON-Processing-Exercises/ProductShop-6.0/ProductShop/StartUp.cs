@@ -227,35 +227,37 @@ public class StartUp
     //p.08. Export Users and Products 
     public static string GetUsersWithProducts(ProductShopContext context)
     {
-        var users = new
-        {
-            UsersCount = context.Users
-                .Count(u => u.ProductsSold.Any(ps => ps.BuyerId.HasValue)),
-            Users = context.Users
-                .OrderByDescending(u => u.ProductsSold.Count(p => p.BuyerId.HasValue))
-                .Where(u => u.ProductsSold.Any(ps => ps.BuyerId.HasValue))
-                .Select(u => new
+        var usersDto = context.Users
+            .Where(u => u.ProductsSold.Any(ps => ps.BuyerId.HasValue))
+            .Select(u => new
+            {
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                Age = u.Age,
+                SoldProducts = new
                 {
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                    Age = u.Age,
-                    SoldProducts = new
+                    Count = u.ProductsSold.Count(p => p.BuyerId.HasValue),
+                    Products = u.ProductsSold
+                    .Where(p => p.BuyerId.HasValue)
+                    .Select(ps => new
                     {
-                        Count = u.ProductsSold.Count(p => p.BuyerId.HasValue),
-                        Products = u.ProductsSold
-                        .Where(p => p.BuyerId.HasValue)
-                        .Select(ps => new
-                        {
-                            Name = ps.Name,
-                            Price = ps.Price
-                        }).ToArray()
-                    }
-                }).ToArray()
+                        Name = ps.Name,
+                        Price = ps.Price
+                    }).ToArray()
+                }
+            })
+            .OrderByDescending(u => u.SoldProducts.Count)
+            .ToArray();
+
+        var userWrapperDto = new
+        {
+            UsersCount = usersDto.Length,
+            Users = usersDto
         };
 
-        var jsonSettings = CreateSettingsIdentedCamel();
 
-        return JsonConvert.SerializeObject(users, jsonSettings);
+        var jsonSettings = CreateSettingsIdentedCamel();
+        return JsonConvert.SerializeObject(userWrapperDto, jsonSettings);
     }
 
     //p.09. Import Suppliers
