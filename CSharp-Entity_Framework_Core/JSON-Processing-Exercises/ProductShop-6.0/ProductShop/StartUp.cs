@@ -21,8 +21,11 @@ public class StartUp
         //string productString = File.ReadAllText(@"..\..\..\..\Datasets\products.json");
         //Console.WriteLine(ImportProducts(context, productString));
 
-        string categoryString = File.ReadAllText(@"..\..\..\..\Datasets\categories.json");
-        Console.WriteLine(ImportCategories(context, categoryString));
+        //string categoryString = File.ReadAllText(@"..\..\..\..\Datasets\categories.json");
+        //Console.WriteLine(ImportCategories(context, categoryString));
+
+        string categoryProductString = File.ReadAllText(@"..\..\..\..\Datasets\categories-products.json");
+        Console.WriteLine(ImportCategoryProducts(context,categoryProductString));
     }
 
     //Mapper
@@ -86,5 +89,22 @@ public class StartUp
     }
 
     //p.04. Import Categories and Products 
+    public static string ImportCategoryProducts(ProductShopContext context, string inputJson)
+    {
+        CategoryProductDtoImport[] categoryProductDtos =
+            JsonConvert.DeserializeObject<CategoryProductDtoImport[]>(inputJson);
+
+        IMapper mapper = CreateMapper();
+
+        CategoryProduct[] categoryProducts =
+            mapper.Map<CategoryProduct[]>(categoryProductDtos);
+
+        context.CategoriesProducts.AddRange(categoryProducts);
+        context.SaveChanges();
+
+        return $"Successfully imported {categoryProducts.Length}";
+    }
+
+    //p.05. Export Products In Range 
 
 }
