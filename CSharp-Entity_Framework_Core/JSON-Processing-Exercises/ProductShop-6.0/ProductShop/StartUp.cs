@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using ProductShop.Data;
 using ProductShop.Dto.Import;
 using ProductShop.Models;
+using System.Text.Json;
 
 public class StartUp
 {
@@ -17,8 +18,18 @@ public class StartUp
         //string userString = File.ReadAllText(@"..\..\..\..\Datasets\users.json");
         //Console.WriteLine(ImportUsers(context, userString));
 
-        string productString = File.ReadAllText(@"..\..\..\..\Datasets\products.json");
-        Console.WriteLine(ImportProducts(context, productString));
+        //string productString = File.ReadAllText(@"..\..\..\..\Datasets\products.json");
+        //Console.WriteLine(ImportProducts(context, productString));
+
+        string categoryString = File.ReadAllText(@"..\..\..\..\Datasets\categories.json");
+        Console.WriteLine(ImportCategories(context, categoryString));
+    }
+
+    //Mapper
+    public static IMapper CreateMapper()
+    {
+        return new Mapper(new MapperConfiguration(c =>
+            c.AddProfile<ProductShopProfile>()));
     }
 
 
@@ -27,10 +38,7 @@ public class StartUp
     {
         List<UserDtoImport> usersDto = JsonConvert.DeserializeObject<List<UserDtoImport>>(inputJson);
 
-        MapperConfiguration config =
-            new MapperConfiguration(c => c.AddProfile<ProductShopProfile>());
-
-        Mapper mapper = new Mapper(config);
+        IMapper mapper = CreateMapper();
 
         foreach (var userDto in usersDto)
         {
@@ -48,8 +56,7 @@ public class StartUp
         ProductDtoImport[] productsDto = 
             JsonConvert.DeserializeObject<ProductDtoImport[]>(inputJson);
 
-        IMapper mapper = new Mapper(new MapperConfiguration(c =>
-            c.AddProfile<ProductShopProfile>()));
+        IMapper mapper = CreateMapper();
 
         Product[] products = mapper.Map<Product[]>(productsDto);
 
@@ -60,5 +67,24 @@ public class StartUp
     }
 
     //p.03. Import Categories
+    public static string ImportCategories(ProductShopContext context, string inputJson)
+    {
+        CategoryDtoImport[] categoryDtos =
+            JsonConvert.DeserializeObject<CategoryDtoImport[]>(inputJson);
+
+        ICollection<CategoryDtoImport> validCategories =
+            categoryDtos.Where(c => c.Name != null)
+            .ToHashSet<CategoryDtoImport>();
+
+        IMapper mapper = CreateMapper();
+        Category[] categories = mapper.Map<Category[]>(validCategories);
+
+        context.Categories.AddRange(categories);
+        context.SaveChanges();
+
+        return $"Successfully imported {validCategories.Count}";
+    }
+
+    //p.04. Import Categories and Products 
 
 }
