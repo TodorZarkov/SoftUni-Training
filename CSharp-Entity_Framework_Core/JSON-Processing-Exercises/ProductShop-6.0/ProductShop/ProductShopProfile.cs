@@ -9,5 +9,7 @@ public class ProductShopProfile : Profile
     public ProductShopProfile()
     {
         CreateMap<UserDtoImport, User>();
+
+        CreateMap<ProductDtoImport, Product>();
     }
 }
