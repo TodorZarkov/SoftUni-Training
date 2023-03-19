@@ -38,7 +38,9 @@ public class StartUp
 
         //Console.WriteLine(GetCarsFromMakeToyota(context));
 
-        Console.WriteLine(GetLocalSuppliers(context));
+        //Console.WriteLine(GetLocalSuppliers(context));
+
+        Console.WriteLine(GetCarsWithTheirListOfParts(context));
 
     }
 
@@ -230,5 +232,31 @@ public class StartUp
     }
 
     //p. 17. Export Cars With Their List Of Parts 
+    public static string GetCarsWithTheirListOfParts(CarDealerContext context)
+    {
+        var cars = context.Cars
+            .Select(c => new
+            {
+                car = new
+                {
+                    Make = c.Make,
+                    Model = c.Model,
+                    TraveledDistance = c.TraveledDistance
+                },
+                parts = c.PartCars.Select(pc => new
+                {
+                    Name = pc.Part.Name,
+                    Price = pc.Part.Price.ToString("f2")
+                })
+                .ToArray()
+            })
+            .ToArray();
+
+        var jsonSettings = CreateSettingsPascalIndentedNull();
+
+        return JsonSerializer.Serialize(cars, jsonSettings);
+    }
+
+    //p. 18. Export Total Sales By Customer 
 
 }

@@ -8,7 +8,7 @@ public class Car
 
     public string Model { get; set; }
 
-    public int TraveledDistance { get; set; }
+    public long TraveledDistance { get; set; }
 
     public ICollection<PartCar> PartCars { get; set; }
 }
