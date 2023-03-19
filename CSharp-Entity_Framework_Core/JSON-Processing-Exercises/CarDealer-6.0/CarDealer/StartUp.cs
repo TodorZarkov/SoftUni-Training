@@ -36,7 +36,9 @@ public class StartUp
 
         //Console.WriteLine(GetOrderedCustomers(context));
 
-        Console.WriteLine(GetCarsFromMakeToyota(context));
+        //Console.WriteLine(GetCarsFromMakeToyota(context));
+
+        Console.WriteLine(GetLocalSuppliers(context));
 
     }
 
@@ -211,5 +213,22 @@ public class StartUp
     }
 
     //p. 16. Export Local Suppliers 
+    public static string GetLocalSuppliers(CarDealerContext context)
+    {
+        var suppliers = context.Suppliers
+            .Where(s => s.IsImporter == false)
+            .Select(s => new
+            {
+                s.Id,
+                s.Name,
+                PartsCount = s.Parts.Where(p => p.Quantity != 0).Count()
+            });
+
+        var jsonSettings = CreateSettingsPascalIndentedNull();
+
+        return JsonSerializer.Serialize(suppliers, jsonSettings);
+    }
+
+    //p. 17. Export Cars With Their List Of Parts 
 
 }
