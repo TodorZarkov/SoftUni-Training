@@ -4,6 +4,7 @@ using AutoMapper;
 using CarDealer.Data;
 using CarDealer.DTOs.Import;
 using CarDealer.Models;
+using Castle.Core.Resource;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -23,8 +24,11 @@ public class StartUp
         //string partsJsonString = File.ReadAllText(@"..\..\..\Datasets\parts.json");
         //Console.WriteLine(ImportParts(context, partsJsonString));
         
-        string carsJsonString = File.ReadAllText(@"..\..\..\Datasets\cars.json");
-        Console.WriteLine(ImportCars(context, carsJsonString));
+        //string carsJsonString = File.ReadAllText(@"..\..\..\Datasets\cars.json");
+        //Console.WriteLine(ImportCars(context, carsJsonString));
+        
+        string customersJsonString = File.ReadAllText(@"..\..\..\Datasets\customers.json");
+        Console.WriteLine(ImportCustomers(context, customersJsonString));
 
     }
 
@@ -119,5 +123,20 @@ public class StartUp
     }
 
     //p.12. Import Customers
+    public static string ImportCustomers(CarDealerContext context, string inputJson)
+    {
+        var jsonSettings = CreateSettingsCamelIndentedIgnorNull();
+        var customerDtos = JsonSerializer.Deserialize<CustomerDtoImport[]>(inputJson, jsonSettings);
+
+        IMapper mapper = CreateMapper();
+        var customers = mapper.Map<Customer[]>(customerDtos);
+        context.Customers.AddRange(customers);
+
+        context.SaveChanges();
+
+        return $"Successfully imported {customers.Length}.";
+    }
+
+    //p. 13. Import Sales 
 
 }
