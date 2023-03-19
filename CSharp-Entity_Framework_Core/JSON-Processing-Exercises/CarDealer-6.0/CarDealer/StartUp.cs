@@ -6,6 +6,7 @@ using CarDealer.DTOs.Import;
 using CarDealer.Models;
 using Castle.Core.Resource;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Json;
@@ -30,8 +31,12 @@ public class StartUp
         //string customersJsonString = File.ReadAllText(@"..\..\..\Datasets\customers.json");
         //Console.WriteLine(ImportCustomers(context, customersJsonString));
 
-        string salesJsonString = File.ReadAllText(@"..\..\..\Datasets\sales.json");
-        Console.WriteLine(ImportSales(context, salesJsonString));
+        //string salesJsonString = File.ReadAllText(@"..\..\..\Datasets\sales.json");
+        //Console.WriteLine(ImportSales(context, salesJsonString));
+
+        //Console.WriteLine(GetOrderedCustomers(context));
+
+        Console.WriteLine(GetCarsFromMakeToyota(context));
 
     }
 
@@ -54,7 +59,18 @@ public class StartUp
 
     }
 
-    
+    public static JsonSerializerOptions CreateSettingsPascalIndentedNull()
+    {
+        return new JsonSerializerOptions
+        {
+            //DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            //PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true
+        };
+
+    }
+
+
 
     //p.09. Import Suppliers
     public static string ImportSuppliers(CarDealerContext context, string inputJson)
@@ -155,5 +171,45 @@ public class StartUp
     }
 
     //p. 14. Export Ordered Customers 
+    public static string GetOrderedCustomers(CarDealerContext context)
+    {
+        var customers = context.Customers
+            .OrderBy(c => c.BirthDate)
+            .ThenBy(c => c.IsYoungDriver)
+            .Select(c => new
+            {
+                c.Name,
+                BirthDate = c.BirthDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                c.IsYoungDriver
+            })
+            .ToArray();
+
+        var jsonSettings = CreateSettingsPascalIndentedNull();
+        var customersJson = JsonSerializer.Serialize(customers, jsonSettings);
+
+        return customersJson;
+    }
+
+    //p. 15. Export Cars From Make Toyota 
+    public static string GetCarsFromMakeToyota(CarDealerContext context)
+    {
+        var cars = context.Cars
+            .Where(c => c.Make == "Toyota")
+            .OrderBy(c => c.Model)
+            .ThenByDescending(c => c.TraveledDistance)
+            .Select(c => new
+            {
+                c.Id,
+                c.Make,
+                c.Model,
+                c.TraveledDistance
+            });
+
+
+        var jsonSettings = CreateSettingsPascalIndentedNull();
+        return JsonSerializer.Serialize(cars, jsonSettings);
+    }
+
+    //p. 16. Export Local Suppliers 
 
 }
