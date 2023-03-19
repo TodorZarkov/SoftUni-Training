@@ -20,15 +20,18 @@ public class StartUp
 
         //string suppliersJsonString = File.ReadAllText(@"..\..\..\Datasets\suppliers.json");
         //Console.WriteLine(ImportSuppliers(context, suppliersJsonString));
-        
+
         //string partsJsonString = File.ReadAllText(@"..\..\..\Datasets\parts.json");
         //Console.WriteLine(ImportParts(context, partsJsonString));
-        
+
         //string carsJsonString = File.ReadAllText(@"..\..\..\Datasets\cars.json");
         //Console.WriteLine(ImportCars(context, carsJsonString));
-        
-        string customersJsonString = File.ReadAllText(@"..\..\..\Datasets\customers.json");
-        Console.WriteLine(ImportCustomers(context, customersJsonString));
+
+        //string customersJsonString = File.ReadAllText(@"..\..\..\Datasets\customers.json");
+        //Console.WriteLine(ImportCustomers(context, customersJsonString));
+
+        string salesJsonString = File.ReadAllText(@"..\..\..\Datasets\sales.json");
+        Console.WriteLine(ImportSales(context, salesJsonString));
 
     }
 
@@ -138,5 +141,19 @@ public class StartUp
     }
 
     //p. 13. Import Sales 
+    public static string ImportSales(CarDealerContext context, string inputJson)
+    {
+        var jsonSettings = CreateSettingsCamelIndentedIgnorNull();
+        var saleDtos = JsonSerializer.Deserialize<SaleDtoImport[]>(inputJson, jsonSettings);
+
+        IMapper mapper = CreateMapper();
+        var sales = mapper.Map<Sale[]>(saleDtos);
+        context.Sales.AddRange(sales);
+        context.SaveChanges();
+
+        return $"Successfully imported {sales.Length}.";
+    }
+
+    //p. 14. Export Ordered Customers 
 
 }

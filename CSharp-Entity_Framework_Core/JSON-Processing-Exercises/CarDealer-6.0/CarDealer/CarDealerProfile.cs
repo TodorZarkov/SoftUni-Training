@@ -16,5 +16,8 @@ public class CarDealerProfile : Profile
 
         //customers
         CreateMap<CustomerDtoImport, Customer>();
+
+        //sales
+        CreateMap<SaleDtoImport, Sale>();
     }
 }
