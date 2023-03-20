@@ -303,7 +303,6 @@ public class StartUp
     public static string GetSalesWithAppliedDiscount(CarDealerContext context)
     {
         var sales = context.Sales
-            //.OrderBy(s => s.)
             .Select(s => new
             {
                 car = new
