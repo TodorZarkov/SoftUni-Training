@@ -6,6 +6,7 @@ using CarDealer.DTOs.Import;
 using CarDealer.Models;
 using Castle.Core.Resource;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -40,7 +41,9 @@ public class StartUp
 
         //Console.WriteLine(GetLocalSuppliers(context));
 
-        Console.WriteLine(GetCarsWithTheirListOfParts(context));
+        //Console.WriteLine(GetCarsWithTheirListOfParts(context));
+
+        Console.WriteLine(GetTotalSalesByCustomer(context));
 
     }
 
@@ -258,5 +261,42 @@ public class StartUp
     }
 
     //p. 18. Export Total Sales By Customer 
+    public static string GetTotalSalesByCustomer(CarDealerContext context)
+    {
+        var customers = context.Customers
+            .Join(context.Sales, cu => cu.Id, s => s.CustomerId, (cu, s) => new { cu, s })
+            .Join(context.Cars, cus => cus.s.CarId, c => c.Id, (cus, ca) => new { cus, ca })
+            .Join(context.PartsCars, cusca => cusca.ca.Id, pc => pc.CarId, (cusca, pc) => new { cusca, pc })
+            .Join(context.Parts, cuscapc => cuscapc.pc.PartId, p => p.Id, (cuscapc, p) => new { cuscapc, p })
+            .GroupBy(inn => new
+            {
+                inn.cuscapc.cusca.ca.Id,
+                inn.cuscapc.cusca.cus.cu.Name,
+            })
+            .Select(grp => new 
+            { 
+                fullName = grp.Key.Name,
+                PartPrice = grp.Sum(a => a.cuscapc.pc.Part.Price),
+            })
+            .GroupBy(outt => new
+            {
+                outt.fullName
+            })
+            .Select(grpOut => new
+            {
+                grpOut.Key.fullName,
+                boughtCars = grpOut.Count(),
+                spentMoney = grpOut.Sum(a => a.PartPrice)
+            })
+            .OrderByDescending(c => c.spentMoney)
+            .ThenByDescending(c => c.boughtCars)
+            .ToArray();
+
+        var jsonSettings = CreateSettingsPascalIndentedNull();
+
+        return JsonSerializer.Serialize(customers,jsonSettings);
+    }
+
+    //p. 19. Export Sales With Applied Discount 
 
 }
