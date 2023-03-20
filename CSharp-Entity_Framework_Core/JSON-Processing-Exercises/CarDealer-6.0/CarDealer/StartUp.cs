@@ -43,7 +43,9 @@ public class StartUp
 
         //Console.WriteLine(GetCarsWithTheirListOfParts(context));
 
-        Console.WriteLine(GetTotalSalesByCustomer(context));
+        //Console.WriteLine(GetTotalSalesByCustomer(context));
+
+        Console.WriteLine(GetSalesWithAppliedDiscount(context));
 
     }
 
@@ -298,5 +300,28 @@ public class StartUp
     }
 
     //p. 19. Export Sales With Applied Discount 
+    public static string GetSalesWithAppliedDiscount(CarDealerContext context)
+    {
+        var sales = context.Sales
+            //.OrderBy(s => s.)
+            .Select(s => new
+            {
+                car = new
+                {
+                    s.Car.Make,
+                    s.Car.Model,
+                    s.Car.TraveledDistance
+                },
+                customerName = s.Customer.Name,
+                discount = s.Discount.ToString("f2"),
+                price = Math.Round(s.Car.PartCars.Sum(pc => pc.Part.Price),2).ToString("f2"),
+                priceWithDiscount = Math.Round(s.Car.PartCars.Sum(pc => pc.Part.Price) * (1m - s.Discount/100),2).ToString("f2")
+            })
+            .Take(10)
+            .ToArray();
 
+        var jsonSettings = CreateSettingsPascalIndentedNull();
+
+        return JsonSerializer.Serialize(sales, jsonSettings);
+    }
 }
