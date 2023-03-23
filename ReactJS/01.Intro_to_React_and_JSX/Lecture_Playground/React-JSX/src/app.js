@@ -10,9 +10,16 @@ const root = ReactDOM.createRoot(rootElement);
 // console.dir(rootElement);
 // console.dir(root);
 
+const Heading = (props) => {
+    return  <h1>Hello from {props.title}</h1>
+};
+
 const headerElement = (
     <header>
-        <h1>Hello from React</h1>
+        <Heading title = "react" />
+        <Heading title = "first" />
+        <Heading title = "second" />
+
         <h2>Slogan here</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error ipsa deserunt optio tenetur est hic distinctio laborum perspiciatis repudiandae in?</p>
         <br />

@@ -10,29 +10,36 @@ var root = ReactDOM.createRoot(rootElement);
 // console.dir(rootElement);
 // console.dir(root);
 
+var Heading = function Heading(props) {
+    return React.createElement(
+        "h1",
+        null,
+        "Hello from ",
+        props.title
+    );
+};
+
 var headerElement = React.createElement(
-    'header',
+    "header",
     null,
+    React.createElement(Heading, { title: "react" }),
+    React.createElement(Heading, { title: "first" }),
+    React.createElement(Heading, { title: "second" }),
     React.createElement(
-        'h1',
+        "h2",
         null,
-        'Hello from React'
+        "Slogan here"
     ),
     React.createElement(
-        'h2',
+        "p",
         null,
-        'Slogan here'
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error ipsa deserunt optio tenetur est hic distinctio laborum perspiciatis repudiandae in?"
     ),
+    React.createElement("br", null),
     React.createElement(
-        'p',
+        "button",
         null,
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error ipsa deserunt optio tenetur est hic distinctio laborum perspiciatis repudiandae in?'
-    ),
-    React.createElement('br', null),
-    React.createElement(
-        'button',
-        null,
-        'Click!!!'
+        "Click!!!"
     )
 );
 
