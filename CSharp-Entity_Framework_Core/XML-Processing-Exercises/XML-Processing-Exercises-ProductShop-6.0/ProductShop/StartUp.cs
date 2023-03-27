@@ -15,8 +15,11 @@
             //string usersDataset = File.ReadAllText(@"..\..\..\Datasets\users.xml");
             //Console.WriteLine(ImportUsers(context, usersDataset));
             
-            string productsDataset = File.ReadAllText(@"..\..\..\Datasets\products.xml");
-            Console.WriteLine(ImportProducts(context, productsDataset));
+            //string productsDataset = File.ReadAllText(@"..\..\..\Datasets\products.xml");
+            //Console.WriteLine(ImportProducts(context, productsDataset));
+            
+            string categoriesDataset = File.ReadAllText(@"..\..\..\Datasets\categories.xml");
+            Console.WriteLine(ImportCategories(context, categoriesDataset));
 
         }
 
@@ -55,6 +58,20 @@
         }
 
         //p.03. Import Categories 
+        public static string ImportCategories(ProductShopContext context, string inputXml)
+        {
+            Utils utils = new Utils();
+            var deserializedCategories =
+                utils.Deserialize<CategoryDtoImport>(inputXml, "Categories");
 
-    }
+            IMapper mapper = utils.CreateMapper();
+            var categories = mapper.Map<Category[]>(deserializedCategories);
+            context.Categories.AddRange(categories);
+            context.SaveChanges();
+
+            return $"Successfully imported {categories.Length}";
+        }
+
+        //p. 04. Import Categories and Products 
+       
 }

@@ -13,6 +13,11 @@ namespace ProductShop
 
             //Products
             CreateMap<ProductDtoImport, Product>();
+
+            //Categories
+            CreateMap<CategoryDtoImport, Category>();
+
+
         }
     }
 }
