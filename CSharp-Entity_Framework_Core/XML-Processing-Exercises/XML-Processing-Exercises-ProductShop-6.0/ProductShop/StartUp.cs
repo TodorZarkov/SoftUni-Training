@@ -18,8 +18,11 @@
             //string productsDataset = File.ReadAllText(@"..\..\..\Datasets\products.xml");
             //Console.WriteLine(ImportProducts(context, productsDataset));
             
-            string categoriesDataset = File.ReadAllText(@"..\..\..\Datasets\categories.xml");
-            Console.WriteLine(ImportCategories(context, categoriesDataset));
+            //string categoriesDataset = File.ReadAllText(@"..\..\..\Datasets\categories.xml");
+            //Console.WriteLine(ImportCategories(context, categoriesDataset));
+            
+            string categoryProductsDataset = File.ReadAllText(@"..\..\..\Datasets\categories-products.xml");
+            Console.WriteLine(ImportCategoryProducts(context, categoryProductsDataset));
 
         }
 
@@ -73,5 +76,27 @@
         }
 
         //p. 04. Import Categories and Products 
-       
+        public static string ImportCategoryProducts(ProductShopContext context, string inputXml)
+        {
+            Utils utils = new Utils();
+            var deserializedCategoryProducts =
+                utils.Deserialize<CategoryProductDtoImport>(inputXml, "CategoryProducts");
+
+            var validCategoryIds = context.Categories.Select(c => c.Id).ToHashSet();
+            var validProductIds = context.Products.Select(p => p.Id).ToHashSet();
+            var validCategoryProducts =
+                deserializedCategoryProducts.Where(cp => validCategoryIds.Contains(cp.CategoryId) &&
+                                                         validProductIds.Contains(cp.ProductId)).ToArray();
+
+            IMapper mapper = utils.CreateMapper();
+            var categoryProducts = mapper.Map<CategoryProduct[]>(validCategoryProducts);
+            context.CategoryProducts.AddRange(categoryProducts);
+            context.SaveChanges();
+
+            return $"Successfully imported {validCategoryProducts.Length}";
+        }
+
+        //p.05. Export Products In Range 
+
+    }
 }
