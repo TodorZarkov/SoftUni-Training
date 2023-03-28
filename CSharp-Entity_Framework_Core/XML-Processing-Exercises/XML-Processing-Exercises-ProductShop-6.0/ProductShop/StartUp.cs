@@ -1,9 +1,12 @@
 ﻿namespace ProductShop
 {
     using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using ProductShop.Data;
+    using ProductShop.DTOs.Export;
     using ProductShop.DTOs.Import;
     using ProductShop.Models;
+    using System.Xml.Linq;
     using System.Xml.Serialization;
 
     public class StartUp
@@ -14,15 +17,19 @@
 
             //string usersDataset = File.ReadAllText(@"..\..\..\Datasets\users.xml");
             //Console.WriteLine(ImportUsers(context, usersDataset));
-            
+
             //string productsDataset = File.ReadAllText(@"..\..\..\Datasets\products.xml");
             //Console.WriteLine(ImportProducts(context, productsDataset));
-            
+
             //string categoriesDataset = File.ReadAllText(@"..\..\..\Datasets\categories.xml");
             //Console.WriteLine(ImportCategories(context, categoriesDataset));
-            
-            string categoryProductsDataset = File.ReadAllText(@"..\..\..\Datasets\categories-products.xml");
-            Console.WriteLine(ImportCategoryProducts(context, categoryProductsDataset));
+
+            //string categoryProductsDataset = File.ReadAllText(@"..\..\..\Datasets\categories-products.xml");
+            //Console.WriteLine(ImportCategoryProducts(context, categoryProductsDataset));
+
+            //Console.WriteLine(GetProductsInRange(context));
+
+            Console.WriteLine(GetSoldProducts(context));
 
         }
 
@@ -97,6 +104,52 @@
         }
 
         //p.05. Export Products In Range 
+        public static string GetProductsInRange(ProductShopContext context)
+        {
+            Utils utils = new Utils();
+
+            IMapper mapper = utils.CreateMapper();
+
+            var products = context.Products
+                .Where(p => p.Price >= 500 && p.Price <= 1000)
+                .OrderBy(p => p.Price)
+                .Take(10)
+                .ProjectTo<ProductDtoExport>(mapper.ConfigurationProvider)
+                .ToArray();
+
+
+            return utils.Serializer<ProductDtoExport[]>(products, "Products");
+        }
+
+        //p.06. Export Sold Products 
+        public static string GetSoldProducts(ProductShopContext context)
+        {
+            Utils utils = new Utils();
+            IMapper mapper = utils.CreateMapper();
+
+            var users = context.Users
+                .Where(u => u.ProductsSold.Any(p => p.BuyerId.HasValue))
+                .OrderBy(u => u.LastName)
+                .ThenBy(u => u.FirstName)
+                .Take(5)
+                .Select(u => new UserDtoExport
+                {
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    ProductsSold = u.ProductsSold.Select(ps => new ProductWithNamePriceDtoExport
+                    {
+                        Name = ps.Name,
+                        Price = ps.Price.ToString("G29")
+                    }).ToArray()
+                })
+                .ToArray();
+
+            
+
+            return utils.Serializer<UserDtoExport[]>(users, "Users");
+        }
+
+        //p. 07. Export Categories By Products Count 
 
     }
 }
