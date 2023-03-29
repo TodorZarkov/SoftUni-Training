@@ -32,7 +32,9 @@
 
             //Console.WriteLine(GetSoldProducts(context));
 
-            Console.WriteLine(GetCategoriesByProductsCount(context));
+            //Console.WriteLine(GetCategoriesByProductsCount(context));
+
+            //Console.WriteLine(GetUsersWithProducts(context));
 
         }
 
@@ -142,7 +144,7 @@
                     ProductsSold = u.ProductsSold.Select(ps => new ProductWithNamePriceDtoExport
                     {
                         Name = ps.Name,
-                        Price = ps.Price.ToString("G29")
+                        Price = ps.Price//.ToString("G29")
                     }).ToArray()
                 })
                 .ToArray();
@@ -173,6 +175,40 @@
         }
 
         //p 08. Export Users and Products 
+        public static string GetUsersWithProducts(ProductShopContext context)
+        {
+            var usersIn = context.Users
+                .Where(u => u.ProductsSold.Any(ps => ps.BuyerId.HasValue))
+                .Select(u => new UserNamesAgeDtoExport
+                {
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Age = u.Age,
+                    SoldProducts = new SoldProductsDtoExport
+                    {
+                        Count = u.ProductsSold.Count,
+                        Products = u.ProductsSold.Select(ps => new ProductWithNamePriceDtoExport
+                        {
+                            Name = ps.Name,
+                            Price = ps.Price
+                        })
+                        .OrderByDescending(p => p.Price)
+                        .ToArray()
+                    }
+                })
+                .OrderByDescending(u => u.SoldProducts.Count);
+                //.Take(10)
+                //.ToArray();
 
+            var usersOut = new UserOutDtoExport
+            {
+                Count = usersIn.Count(),
+                InUsers = usersIn.Take(10).ToArray()
+            };
+
+            Utils utils = new Utils();
+
+            return utils.Serializer(usersOut, "Users");
+        }
     }
 }

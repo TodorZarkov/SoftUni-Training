@@ -9,5 +9,6 @@ public class ProductWithNamePriceDtoExport
     public string Name { get; set; } = null!;
 
     [XmlElement("price")]
-    public string Price { get; set; } = null!;
+    //public string Price { get; set; } = null!;
+    public decimal Price { get; set; }
 }
