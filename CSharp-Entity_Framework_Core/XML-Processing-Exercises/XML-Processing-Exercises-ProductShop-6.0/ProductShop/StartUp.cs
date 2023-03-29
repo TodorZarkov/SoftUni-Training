@@ -29,7 +29,7 @@
 
             //Console.WriteLine(GetProductsInRange(context));
 
-            Console.WriteLine(GetSoldProducts(context));
+            //Console.WriteLine(GetSoldProducts(context));
 
         }
 
