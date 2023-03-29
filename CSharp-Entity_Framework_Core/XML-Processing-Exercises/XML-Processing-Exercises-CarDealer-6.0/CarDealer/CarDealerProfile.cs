@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
+using CarDealer.DTOs.Import;
+using CarDealer.Models;
 
-namespace CarDealer
+namespace CarDealer;
+
+public class CarDealerProfile : Profile
 {
-    public class CarDealerProfile : Profile
+    public CarDealerProfile()
     {
-        public CarDealerProfile()
-        {
-
-        }
+        CreateMap<SupplierDtoImport, Supplier>();
     }
 }
