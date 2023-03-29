@@ -1,13 +1,14 @@
 ﻿namespace ProductShop
 {
+    using System.Xml.Serialization;
+
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+
     using ProductShop.Data;
     using ProductShop.DTOs.Export;
     using ProductShop.DTOs.Import;
     using ProductShop.Models;
-    using System.Xml.Linq;
-    using System.Xml.Serialization;
 
     public class StartUp
     {
@@ -30,6 +31,8 @@
             //Console.WriteLine(GetProductsInRange(context));
 
             //Console.WriteLine(GetSoldProducts(context));
+
+            Console.WriteLine(GetCategoriesByProductsCount(context));
 
         }
 
@@ -150,6 +153,26 @@
         }
 
         //p. 07. Export Categories By Products Count 
+        public static string GetCategoriesByProductsCount(ProductShopContext context)
+        {
+            var categories = context.Categories
+                .Select(c => new CategoriesDtoExport
+                {
+                    Name = c.Name,
+                    NumberOfProducts = c.CategoryProducts.Count,
+                    AvaragePrice = c.CategoryProducts.Average(cp => cp.Product.Price),
+                    TotalRevenue = c.CategoryProducts.Sum(cp => cp.Product.Price)
+                })
+                .OrderByDescending(c => c.NumberOfProducts)
+                .ThenBy(c => c.TotalRevenue)
+                .ToArray();
+
+            Utils utils = new Utils();
+
+            return utils.Serializer(categories, "Categories");
+        }
+
+        //p 08. Export Users and Products 
 
     }
 }
