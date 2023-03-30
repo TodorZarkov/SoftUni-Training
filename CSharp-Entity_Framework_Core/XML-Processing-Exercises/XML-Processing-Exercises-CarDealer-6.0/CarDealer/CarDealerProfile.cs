@@ -21,5 +21,10 @@ public class CarDealerProfile : Profile
 
         //customers
         CreateMap<CustomerDtoImport, Customer>();
+
+        //sales
+        CreateMap<SaleDtoImport, Sale>()
+            .ForMember(d => d.CarId,
+                opt => opt.MapFrom(s => s.CarId.Value));
     }
 }

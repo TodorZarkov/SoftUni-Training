@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Sales>
     <Sale>
-        <carId>105</carId>
+		<carId>105</carId>
         <customerId>30</customerId>
         <discount>30</discount>
     </Sale>
@@ -31,7 +31,7 @@
         <discount>15</discount>
     </Sale>
     <Sale>
-        <carId>14</carId>
+		<carId>14</carId>
         <customerId>4</customerId>
         <discount>30</discount>
     </Sale>
