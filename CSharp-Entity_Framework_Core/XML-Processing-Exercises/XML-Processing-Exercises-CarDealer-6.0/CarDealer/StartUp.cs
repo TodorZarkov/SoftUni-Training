@@ -1,7 +1,9 @@
 ﻿namespace CarDealer;
 
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CarDealer.Data;
+using CarDealer.DTOs.Export;
 using CarDealer.DTOs.Import;
 using CarDealer.Models;
 using Castle.Core.Resource;
@@ -17,18 +19,20 @@ public class StartUp
 
         //string suppliersXml = File.ReadAllText(@"..\..\..\Datasets\suppliers.xml");
         //Console.WriteLine(ImportSuppliers(context, suppliersXml));
-        
+
         //string partsXml = File.ReadAllText(@"..\..\..\Datasets\parts.xml");
         //Console.WriteLine(ImportParts(context, partsXml));
-        
+
         //string carsXml = File.ReadAllText(@"..\..\..\Datasets\cars.xml");
         //Console.WriteLine(ImportCars(context, carsXml));
-        
+
         //string customersXml = File.ReadAllText(@"..\..\..\Datasets\customers.xml");
         //Console.WriteLine(ImportCustomers(context, customersXml));
-        
-        string salesXml = File.ReadAllText(@"..\..\..\Datasets\sales.xml");
-        Console.WriteLine(ImportSales(context, salesXml));
+
+        //string salesXml = File.ReadAllText(@"..\..\..\Datasets\sales.xml");
+        //Console.WriteLine(ImportSales(context, salesXml));
+
+        Console.WriteLine(GetCarsWithDistance(context));
 
     }
 
@@ -146,5 +150,22 @@ public class StartUp
     }
 
     //p. 14. Export Cars With Distance 
+    public static string GetCarsWithDistance(CarDealerContext context)
+    {
+        Utils utils = new Utils();
+        IMapper mapper = utils.CreateMapper();
+
+        var cars = context.Cars
+            .Where(c => c.TraveledDistance > 2 - 000 - 000)
+            .OrderBy(c => c.Make)
+            .ThenBy(c => c.Model)
+            .Take(10)
+            .ProjectTo<CarWithDistanceDtoExport>(mapper.ConfigurationProvider)
+            .ToArray();
+
+        return utils.XmlSerialize<CarWithDistanceDtoExport[]>(cars, "cars");
+    }
+
+    //p. 15. Export Cars From Make BMW 
 
 }

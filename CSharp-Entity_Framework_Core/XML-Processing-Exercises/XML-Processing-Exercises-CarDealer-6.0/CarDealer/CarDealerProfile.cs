@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CarDealer.DTOs.Export;
 using CarDealer.DTOs.Import;
 using CarDealer.Models;
 
@@ -18,6 +19,7 @@ public class CarDealerProfile : Profile
         CreateMap<CarDtoImport, Car>()
             .ForMember(d => d.PartsCars,
                 opt => opt.MapFrom(s => s.PartIds.Select(pid => new PartCar { PartId = pid.Id })));
+        CreateMap<Car, CarWithDistanceDtoExport>();
 
         //customers
         CreateMap<CustomerDtoImport, Customer>();
