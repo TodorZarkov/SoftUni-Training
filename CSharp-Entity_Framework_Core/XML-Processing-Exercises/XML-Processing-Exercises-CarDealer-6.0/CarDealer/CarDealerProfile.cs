@@ -2,6 +2,7 @@
 using CarDealer.DTOs.Export;
 using CarDealer.DTOs.Import;
 using CarDealer.Models;
+using System.Security.Cryptography.X509Certificates;
 
 namespace CarDealer;
 
@@ -33,6 +34,17 @@ public class CarDealerProfile : Profile
 
         //customers
         CreateMap<CustomerDtoImport, Customer>();
+        CreateMap<Customer, CustomerWithSalesDtoExportII>()
+            .ForMember(des => des.CarsBought,
+                opt => opt.MapFrom(s => s.Sales.Count))
+            .ForMember(d => d.TotalPrice,
+                opt => opt.MapFrom(src => src.Sales
+                .Select(s => s.Car.PartsCars
+                    .Select(pc => pc.Part))
+                .SelectMany(x => x)
+                .Sum(p => p.Price) * (1m - (src.IsYoungDriver?0.05m:0m)) 
+                ));
+            
         
 
         //sales

@@ -42,6 +42,8 @@ public class StartUp
 
         //Console.WriteLine(GetCarsWithTheirListOfParts(context));
 
+        //Console.WriteLine(GetTotalSalesByCustomerII(context));
+
         Console.WriteLine(GetTotalSalesByCustomer(context));
 
     }
@@ -223,10 +225,9 @@ public class StartUp
     }
 
     //p. 18. Export Total Sales By Customer 
-    public static string GetTotalSalesByCustomer(CarDealerContext context)
+    public static string GetTotalSalesByCustomerII(CarDealerContext context)
     {
         Utils utils = new Utils();
-        IMapper mapper = utils.CreateMapper();
 
         var customers = context.Customers
             .Join(context.Sales, c => c.Id, s => s.CustomerId, (c, s) => new { c, s })
@@ -275,6 +276,32 @@ public class StartUp
 
 
         //return customers;
+        return utils.XmlSerialize<CustomerWithSalesDtoExport[]>(customers, "customers");
+    }
+
+    //p. 18. Export Total Sales By Customer 
+    public static string GetTotalSalesByCustomer(CarDealerContext context)
+    {
+        Utils utils = new Utils();
+        IMapper mapper = utils.CreateMapper();
+
+        var customers = context.Customers
+            .Where(c => c.Sales.Any())
+            .ProjectTo<CustomerWithSalesDtoExportII>(mapper.ConfigurationProvider)
+            .OrderByDescending(c => c.TotalPrice)
+            .Select(c => new CustomerWithSalesDtoExport
+            {
+                FullName = c.Name,
+                CarsBought = c.CarsBought,
+                TotalPrice = 
+                Math.Round(c.TotalPrice,2,MidpointRounding.ToZero)
+                .ToString("f2")
+            })
+            .ToArray();
+        
+
+
+        
         return utils.XmlSerialize<CustomerWithSalesDtoExport[]>(customers, "customers");
     }
 
