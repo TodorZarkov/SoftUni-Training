@@ -4,6 +4,7 @@ using AutoMapper;
 using CarDealer.Data;
 using CarDealer.DTOs.Import;
 using CarDealer.Models;
+using Castle.Core.Resource;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
@@ -20,8 +21,11 @@ public class StartUp
         //string partsXml = File.ReadAllText(@"..\..\..\Datasets\parts.xml");
         //Console.WriteLine(ImportParts(context, partsXml));
         
-        string carsXml = File.ReadAllText(@"..\..\..\Datasets\cars.xml");
-        Console.WriteLine(ImportCars(context, carsXml));
+        //string carsXml = File.ReadAllText(@"..\..\..\Datasets\cars.xml");
+        //Console.WriteLine(ImportCars(context, carsXml));
+        
+        string customersXml = File.ReadAllText(@"..\..\..\Datasets\customers.xml");
+        Console.WriteLine(ImportCustomers(context, customersXml));
 
     }
 
@@ -31,7 +35,7 @@ public class StartUp
         Utils utils = new Utils();
 
         var serializedSuppliers =
-            utils.XmlSerializer<SupplierDtoImport[]>(inputXml, "Suppliers");
+            utils.XmlDeserializer<SupplierDtoImport[]>(inputXml, "Suppliers");
 
         var validSuppliers = serializedSuppliers.Where(s => s.Name != null &&
                                                             s.IsImporter != null);
@@ -51,7 +55,7 @@ public class StartUp
         Utils utils = new Utils();
         IMapper mapper = utils.CreateMapper();
 
-        var deserializedParts = utils.XmlSerializer<PartDtoImport[]>(inputXml, "Parts");
+        var deserializedParts = utils.XmlDeserializer<PartDtoImport[]>(inputXml, "Parts");
 
         var validSupplierIds = context.Suppliers
             .Select(s => s.Id)
@@ -75,7 +79,7 @@ public class StartUp
         Utils utils = new Utils();
         IMapper mapper = utils.CreateMapper();
 
-        var deserializedCars = utils.XmlSerializer<CarDtoImport[]>(inputXml, "Cars");
+        var deserializedCars = utils.XmlDeserializer<CarDtoImport[]>(inputXml, "Cars");
 
         var validPartIds = context.Parts
             .Select(p => p.Id)
@@ -98,5 +102,23 @@ public class StartUp
     }
 
     //p. 12. Import Customers 
+    public static string ImportCustomers(CarDealerContext context, string inputXml)
+    {
+        Utils utils = new Utils();
+        IMapper mapper = utils.CreateMapper();
+
+        var deserializedCustomers = utils.XmlDeserializer<CustomerDtoImport[]>(inputXml, "Customers");
+
+        var validCustomers = deserializedCustomers.Where(c => !string.IsNullOrEmpty(c.Name));
+
+        var customers = mapper.Map<Customer[]>(validCustomers);
+
+        context.AddRange(customers);
+        context.SaveChanges();
+
+        return $"Successfully imported {customers.Length}";
+    }
+
+    //p. 13. Import Sales 
 
 }

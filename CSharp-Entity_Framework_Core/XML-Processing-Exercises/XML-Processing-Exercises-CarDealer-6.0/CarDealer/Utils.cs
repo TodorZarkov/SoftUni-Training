@@ -12,7 +12,7 @@ public class Utils
             c.AddProfile<CarDealerProfile>()));
     }
 
-    public T? XmlSerializer<T>(string inputXml, string rootName)
+    public T? XmlDeserializer<T>(string inputXml, string rootName)
     {
         XmlRootAttribute root = new XmlRootAttribute(rootName);
 

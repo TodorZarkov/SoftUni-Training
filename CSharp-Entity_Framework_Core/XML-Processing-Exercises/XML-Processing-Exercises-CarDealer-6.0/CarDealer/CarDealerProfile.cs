@@ -18,5 +18,8 @@ public class CarDealerProfile : Profile
         CreateMap<CarDtoImport, Car>()
             .ForMember(d => d.PartsCars,
                 opt => opt.MapFrom(s => s.PartIds.Select(pid => new PartCar { PartId = pid.Id })));
+
+        //customers
+        CreateMap<CustomerDtoImport, Customer>();
     }
 }
