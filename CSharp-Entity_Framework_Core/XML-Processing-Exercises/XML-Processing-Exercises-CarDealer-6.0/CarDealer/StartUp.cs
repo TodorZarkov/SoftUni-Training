@@ -7,6 +7,8 @@ using CarDealer.DTOs.Export;
 using CarDealer.DTOs.Import;
 using CarDealer.Models;
 using Castle.Core.Resource;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
@@ -38,7 +40,9 @@ public class StartUp
 
         //Console.WriteLine(GetLocalSuppliers(context));
 
-        Console.WriteLine(GetCarsWithTheirListOfParts(context));
+        //Console.WriteLine(GetCarsWithTheirListOfParts(context));
+
+        Console.WriteLine(GetTotalSalesByCustomer(context));
 
     }
 
@@ -219,5 +223,61 @@ public class StartUp
     }
 
     //p. 18. Export Total Sales By Customer 
+    public static string GetTotalSalesByCustomer(CarDealerContext context)
+    {
+        Utils utils = new Utils();
+        IMapper mapper = utils.CreateMapper();
+
+        var customers = context.Customers
+            .Join(context.Sales, c => c.Id, s => s.CustomerId, (c, s) => new { c, s })
+            .Join(context.Cars, cs => cs.s.CarId, ca => ca.Id, (cs, ca) => new { cs, ca })
+            .Join(context.PartsCars, csca => csca.ca.Id, pc => pc.CarId, (csca, pc) => new { csca, pc })
+            .Join(context.Parts, cscapc => cscapc.pc.PartId, p => p.Id, (cscapc, p) => new { cscapc, p })
+            .GroupBy(grpIn => new
+            {
+                CarId = grpIn.cscapc.csca.ca.Id,
+                FullName = grpIn.cscapc.csca.cs.c.Name,
+
+                IsYoungDriver = grpIn.cscapc.csca.cs.c.IsYoungDriver,
+            })
+            .Select(inn => new
+            {
+                FullName = inn.Key.FullName,
+                Price = inn.Sum(g => g.p.Price),
+
+                IsYoungDriver = inn.Key.IsYoungDriver,
+            })
+            .GroupBy(grpOut => new
+            {
+                FullName = grpOut.FullName,
+                IsYoungDriver = grpOut.IsYoungDriver,
+
+            })
+            .Select(outt => new
+            {
+                FullName = outt.Key.FullName,
+                CarsBought = outt.Count(),
+                TotalPrice = (outt.Sum(x => x.Price)//)),
+                * (1 - (outt.Key.IsYoungDriver?0.05m:0m))),// - (outt.Key.Discount/100m)),
+            })
+            .OrderByDescending(c => c.TotalPrice)
+            .ToArray()
+            .Select(f => new CustomerWithSalesDtoExport
+            {
+                FullName = f.FullName,
+                TotalPrice = 
+                    Math.Round(f.TotalPrice, 2, MidpointRounding.ToZero)
+                    .ToString("f2"),
+                CarsBought = f.CarsBought
+            })
+            .ToArray();
+            //.ToQueryString();
+
+
+        //return customers;
+        return utils.XmlSerialize<CustomerWithSalesDtoExport[]>(customers, "customers");
+    }
+
+    //p. 19. Export Sales With Applied Discount 
 
 }
