@@ -34,7 +34,9 @@ public class StartUp
 
         //Console.WriteLine(GetCarsWithDistance(context));
 
-        Console.WriteLine(GetCarsFromMakeBmw(context));
+        //Console.WriteLine(GetCarsFromMakeBmw(context));
+
+        Console.WriteLine(GetLocalSuppliers(context));
 
     }
 
@@ -185,5 +187,24 @@ public class StartUp
     }
 
     //p. 16. Export Local Suppliers 
+    public static string GetLocalSuppliers(CarDealerContext context)
+    {
+        Utils utils = new Utils();
+        IMapper mapper = utils.CreateMapper();
 
+        var suppliers = context.Suppliers
+            .Where(s => !s.IsImporter)
+            .ProjectTo<SupplierWthLocalePartsDtoExport>(mapper.ConfigurationProvider)
+            .ToArray();
+
+        return utils.XmlSerialize<SupplierWthLocalePartsDtoExport[]>(suppliers, "suppliers");
+    }
+
+    //p. 17. Export Cars With Their List Of Parts 
+    public static string GetCarsWithTheirListOfParts(CarDealerContext context)
+    {
+
+
+        return string.Empty;
+    }
 }

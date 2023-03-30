@@ -11,6 +11,9 @@ public class CarDealerProfile : Profile
     {
         //suppliers
         CreateMap<SupplierDtoImport, Supplier>();
+        CreateMap<Supplier, SupplierWthLocalePartsDtoExport>()
+            .ForMember(d => d.PartsCount,
+                opt => opt.MapFrom(s => s.Parts.Count));
 
         //parts
         CreateMap<PartDtoImport, Part>();
