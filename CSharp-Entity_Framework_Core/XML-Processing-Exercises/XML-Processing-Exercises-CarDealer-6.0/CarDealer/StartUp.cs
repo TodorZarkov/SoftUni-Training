@@ -44,8 +44,9 @@ public class StartUp
 
         //Console.WriteLine(GetTotalSalesByCustomerII(context));
 
-        Console.WriteLine(GetTotalSalesByCustomer(context));
+        //Console.WriteLine(GetTotalSalesByCustomer(context));
 
+        Console.WriteLine(GetSalesWithAppliedDiscount(context));
     }
 
     //p. 09. Import Suppliers 
@@ -306,5 +307,16 @@ public class StartUp
     }
 
     //p. 19. Export Sales With Applied Discount 
+    public static string GetSalesWithAppliedDiscount(CarDealerContext context)
+    {
+        Utils utils = new Utils();
+        IMapper mapper = utils.CreateMapper();
 
+        var sales = context.Sales
+            .ProjectTo<SaleWithAndWithoutDiscountDtoExport>(mapper.ConfigurationProvider)
+            .ToArray();
+
+
+        return utils.XmlSerialize<SaleWithAndWithoutDiscountDtoExport[]>(sales, "sales");
+    }
 }

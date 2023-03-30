@@ -31,6 +31,7 @@ public class CarDealerProfile : Profile
                 opt => opt.MapFrom(s => s.PartsCars.Select(pc => pc.Part)
                 .OrderByDescending(p => p.Price)
                 .ToArray()));
+        CreateMap<Car, CarWithDiscount>();
 
         //customers
         CreateMap<CustomerDtoImport, Customer>();
@@ -51,5 +52,18 @@ public class CarDealerProfile : Profile
         CreateMap<SaleDtoImport, Sale>()
             .ForMember(d => d.CarId,
                 opt => opt.MapFrom(s => s.CarId.Value));
+        CreateMap<Sale, SaleWithAndWithoutDiscountDtoExport>()
+            .ForMember(d => d.Price,
+                opt => opt.MapFrom(src => src.Car.PartsCars
+                    .Select(pc => pc.Part).Sum(p => p.Price)))
+            .ForMember(d => d.PriceWithDiscount,
+                opt => opt.MapFrom(src => 
+                (
+                    src.Car.PartsCars
+                    .Select(pc => pc.Part)
+                    .Sum(p => p.Price) * (1 - src.Discount/100)
+                 )
+                 .ToString("G29")
+              ));
     }
 }
