@@ -17,6 +17,7 @@ public class CarDealerProfile : Profile
 
         //parts
         CreateMap<PartDtoImport, Part>();
+        CreateMap<Part, PartWithNameAndPriceDtoExport>();
 
         //cars
         CreateMap<CarDtoImport, Car>()
@@ -24,6 +25,11 @@ public class CarDealerProfile : Profile
                 opt => opt.MapFrom(s => s.PartIds.Select(pid => new PartCar { PartId = pid.Id })));
         CreateMap<Car, CarWithDistanceDtoExport>();
         CreateMap<Car, CarByMakeDtoExport>();
+        CreateMap<Car, CarWithPartsDtoExport>()
+            .ForMember(d => d.Parts,
+                opt => opt.MapFrom(s => s.PartsCars.Select(pc => pc.Part)
+                .OrderByDescending(p => p.Price)
+                .ToArray()));
 
         //customers
         CreateMap<CustomerDtoImport, Customer>();

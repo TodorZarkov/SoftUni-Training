@@ -36,7 +36,9 @@ public class StartUp
 
         //Console.WriteLine(GetCarsFromMakeBmw(context));
 
-        Console.WriteLine(GetLocalSuppliers(context));
+        //Console.WriteLine(GetLocalSuppliers(context));
+
+        Console.WriteLine(GetCarsWithTheirListOfParts(context));
 
     }
 
@@ -203,8 +205,19 @@ public class StartUp
     //p. 17. Export Cars With Their List Of Parts 
     public static string GetCarsWithTheirListOfParts(CarDealerContext context)
     {
+        Utils utils = new Utils();
+        IMapper mapper = utils.CreateMapper();
 
+        var cars = context.Cars
+            .OrderByDescending(c => c.TraveledDistance)
+            .ThenBy(c => c.Model)
+            .Take(5)
+            .ProjectTo<CarWithPartsDtoExport>(mapper.ConfigurationProvider)
+            .ToArray();
 
-        return string.Empty;
+        return utils.XmlSerialize<CarWithPartsDtoExport[]>(cars, "cars");
     }
+
+    //p. 18. Export Total Sales By Customer 
+
 }
