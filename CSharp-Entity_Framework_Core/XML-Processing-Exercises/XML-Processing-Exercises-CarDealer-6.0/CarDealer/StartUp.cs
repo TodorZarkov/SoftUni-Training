@@ -32,7 +32,9 @@ public class StartUp
         //string salesXml = File.ReadAllText(@"..\..\..\Datasets\sales.xml");
         //Console.WriteLine(ImportSales(context, salesXml));
 
-        Console.WriteLine(GetCarsWithDistance(context));
+        //Console.WriteLine(GetCarsWithDistance(context));
+
+        Console.WriteLine(GetCarsFromMakeBmw(context));
 
     }
 
@@ -167,5 +169,21 @@ public class StartUp
     }
 
     //p. 15. Export Cars From Make BMW 
+    public static string GetCarsFromMakeBmw(CarDealerContext context)
+    {
+        Utils utils = new Utils();
+        IMapper mapper = utils.CreateMapper();
+
+        var cars = context.Cars
+            .Where(c => c.Make == "BMW")
+            .OrderBy(c => c.Model)
+            .ThenByDescending(c => c.TraveledDistance)
+            .ProjectTo<CarByMakeDtoExport>(mapper.ConfigurationProvider)
+            .ToArray();
+
+        return utils.XmlSerialize<CarByMakeDtoExport[]>(cars, "cars");
+    }
+
+    //p. 16. Export Local Suppliers 
 
 }

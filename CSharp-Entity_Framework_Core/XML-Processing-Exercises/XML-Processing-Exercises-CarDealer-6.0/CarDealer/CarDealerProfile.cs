@@ -20,6 +20,7 @@ public class CarDealerProfile : Profile
             .ForMember(d => d.PartsCars,
                 opt => opt.MapFrom(s => s.PartIds.Select(pid => new PartCar { PartId = pid.Id })));
         CreateMap<Car, CarWithDistanceDtoExport>();
+        CreateMap<Car, CarByMakeDtoExport>();
 
         //customers
         CreateMap<CustomerDtoImport, Customer>();
