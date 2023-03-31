@@ -12,7 +12,7 @@ public class Coach
 
     public int Id { get; set; }
 
-    [MinLength(2)]
+    //[MinLength(2)]
     [MaxLength(40)]
     public string Name { get; set; } = null!;
 

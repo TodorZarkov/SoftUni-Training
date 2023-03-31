@@ -12,7 +12,8 @@ public class Footballer
 
     public int Id { get; set; }
 
-    [MinLength(2)]
+
+    //[MinLength(2)]
     [MaxLength(40)]
     public string Name { get; set; } = null!;
 
@@ -25,7 +26,7 @@ public class Footballer
     public BestSkillType BestSkillType { get; set; }
 
     public int CoachId { get; set; }
-    public Coach Coach { get; set; }
+    public Coach Coach { get; set; } = null!;
 
-    public ICollection<TeamFootballer> TeamsFootballers { get; set; }
+    public ICollection<TeamFootballer> TeamsFootballers { get; set; } 
 }
