@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 public class ClientTruck
 {
-    [Required]
+    //[Required]
     public int ClientId { get; set; }
     public Client Client { get; set; } = null!;
 
 
-    [Required]
+    //[Required]
     public int TruckId { get; set; }
     public Truck Truck { get; set; } = null!;
 }
