@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MovieList from "./components.js/MovieList";
-import { movies  as movieData} from "./movies"
+//import { movies  as movieData} from "./movies"
 
 function App() {
-  const [movies, setMovies] = useState(movieData);
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/movies.json`)
+        .then(r => r.json())
+        .then(data => {
+            setMovies(data.movies);
+        });
+  }, []); 
 
   const onMovieDelete = (id) => {
     setMovies(state => state.filter(m => m.id !== id));
