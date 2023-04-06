@@ -4,7 +4,13 @@ import TableHead from './TableHead';
 import UserRow from './UserRow';
 import Pagination from './Pagination';
 
-export default function Users() {
+export default function Users({
+    users,
+    onInfoClick,
+    onRemoveClick,
+    onEditClick,
+}) {
+    
     return (
         <section className="card users-container">
 
@@ -18,7 +24,12 @@ export default function Users() {
                 <table className="table">
                     <TableHead />
                     <tbody>
-                        <UserRow />
+                        {users.map(user => <UserRow key={user._id}
+                                                    {...user}
+                                                    onInfoClick={onInfoClick}
+                                                    onRemoveClick={onRemoveClick}
+                                                    onEditClick={onEditClick}
+                                            />)}
                     </tbody>
                 </table>
 
