@@ -52,11 +52,33 @@ function App() {
     await userService.deleteUser(currentId);
     setUsers((state)=>state.filter(u => u._id !== currentId));
     setCurrentId(()=>null);
-    setIsRemoveClicked(()=>false);
+    
+    onClose();
   }
 
-  function onEditClick(id) {
+  async function onEditClick(id) {
+    const userInfo = await userService.getInfo(id);
+    setCurrentUser(()=>userInfo);
+    
     setIsCreateDelete(() => true);
+  }
+
+  async function onEditCreate(e, id) {
+    e.preventDefault();
+    
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData);
+
+    const user = await userService.update(id, data);
+
+    //console.log(user);
+    
+    setUsers((state)=>{
+      console.log(state);
+      return state.map(u => (u._id === user._id ? user : u));
+    });
+
+    onClose();
   }
 
   return (  
@@ -64,6 +86,8 @@ function App() {
       <Header />
 
       <main className="main">
+
+
         <Users  users={users}
                 onInfoClick={onInfoClick}
                 onRemoveClick={onRemoveClick}
@@ -75,12 +99,15 @@ function App() {
                 /> }
 
         {isCreateEdit && <CreateEdit onClose={onClose}
-
+                                    {...currentUser}
+                                    onEditCreate={onEditCreate}
                         />}
 
         {isRemoveClicked && <Delete onClose={onClose}
                                     removeUser={removeUser}
                             />}
+
+
 
       </main>
 
