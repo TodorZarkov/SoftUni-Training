@@ -10,8 +10,7 @@ const requester = async (method, endpoint, data) => {
     });
     //todo: handle 404
     const result = response.status === 204 ? {} : await response.json();
-    if(method === 'POST') return result;
-    return Object.values(result);
+    return result;
     
 
 };
