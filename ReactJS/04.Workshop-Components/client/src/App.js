@@ -20,7 +20,7 @@ function App() {
 
   const [currentId, setCurrentId] = useState(null);
 
-  const [isCreateEdit, setIsCreateDelete] = useState(false);
+  const [isCreateEdit, setIsCreateEdit] = useState(false);
   
   useEffect(() => {
     async function setData() {
@@ -33,7 +33,9 @@ function App() {
   function onClose(){
     setIsInfo(()=>false);
     setIsRemoveClicked(()=>false);
-    setIsCreateDelete(()=>false);
+    setIsCreateEdit(()=>false);
+
+    setCurrentUser(()=>null);
   }
 
   async function onInfoClick(id) {
@@ -60,7 +62,7 @@ function App() {
     const userInfo = await userService.getInfo(id);
     setCurrentUser(()=>userInfo);
     
-    setIsCreateDelete(() => true);
+    setIsCreateEdit(() => true);
   }
 
   async function onEditCreate(e, id) {
@@ -69,16 +71,24 @@ function App() {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData);
 
-    const user = await userService.update(id, data);
+    if(id) {
+      const user = await userService.update(id, data);
+      setUsers((state)=>{
+        return state.map(u => (u._id === user._id ? user : u));
+      });
+    } else {
+      const user = await userService.create(data);
+      setUsers((state) => [...state, user]);
+    }
 
-    //console.log(user);
     
-    setUsers((state)=>{
-      console.log(state);
-      return state.map(u => (u._id === user._id ? user : u));
-    });
 
     onClose();
+    setCurrentUser(()=>null);
+  }
+
+  function onCreateClick() {
+    setIsCreateEdit(()=>true)
   }
 
   return (  
@@ -92,6 +102,7 @@ function App() {
                 onInfoClick={onInfoClick}
                 onRemoveClick={onRemoveClick}
                 onEditClick={onEditClick}
+                onCreateClick={onCreateClick}
         />
 
         {isInfo && <Details onClose={onClose}
@@ -106,8 +117,6 @@ function App() {
         {isRemoveClicked && <Delete onClose={onClose}
                                     removeUser={removeUser}
                             />}
-
-
 
       </main>
 

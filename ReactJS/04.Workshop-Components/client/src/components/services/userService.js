@@ -32,10 +32,12 @@ export async function deleteUser(id) {
     });
     //todo: if server error
     //todo: if user not exist error
+
+    return await responce.json();
 }
 
 export async function update(id, data) {
-    const {vfirstName, lastName, email, imageUrl, phoneNumber, ...address} = data;
+    const {firstName, lastName, email, imageUrl, phoneNumber, ...address} = data;
     const {country, city, street, streetNumber, ...userInfo} = data;
     const user = {...userInfo, address};
 
@@ -46,8 +48,27 @@ export async function update(id, data) {
         },
         body: JSON.stringify(user),
     });
+    //todo: server not available error...
     const updatedUser = (await responce.json()).user;
     updatedUser.createdAt = new Date(updatedUser.createdAt);
     updatedUser.updatedAt = new Date(updatedUser.updatedAt);
     return updatedUser;
+}
+
+export async function create(data) {
+    const {firstName, lastName, email, imageUrl, phoneNumber, ...address} = data;
+    const {country, city, street, streetNumber, ...userInfo} = data;
+    const user = {...userInfo, address};
+
+    const responce = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user),
+    });
+    const createdUser = (await responce.json()).user;
+    createdUser.createdAt = new Date(createdUser.createdAt);
+    createdUser.updatedAt = new Date(createdUser.updatedAt);
+    return createdUser;
 }

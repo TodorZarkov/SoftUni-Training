@@ -9,6 +9,7 @@ export default function Users({
     onInfoClick,
     onRemoveClick,
     onEditClick,
+    onCreateClick,
 }) {
     
     return (
@@ -35,7 +36,7 @@ export default function Users({
 
             </div>
 
-            <button className="btn-add btn">Add new user</button>
+            <button className="btn-add btn" onClick={onCreateClick}>Add new user</button>
 
             <Pagination />
 
