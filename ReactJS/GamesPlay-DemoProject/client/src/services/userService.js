@@ -14,3 +14,7 @@ export const onRegister = async (data) => {
 
     return result;
 }
+
+export const onLogout = () => {
+    // get ( endpoint + '/logout');
+}

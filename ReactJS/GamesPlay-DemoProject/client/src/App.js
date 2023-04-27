@@ -11,8 +11,9 @@ import { Register } from './components/Register/Register'
 
 import { getAllGames, createGame } from './services/gameService';
 import { GameDetails } from './components/GameDetails/GameDetails';
-import { onLogin, onRegister } from './services/userService';
+import { onLogin, onLogout, onRegister } from './services/userService';
 import { UserContext } from './contexts/UserContext';
+import { Logout } from './components/Logout/Logout';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
   }, []);
 
   const onCreateGameSubmit = async (data) => {
+    console.log(data);
     const newGame = await createGame(data);
     console.log(newGame);
     setGames(state => ([...state, newGame]));
@@ -67,9 +69,15 @@ function App() {
     }
   }
 
+  const onLogoutClick = () => {
+    setUser({});
+    onLogout();
+  }
+
   const userContext = {
     onLoginSubmit,
     onRegisterSubmit,
+    onLogoutClick,
     userEmail: user.email,
     userId: user._id,
     token: user.accessToken,
@@ -86,6 +94,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/logout' element={<Logout />} />
           <Route path='/create-game' element={<CreateGame onCreateGameSubmit={onCreateGameSubmit} />} />
           <Route path='/catalog' element={<Catalog games={games} />} />
           <Route path='/:gameId' element={<GameDetails />} />

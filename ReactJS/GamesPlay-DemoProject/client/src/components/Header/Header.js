@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 
 export const Header = () => {
-    const { isLogged } = useContext(UserContext);
+    const { isLogged, userEmail } = useContext(UserContext);
     return (
         <header>
             {/* <!-- Navigation --> */}
@@ -11,10 +11,14 @@ export const Header = () => {
             <nav>
                 <Link to='/catalog'>All games</Link>
                 {isLogged && (
+                    <>
+                    <p>{userEmail}</p>
                     <div id="user">
                         <Link to='/create-game'>Create Game</Link>
-                        <Link to=''>Logout</Link>
+                        <Link to='/logout'>Logout</Link>
                     </div>
+                    </>
+                    
                 )}
 
                 {!isLogged && (
