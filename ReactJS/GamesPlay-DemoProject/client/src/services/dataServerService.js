@@ -8,11 +8,15 @@ const requester = async (method, endpoint, data) => {
         headers :{"Content-Type": "Application/JSON"},
         body: JSON.stringify(data)
     });
-    //todo: handle 404
-    const result = response.status === 204 ? {} : await response.json();
-    return result;
     
+    //todo: handle server not found
+    const result = response.status === 204 ? {} : await response.json();
 
+    if (response.status !== 200) {
+        throw result
+    }
+
+    return result;
 };
 
 

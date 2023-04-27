@@ -1,6 +1,6 @@
 import * as dataApi from './dataServerService';
 
-const endponint = "/jsonstore/games"
+const endponint = "/data/games"
 
 export const getAllGames = async () => {
     const games = await dataApi.get(endponint);
