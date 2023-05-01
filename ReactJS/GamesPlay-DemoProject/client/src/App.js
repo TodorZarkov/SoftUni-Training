@@ -9,11 +9,12 @@ import { Home } from './components/Home/Home';
 import { Login } from './components/Login/Login';
 import { Register } from './components/Register/Register'
 
-import { getAllGames, createGame } from './services/gameService';
+import { gameServiceFactory } from './services/gameService';
 import { GameDetails } from './components/GameDetails/GameDetails';
-import { onLogin, onLogout, onRegister } from './services/userService';
+import { userServiceFactory } from './services/userService';
 import { UserContext } from './contexts/UserContext';
 import { Logout } from './components/Logout/Logout';
+import { useService } from './hooks/useService';
 
 
 function App() {
@@ -21,16 +22,17 @@ function App() {
   const navigate = useNavigate();
 
   const [games, setGames] = useState([]);
-  const [user, setUser] = useState({})
-
+  const [user, setUser] = useState({});
+  const gameService = gameServiceFactory(user.accessToken);
+  const userService = userServiceFactory(user.accessToken);
 
   useEffect(() => {
-    getAllGames().then(result => setGames(result));
+    gameService.getAll().then(result => setGames(result));
   }, []);
 
   const onCreateGameSubmit = async (data) => {
     console.log(data);
-    const newGame = await createGame(data);
+    const newGame = await gameService.create(data);
     console.log(newGame);
     setGames(state => ([...state, newGame]));
     navigate('/catalog')
@@ -39,7 +41,7 @@ function App() {
 
   const onLoginSubmit = async (values) => {
     try {
-      const userData = await onLogin(values);
+      const userData = await userService.onLogin(values);
       setUser(userData);
 
       navigate('/catalog')
@@ -59,7 +61,7 @@ function App() {
     const {confirmPassword, ...registerData} = values;
 
     try {
-      const userData = await onRegister(registerData);
+      const userData = await userService.onRegister(registerData);
       setUser(userData);
 
       navigate('/catalog')
@@ -71,7 +73,7 @@ function App() {
 
   const onLogoutClick = () => {
     setUser({});
-    onLogout();
+    userService.onLogout();
   }
 
   const userContext = {

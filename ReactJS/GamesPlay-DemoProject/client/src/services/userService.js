@@ -1,20 +1,26 @@
-import { post } from "./dataServerService";
+import { requestFactory } from "./dataServerService";
 
 const endpoint = '/users'
 
-export const onLogin = async (data) => {
+export const userServiceFactory = (token) => {
+    const request = requestFactory(token);
 
-    const result = await post(endpoint + '/login', data);
+    return {
+        onLogin: async (data) => {
 
-    return result;
+            const result = await request.post(endpoint + '/login', data);
+        
+            return result;
+        },
+        
+        onRegister: async (data) => {
+            const result = await request.post (endpoint + '/register', data);
+        
+            return result;
+        },
+        
+        onLogout: () => {
+            request.get ( endpoint + '/logout');
+        },
+    };
 };
-
-export const onRegister = async (data) => {
-    const result = await post (endpoint + '/register', data);
-
-    return result;
-}
-
-export const onLogout = () => {
-    // get ( endpoint + '/logout');
-}

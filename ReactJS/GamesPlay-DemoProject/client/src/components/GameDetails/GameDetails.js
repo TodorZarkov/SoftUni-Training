@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getOne } from "../../services/gameService";
+import {gameServiceFactory} from "../../services/gameService";
+import { useService } from "../../hooks/useService";
 
 export const GameDetails = () => {
 
@@ -8,8 +9,10 @@ export const GameDetails = () => {
 
     const [game, setGame] = useState({});
 
+    const gameService = useService(gameServiceFactory);
+
     useEffect(() => {
-        getOne(gameId).then(g => setGame(g));
+        gameService.getOne(gameId).then(g => setGame(g));
     }, [gameId])
 
     return (
