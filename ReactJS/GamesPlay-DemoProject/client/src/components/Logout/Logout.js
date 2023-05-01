@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import { UserContext } from "../../contexts/UserContext"
 
 export const Logout = () => {
@@ -8,7 +8,7 @@ export const Logout = () => {
 
     useEffect(() => {
         onLogoutClick();
-    }, [])
+    }, []);
 
-    return <Link to="/" />
+    return <Navigate to="/" />
 }
