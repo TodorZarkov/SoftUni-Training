@@ -21,11 +21,17 @@ export const gameServiceFactory = (token) => {
         const result =  await request.get(endponint + '/' + gameId);
         return result;
     };
+
+    const update = async (gameId, data) => {
+        const result = await request.put(endponint + '/' + gameId, data);
+        return result;
+    };
     
     return {
         getAll,
         getOne,
         create,
+        update,
     };
 
 };

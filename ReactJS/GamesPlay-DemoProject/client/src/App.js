@@ -15,6 +15,7 @@ import { userServiceFactory } from './services/userService';
 import { UserContext } from './contexts/UserContext';
 import { Logout } from './components/Logout/Logout';
 import { useService } from './hooks/useService';
+import { EditGame } from './components/EditGame/EditGame';
 
 
 function App() {
@@ -36,7 +37,15 @@ function App() {
     console.log(newGame);
     setGames(state => ([...state, newGame]));
     navigate('/catalog')
-  }
+  };
+
+  const onEditGameSubmit = async (data) => {
+    console.log(data);
+    const { _id, ...gameData } = data;
+    const editedGame = await gameService.update(_id, gameData);
+    setGames(state => state.map(g => g._id === _id ? editedGame : g));
+    navigate(`/${data._id}`)
+  };
 
 
   const onLoginSubmit = async (values) => {
@@ -49,7 +58,7 @@ function App() {
       // TODO: handle login error
       console.log(error)
     }
-  }
+  };
 
   const onRegisterSubmit = async (values) => {
     if (values.password !== values.confirmPassword) {
@@ -58,7 +67,7 @@ function App() {
       return;
     }
 
-    const {confirmPassword, ...registerData} = values;
+    const { confirmPassword, ...registerData } = values;
 
     try {
       const userData = await userService.onRegister(registerData);
@@ -69,12 +78,12 @@ function App() {
       // TODO: handle register error
       console.log(error)
     }
-  }
+  };
 
   const onLogoutClick = () => {
     setUser({});
     userService.onLogout();
-  }
+  };
 
   const userContext = {
     onLoginSubmit,
@@ -84,26 +93,27 @@ function App() {
     userId: user._id,
     token: user.accessToken,
     isLogged: !!user.accessToken,
-  }
+  };
 
 
   return (
-    <UserContext.Provider value = {userContext}>
-    <div id="box">
-      <Header />
-      <main id="main-content">
-        <Routes >
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/logout' element={<Logout />} />
-          <Route path='/create-game' element={<CreateGame onCreateGameSubmit={onCreateGameSubmit} />} />
-          <Route path='/catalog' element={<Catalog games={games} />} />
-          <Route path='/:gameId' element={<GameDetails />} />
+    <UserContext.Provider value={userContext}>
+      <div id="box">
+        <Header />
+        <main id="main-content">
+          <Routes >
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/logout' element={<Logout />} />
+            <Route path='/create-game' element={<CreateGame onCreateGameSubmit={onCreateGameSubmit} />} />
+            <Route path='/catalog' element={<Catalog games={games} />} />
+            <Route path='/:gameId' element={<GameDetails />} />
+            <Route path='/:gameId/edit-game' element={<EditGame onEditGameSubmit={onEditGameSubmit} />} />
 
-        </Routes>
-      </main>
-    </div>
+          </Routes>
+        </main>
+      </div>
     </UserContext.Provider>
   );
 }
