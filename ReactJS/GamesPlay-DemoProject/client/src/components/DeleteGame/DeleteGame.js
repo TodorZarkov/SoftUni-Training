@@ -9,9 +9,7 @@ export const DeleteGame = ({
 
         useEffect(() => {
             onDeleteGameClick(gameId);
-            console.log(gameId)
-        }, [gameId])
-    
+        }, [gameId]);
     
     return(
         <Navigate to={'/catalog'} />
