@@ -24,7 +24,7 @@ export const GameDetails = () => {
             <div className="info-section">
 
                 <div className="game-header">
-                    <img className="game-img" src={game.imageUrl} />
+                    <img className="game-img" src={game.imageUrl} alt=""/>
                     <h1>{game.title}</h1>
                     <span className="levels">MaxLevel: {game.maxLevel}</span>
                     <p className="type">{game.category}</p>
@@ -53,8 +53,8 @@ export const GameDetails = () => {
                     game._ownerId === userId 
                     &&
                     <div className="buttons">
-                        <Link to={`edit-game`} className="button">Edit</Link>
-                        <a href="#" className="button">Delete</a>
+                        <Link to={'edit-game'} className="button">Edit</Link>
+                        <Link to={'delete-game'} className="button">Delete</Link>
                     </div>
                 }
             </div>

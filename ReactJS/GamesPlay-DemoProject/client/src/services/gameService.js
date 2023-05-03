@@ -26,12 +26,18 @@ export const gameServiceFactory = (token) => {
         const result = await request.put(endponint + '/' + gameId, data);
         return result;
     };
+
+    const remove = async (gameId) => {
+        const result = await request.delete(endponint + '/' + gameId);
+        return result;
+    };
     
     return {
         getAll,
         getOne,
         create,
         update,
+        remove,
     };
 
 };

@@ -16,6 +16,7 @@ import { UserContext } from './contexts/UserContext';
 import { Logout } from './components/Logout/Logout';
 import { useService } from './hooks/useService';
 import { EditGame } from './components/EditGame/EditGame';
+import { DeleteGame } from './components/DeleteGame/DeleteGame';
 
 
 function App() {
@@ -32,19 +33,22 @@ function App() {
   }, []);
 
   const onCreateGameSubmit = async (data) => {
-    console.log(data);
     const newGame = await gameService.create(data);
-    console.log(newGame);
     setGames(state => ([...state, newGame]));
     navigate('/catalog')
   };
 
   const onEditGameSubmit = async (data) => {
-    console.log(data);
     const { _id, ...gameData } = data;
     const editedGame = await gameService.update(_id, gameData);
     setGames(state => state.map(g => g._id === _id ? editedGame : g));
     navigate(`/${data._id}`)
+  };
+
+  const onDeleteGameClick = (gameId) => {
+    gameService.remove(gameId)
+      .then(setGames(state => state.filter(g => g._id!==gameId)));
+      // TODO: catch if server not responging!
   };
 
 
@@ -110,6 +114,7 @@ function App() {
             <Route path='/catalog' element={<Catalog games={games} />} />
             <Route path='/:gameId' element={<GameDetails />} />
             <Route path='/:gameId/edit-game' element={<EditGame onEditGameSubmit={onEditGameSubmit} />} />
+            <Route path='/:gameId/delete-game' element={<DeleteGame onDeleteGameClick={onDeleteGameClick} />} />
 
           </Routes>
         </main>
