@@ -3,19 +3,42 @@ import { Link, useParams } from "react-router-dom";
 import { gameServiceFactory } from "../../services/gameService";
 import { useService } from "../../hooks/useService";
 import { UserContext } from "../../contexts/UserContext";
+import { ShowComments } from "./ShowComments";
+import { CreateComment } from "./CreateComment";
+import { commentServiceFactory } from "../../services/commentService";
 
 export const GameDetails = () => {
 
     const { gameId } = useParams();
 
     const [game, setGame] = useState({});
+    const [comments, setComments] = useState([])
 
     const gameService = useService(gameServiceFactory);
+    const commentService = useService(commentServiceFactory);
 
-    const { userId } = useContext(UserContext);
+    const { userId, isLogged } = useContext(UserContext);
+
+    // useEffect(() => {
+    //     gameService.getOne(gameId).then(g => setGame(g));
+    // }, [gameId]);
+
+    
+    // useEffect(() => {
+    //     commentService.getAll(gameId)
+    //         .then(c => setComments(c));
+    // }, [gameId]);
 
     useEffect(() => {
-        gameService.getOne(gameId).then(g => setGame(g));
+        Promise
+            .all([
+            gameService.getOne(gameId),
+            commentService.getAll(gameId)
+        ])
+            .then(values =>([ 
+            setGame(values[0]),
+            setComments(values[1])]))
+
     }, [gameId]);
 
     return (
@@ -24,7 +47,7 @@ export const GameDetails = () => {
             <div className="info-section">
 
                 <div className="game-header">
-                    <img className="game-img" src={game.imageUrl} alt=""/>
+                    <img className="game-img" src={game.imageUrl} alt="" />
                     <h1>{game.title}</h1>
                     <span className="levels">MaxLevel: {game.maxLevel}</span>
                     <p className="type">{game.category}</p>
@@ -34,23 +57,10 @@ export const GameDetails = () => {
                     {game.summary}
                 </p>
 
-                {/* <!-- Bonus ( for Guests and Users ) --> */}
-                <div className="details-comments">
-                    <h2>Comments:</h2>
-                    <ul>
-                        {/* <!-- list all comments for current game (If any) --> */}
-                        <li className="comment">
-                            <p>Content: I rate this one quite highly.</p>
-                        </li>
-                        <li className="comment">
-                            <p>Content: The best game.</p>
-                        </li>
-                    </ul>
-                    {/* <!-- Display paragraph: If there are no games in the database --> */}
-                    <p className="no-comment">No comments.</p>
-                </div>
+                <ShowComments comments={comments} />
+
                 {
-                    game._ownerId === userId 
+                    game._ownerId === userId
                     &&
                     <div className="buttons">
                         <Link to={'edit-game'} className="button">Edit</Link>
@@ -59,15 +69,10 @@ export const GameDetails = () => {
                 }
             </div>
 
-            {/* <!-- Bonus --> */}
-            {/* <!-- Add Comment ( Only for logged-in users, which is not creators of the current game ) --> */}
-            <article className="create-comment">
-                <label>Add new comment:</label>
-                <form className="form">
-                    <textarea name="comment" placeholder="Comment......"></textarea>
-                    <input className="btn submit" type="submit" value="Add Comment" />
-                </form>
-            </article>
+            {isLogged && userId !== game._ownerId
+                &&
+                <CreateComment />
+            }
 
         </section>
     );
