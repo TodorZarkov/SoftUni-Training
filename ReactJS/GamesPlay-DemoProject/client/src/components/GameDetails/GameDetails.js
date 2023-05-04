@@ -17,30 +17,27 @@ export const GameDetails = () => {
     const gameService = useService(gameServiceFactory);
     const commentService = useService(commentServiceFactory);
 
-    const { userId, isLogged } = useContext(UserContext);
-
-    // useEffect(() => {
-    //     gameService.getOne(gameId).then(g => setGame(g));
-    // }, [gameId]);
-
-    
-    // useEffect(() => {
-    //     commentService.getAll(gameId)
-    //         .then(c => setComments(c));
-    // }, [gameId]);
+    const { userId, isLogged, userEmail } = useContext(UserContext);
 
     useEffect(() => {
         Promise
             .all([
-            gameService.getOne(gameId),
-            commentService.getAll(gameId)
-        ])
-            .then(values =>([ 
-            setGame(values[0]),
-            setComments(values[1])]))
+                gameService.getOne(gameId),
+                commentService.getAll(gameId)
+            ])
+            .then(values => ([
+                setGame(values[0]),
+                setComments(values[1])]))
 
     }, [gameId]);
 
+    const onCreateCommentSubmit = async (commentData) => {
+        const newComment = await commentService.create(commentData);
+        newComment['user'] = {};
+        newComment.user['email'] = userEmail;
+        setComments(state => ([newComment, ...state]));
+    };
+    
     return (
         <section id="game-details">
             <h1>Game Details</h1>
@@ -71,7 +68,9 @@ export const GameDetails = () => {
 
             {isLogged && userId !== game._ownerId
                 &&
-                <CreateComment />
+                <CreateComment  onCreateCommentSubmit={onCreateCommentSubmit}
+                                gameId={gameId}
+                />
             }
 
         </section>
