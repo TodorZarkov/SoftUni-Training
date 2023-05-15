@@ -11,10 +11,9 @@ import { Register } from './components/Register/Register'
 
 import { gameServiceFactory } from './services/gameService';
 import { GameDetails } from './components/GameDetails/GameDetails';
-import { userServiceFactory } from './services/userService';
-import { UserContext } from './contexts/UserContext';
+
+import { UserContext, UserProvider } from './contexts/UserContext';
 import { Logout } from './components/Logout/Logout';
-import { useService } from './hooks/useService';
 import { EditGame } from './components/EditGame/EditGame';
 import { DeleteGame } from './components/DeleteGame/DeleteGame';
 
@@ -24,9 +23,8 @@ function App() {
   const navigate = useNavigate();
 
   const [games, setGames] = useState([]);
-  const [user, setUser] = useState({});
-  const gameService = gameServiceFactory(user.accessToken);
-  const userService = userServiceFactory(user.accessToken);
+  const gameService = gameServiceFactory("");//user.accessToken);
+
 
   useEffect(() => {
     gameService.getAll().then(result => setGames(result));
@@ -51,57 +49,8 @@ function App() {
       // TODO: catch if server not responging!
   };
 
-
-  const onLoginSubmit = async (values) => {
-    try {
-      const userData = await userService.onLogin(values);
-      setUser(userData);
-
-      navigate('/catalog')
-    } catch (error) {
-      // TODO: handle login error
-      console.log(error)
-    }
-  };
-
-  const onRegisterSubmit = async (values) => {
-    if (values.password !== values.confirmPassword) {
-      // TOTO: handle not confirmed password
-      console.log("Wrong confirm password");
-      return;
-    }
-
-    const { confirmPassword, ...registerData } = values;
-
-    try {
-      const userData = await userService.onRegister(registerData);
-      setUser(userData);
-
-      navigate('/catalog')
-    } catch (error) {
-      // TODO: handle register error
-      console.log(error)
-    }
-  };
-
-  const onLogoutClick = () => {
-    setUser({});
-    userService.onLogout();
-  };
-
-  const userContext = {
-    onLoginSubmit,
-    onRegisterSubmit,
-    onLogoutClick,
-    userEmail: user.email,
-    userId: user._id,
-    token: user.accessToken,
-    isLogged: !!user.accessToken,
-  };
-
-
   return (
-    <UserContext.Provider value={userContext}>
+    <UserProvider>
       <div id="box">
         <Header />
         
@@ -120,7 +69,7 @@ function App() {
           </Routes>
         </main>
       </div>
-    </UserContext.Provider>
+    </UserProvider>
   );
 }
 
