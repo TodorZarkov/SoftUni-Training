@@ -11,7 +11,6 @@ export const useForm = (onSubmit, initialValues) => {
     }
 
     const onChangeValues = (newValues) => {
-        //check values form:
         const checkedValues = {};
         for (const key in initialValues) {
             if (initialValues.hasOwnProperty(key)) {
@@ -25,6 +24,7 @@ export const useForm = (onSubmit, initialValues) => {
     const onFormSubmit = (e) => {
         e.preventDefault();
         onSubmit(values);
+        onChangeValues(initialValues);
     }
 
     return [values, onChange, onFormSubmit, onChangeValues];

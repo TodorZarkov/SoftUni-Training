@@ -104,6 +104,7 @@ function App() {
     <UserContext.Provider value={userContext}>
       <div id="box">
         <Header />
+        
         <main id="main-content">
           <Routes >
             <Route path='/' element={<Home />} />

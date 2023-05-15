@@ -25,9 +25,9 @@ export const GameDetails = () => {
                 gameService.getOne(gameId),
                 commentService.getAll(gameId)
             ])
-            .then(values => ([
-                setGame(values[0]),
-                setComments(values[1])]))
+            .then(([game, comments]) => ([
+                setGame(game),  
+                setComments(comments)]))
 
     }, [gameId]);
 
