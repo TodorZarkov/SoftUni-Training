@@ -1,9 +1,10 @@
 import { Navigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { GameContext } from "../../contexts/GameContext";
 
-export const DeleteGame = ({
-        onDeleteGameClick,
-    }) => {
+export const DeleteGame = () => {
+
+        const { onDeleteGameClick } = useContext(GameContext);
 
         const {gameId} = useParams();
 

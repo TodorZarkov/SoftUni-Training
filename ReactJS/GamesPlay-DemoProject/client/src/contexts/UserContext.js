@@ -1,10 +1,12 @@
 import { createContext, useState } from "react"
 
 import { userServiceFactory } from '../services/userService';
-import { useService } from '../hooks/useService';
 import { useNavigate } from "react-router-dom";
 
+
+
 export const UserContext = createContext();
+
 
 export const UserProvider = ({ children }) => {
 
@@ -51,7 +53,7 @@ export const UserProvider = ({ children }) => {
         userService.onLogout();
     };
 
-    const userContext = {
+    const userVariables = {
         onLoginSubmit,
         onRegisterSubmit,
         onLogoutClick,
@@ -62,7 +64,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={userContext}>
+        <UserContext.Provider value={userVariables}>
             {children}
         </UserContext.Provider>
     );

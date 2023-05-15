@@ -1,8 +1,10 @@
+import { useContext } from "react";
 import { useForm } from "../../hooks/useForm";
+import { GameContext } from "../../contexts/GameContext";
 
-export const CreateGame = ({
-    onCreateGameSubmit,
-}) => {
+export const CreateGame = () => {
+
+    const {onCreateGameSubmit} = useContext(GameContext);
 
     const initialValues = {
         title: '',
