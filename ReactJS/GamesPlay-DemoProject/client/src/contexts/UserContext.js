@@ -1,7 +1,8 @@
-import { createContext, useState } from "react"
+import { createContext } from "react"
 
 import { userServiceFactory } from '../services/userService';
 import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 
 
@@ -13,7 +14,7 @@ export const UserProvider = ({ children }) => {
 
     const navigate = useNavigate();
 
-    const [user, setUser] = useState({});
+    const [user, setUser] = useLocalStorage('user', {});
     const userService = userServiceFactory(user.accessToken);
 
     const onLoginSubmit = async (values) => {
