@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useReducer } from "react";
 import { Link, useParams } from "react-router-dom";
 import { gameServiceFactory } from "../../services/gameService";
 import { useService } from "../../hooks/useService";
@@ -6,13 +6,15 @@ import { UserContext } from "../../contexts/UserContext";
 import { ShowComments } from "./ShowComments";
 import { CreateComment } from "./CreateComment";
 import { commentServiceFactory } from "../../services/commentService";
+import { gameReducer } from "../../reducers/gameReducer";
 
 export const GameDetails = () => {
 
     const { gameId } = useParams();
 
-    const [game, setGame] = useState({});
-    const [comments, setComments] = useState([])
+    // const [game, setGame] = useState({});
+    // const [comments, setComments] = useState([])
+    const [state, dispatch] = useReducer(gameReducer, {game: {},  comments: []});
 
     const gameService = useService(gameServiceFactory);
     const commentService = useService(commentServiceFactory);
@@ -26,16 +28,18 @@ export const GameDetails = () => {
                 commentService.getAll(gameId)
             ])
             .then(([game, comments]) => ([
-                setGame(game),  
-                setComments(comments)]))
+                dispatch({type: 'set-game', game}), //setGame(game),  
+                dispatch({type: 'set-comments', comments}) //setComments(comments)
+            ]))
 
     }, [gameId]);
 
     const onCreateCommentSubmit = async (commentData) => {
         const newComment = await commentService.create(commentData);
-        newComment['user'] = {};
-        newComment.user['email'] = userEmail;
-        setComments(state => ([newComment, ...state]));
+        // newComment['user'] = {};
+        // newComment.user['email'] = userEmail;
+        // setComments(state => ([newComment, ...state]));
+        dispatch({type: 'add-comment', newComment, userEmail})
     };
     
     return (
@@ -44,20 +48,20 @@ export const GameDetails = () => {
             <div className="info-section">
 
                 <div className="game-header">
-                    <img className="game-img" src={game.imageUrl} alt="" />
-                    <h1>{game.title}</h1>
-                    <span className="levels">MaxLevel: {game.maxLevel}</span>
-                    <p className="type">{game.category}</p>
+                    <img className="game-img" src={state.game.imageUrl} alt="" />
+                    <h1>{state.game.title}</h1>
+                    <span className="levels">MaxLevel: {state.game.maxLevel}</span>
+                    <p className="type">{state.game.category}</p>
                 </div>
 
                 <p className="text">
-                    {game.summary}
+                    {state.game.summary}
                 </p>
 
-                <ShowComments comments={comments} />
+                <ShowComments comments={state.comments} />
 
                 {
-                    game._ownerId === userId
+                    state.game._ownerId === userId
                     &&
                     <div className="buttons">
                         <Link to={'edit-game'} className="button">Edit</Link>
@@ -66,7 +70,7 @@ export const GameDetails = () => {
                 }
             </div>
 
-            {isLogged && userId !== game._ownerId
+            {isLogged && userId !== state.game._ownerId
                 &&
                 <CreateComment  onCreateCommentSubmit={onCreateCommentSubmit}
                                 gameId={gameId}
