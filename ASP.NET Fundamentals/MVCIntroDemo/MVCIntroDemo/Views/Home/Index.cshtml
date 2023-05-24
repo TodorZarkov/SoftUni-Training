@@ -1,0 +1,15 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewBag.Msg</h3>
+<h3>@ViewData["Message"]</h3>
+<p>This is the @ViewData["Title"]</p>
+
+<ul class="list-group-horizontal-lg">
+	@foreach (string name in (string[])ViewData["People"])
+	{
+		<li class="list-group-item">@name</li>
+	}
+</ul>

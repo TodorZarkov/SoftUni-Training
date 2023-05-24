@@ -1,0 +1,40 @@
+﻿@using MVCIntroDemo.ViewModels.Product;
+@model IEnumerable<ProductViewModel>
+
+@{
+	ViewData["Title"] = "All Products";
+}
+<form	asp-controller="Product"
+		asp-action="All"
+		method="get"
+		class="input-group"
+>
+	<div class="form-outline" style="height: 100%;">
+		<input type="search" name="keyword" class="form-control" placeholder="Search" />
+	</div>
+	<button type="submit" class="btn btn-primary" style="height: 100%">
+		<i class="fas fa-search"></i>
+	</button>
+</form>
+
+<div style="margin-top: 10px">
+	<a asp-controller="Product"
+	   asp-action="DownloadProductInfo"
+	   class="btn btn-primary">Download products info</a>
+</div>
+
+<div class="card" style="width: 18rem; margin-top: 10px;">
+	<div class="card-header">@ViewData["Title"]</div>
+	<ul class="list-group list-group-flush">
+		@foreach (ProductViewModel product in Model)
+		{
+			<li class="list-group-item">
+				<a asp-controller="Product"
+			   asp-action="Details"
+			   asp-route-id="@product.Id">@product.Name - @product.Price$</a>
+			</li>
+		}
+	</ul>
+</div>
+
+
