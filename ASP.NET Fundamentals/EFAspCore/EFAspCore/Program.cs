@@ -1,5 +1,7 @@
 namespace EFAspCore
 {
+    using EFAspCore.Core.Contracts;
+    using EFAspCore.Core.Services;
     using EFAspCore.Infrastructure.Model;
     using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +22,8 @@ namespace EFAspCore
             //    optionns
             //    .UseNpgsql(builder.Configuration.GetConnectionString("PostgreConnection"))
             //    .UseSnakeCaseNamingConvention());
+
+            builder.Services.AddScoped<IProductService, ProductService>();
 
             var app = builder.Build();
 
