@@ -9,5 +9,7 @@
 		Task<List<ProductViewModel>> GetProductsAsync();
 
 		Task AddProductAsync(ProductFormModel model);
+
+		Task DeleteProductAsync(int id);
 	}
 }

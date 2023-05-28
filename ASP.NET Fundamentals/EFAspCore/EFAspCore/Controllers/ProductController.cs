@@ -46,5 +46,12 @@
 
             return RedirectToAction(nameof(All));
         }
+
+        public async Task<IActionResult> Delete(int productId)
+        {
+            await productService.DeleteProductAsync(productId);
+
+            return RedirectToAction("All");
+        }
     }
 }

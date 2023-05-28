@@ -28,6 +28,19 @@
 			await dbContext.SaveChangesAsync();
 		}
 
+		public async Task DeleteProductAsync(int id)
+		{
+			Product? productToDelete = await dbContext.Products.FindAsync(id);
+
+			if (productToDelete == null)
+			{
+				return;
+			}
+
+			dbContext.Products.Remove(productToDelete);
+			await dbContext.SaveChangesAsync();
+		}
+
 		public async Task<List<ProductViewModel>> GetProductsAsync()
 		{
 			return await dbContext.Products
