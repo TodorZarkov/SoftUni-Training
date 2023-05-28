@@ -34,7 +34,8 @@
 				.Select(p => new ProductViewModel
 				{
 					Name = p.ProductName,
-					Id = p.Id
+					Id = p.Id,
+					Quantity = p.Quantity
 				})
 				.ToListAsync();
 		}
