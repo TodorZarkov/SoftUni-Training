@@ -4,8 +4,6 @@
 	using EFAspCore.Core.Models;
 	using EFAspCore.Infrastructure.Model;
 	using Microsoft.EntityFrameworkCore;
-	using Microsoft.IdentityModel.Tokens;
-	using System;
 	using System.Collections.Generic;
 	using System.Threading.Tasks;
 
