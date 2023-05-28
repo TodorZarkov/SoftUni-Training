@@ -11,5 +11,8 @@
 		Task AddProductAsync(ProductFormModel model);
 
 		Task DeleteProductAsync(int id);
+
+		Task<ProductViewModel> GetProductAsync(int id);
+		Task UpdateProductAsync(ProductViewModel model);
 	}
 }

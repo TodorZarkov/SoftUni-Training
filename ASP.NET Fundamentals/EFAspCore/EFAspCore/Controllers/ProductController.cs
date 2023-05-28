@@ -47,11 +47,26 @@
             return RedirectToAction(nameof(All));
         }
 
-        public async Task<IActionResult> Delete(int productId)
+        public async Task<IActionResult> Delete(int id)
         {
-            await productService.DeleteProductAsync(productId);
+            await productService.DeleteProductAsync(id);
 
-            return RedirectToAction("All");
+            return RedirectToAction(nameof(All));
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            ProductViewModel model = await productService.GetProductAsync(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ProductViewModel model)
+        {
+            await productService.UpdateProductAsync(model);
+
+            return RedirectToAction(nameof(All));
         }
     }
 }

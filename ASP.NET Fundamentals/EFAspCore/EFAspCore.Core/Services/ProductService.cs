@@ -41,6 +41,22 @@
 			await dbContext.SaveChangesAsync();
 		}
 
+		public async Task<ProductViewModel?> GetProductAsync(int id)
+		{
+			Product? product = await dbContext.Products.FindAsync(id);
+			if (product == null)
+			{
+				return null;
+			}
+
+			return new ProductViewModel
+			{
+				Id = product.Id,
+				Name = product.ProductName,
+				Quantity = product.Quantity
+			};
+		}
+
 		public async Task<List<ProductViewModel>> GetProductsAsync()
 		{
 			return await dbContext.Products
@@ -51,6 +67,20 @@
 					Quantity = p.Quantity
 				})
 				.ToListAsync();
+		}
+
+		public async Task UpdateProductAsync(ProductViewModel model)
+		{
+			Product? product = await dbContext.Products.FindAsync(model.Id);
+			if (product == null)
+			{
+				return;
+			}
+
+			product.ProductName = model.Name;
+			product.Quantity = model.Quantity;
+
+			await dbContext.SaveChangesAsync();
 		}
 	}
 }
