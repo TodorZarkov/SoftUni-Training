@@ -1,13 +1,29 @@
 namespace Forum.App
 {
+	using Forum.App.Data;
+	using Forum.Services;
+	using Forum.Services.Interfaces;
+
+	using Microsoft.EntityFrameworkCore;
+
 	public class Program
 	{
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
+			var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
+
+			builder.Services.AddDbContext<ForumDbContext>(options =>
+			{
+				options.UseSqlServer(connectionString);
+
+			});
+
+			//Add Custom Services
+			builder.Services.AddTransient<IPostService, PostService>();
 
 			var app = builder.Build();
 

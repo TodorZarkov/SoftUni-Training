@@ -1,6 +1,6 @@
 ﻿namespace Forum.App.Controllers
 {
-	using Forum.App.ViewModels;
+	using Forum.ViewModels;
 	using Microsoft.AspNetCore.Mvc;
 	using System.Diagnostics;
 

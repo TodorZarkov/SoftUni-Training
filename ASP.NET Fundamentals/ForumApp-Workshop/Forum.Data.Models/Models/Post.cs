@@ -1,13 +1,13 @@
 ﻿namespace Forum.App.Data.Models
 {
 	using System.ComponentModel.DataAnnotations;
-	using static Forum.App.Common.EntityValidation.Post;
+	using static Forum.Common.Validations.EntityValidation.Post;
 
 	public class Post
 	{
 		public Post()
 		{
-			Id = new Guid();
+			Id = Guid.NewGuid();
 		}
 
 		[Key]
