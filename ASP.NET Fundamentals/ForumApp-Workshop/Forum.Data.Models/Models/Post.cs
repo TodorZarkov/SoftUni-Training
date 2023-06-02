@@ -1,4 +1,4 @@
-﻿namespace Forum.App.Data.Models
+﻿namespace Forum.Data.Models
 {
 	using System.ComponentModel.DataAnnotations;
 	using static Forum.Common.Validations.EntityValidation.Post;

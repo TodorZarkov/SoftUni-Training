@@ -1,7 +1,7 @@
-﻿namespace Forum.App.Data.Configuration
+﻿namespace Forum.Data.Configuration
 {
-	using Forum.App.Data.Models;
-	using Forum.App.Data.Seeding;
+	using Forum.Data.Models;
+	using Forum.Data.Seeding;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

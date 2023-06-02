@@ -1,6 +1,6 @@
 ﻿namespace Forum.Services
 {
-	using Forum.App.Data;
+	using Forum.Data;
 	using Forum.Services.Interfaces;
 	using Forum.ViewModels.Post; 
 

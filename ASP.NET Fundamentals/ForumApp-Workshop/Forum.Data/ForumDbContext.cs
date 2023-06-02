@@ -1,7 +1,7 @@
-﻿namespace Forum.App.Data
+﻿namespace Forum.Data
 {
-	using Forum.App.Data.Configuration;
-	using Forum.App.Data.Models;
+	using Forum.Data.Configuration;
+	using Forum.Data.Models;
 	using Microsoft.EntityFrameworkCore;
 
 	public class ForumDbContext : DbContext

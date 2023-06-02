@@ -1,6 +1,6 @@
 namespace Forum.App
 {
-	using Forum.App.Data;
+	using Forum.Data;
 	using Forum.Services;
 	using Forum.Services.Interfaces;
 

@@ -1,6 +1,6 @@
-﻿namespace Forum.App.Data.Seeding
+﻿namespace Forum.Data.Seeding
 {
-	using Forum.App.Data.Models;
+	using Forum.Data.Models;
 
 	internal class PostSeeder
 	{
