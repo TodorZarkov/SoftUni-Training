@@ -1,7 +1,10 @@
 ﻿namespace _05.PathsInLabyrinth
 {
 	using System;
-	public class Program
+	using System.Collections.Generic;
+	using System.Linq;
+
+    public class Program
 	{
 		static void Main(string[] args)
 		{
@@ -20,49 +23,43 @@
 
 		}
 
-		private static void GoNext(int x, int y, string step, char[][] lab, Stack<string> path)
+		private static void GoNext(int y, int x, string step, char[][] lab, Stack<string> path)
 		{
-			if (x < 0 || y < 0 || x > lab.Length - 1 || y > lab[x].Length - 1)
+			if (x < 0 || y < 0 || y > lab.Length - 1 || x > lab[y].Length - 1)
 			{
 				return;
 			}
 
-			if (lab[x][y] == 'e')
+			if (lab[y][x] == 'e')
 			{
-				Console.WriteLine(string.Join("", path));
+				path.Push(step);
+				Console.WriteLine(string.Join("", path.Reverse()));
+				path.Pop();
 				return;
 			}
 
-			if (lab[x][y] == 'v')
-			{
-				return;
-			}
-
-			if (lab[x][y] == '*')
+			if (lab[y][x] == 'v')
 			{
 				return;
 			}
 
-			lab[x][y] = 'v';
+			if (lab[y][x] == '*')
+			{
+				return;
+			}
+
+			lab[y][x] = 'v';
 			path.Push(step);
 
-			GoNext(x + 1, y, "R", lab, path); //right
-			GoNext(x - 1, y, "L", lab, path); //left
-			GoNext(x, y + 1, "U", lab, path); //up
-			GoNext(x, y - 1, "D", lab, path); //down
+			GoNext(y - 1, x, "U", lab, path); //up
+			GoNext(y, x + 1, "R", lab, path); //right
+			GoNext(y + 1, x, "D", lab, path); //down
+			GoNext(y, x - 1, "L", lab, path); //left
 
-			if (lab[x][y] == 'v')
+			if (lab[y][x] == 'v')
 			{
-				lab[x][y] = '-';
+				lab[y][x] = '-';
 				path.Pop();
-			}
-		}
-
-		private static void PrintLabyrinth(char[][] lab)
-		{
-			for (int i = 0; i < lab.Length; i++)
-			{
-				Console.WriteLine(string.Join("", lab[i]));
 			}
 		}
 	}
