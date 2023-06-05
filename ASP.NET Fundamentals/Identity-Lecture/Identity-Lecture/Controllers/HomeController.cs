@@ -1,16 +1,23 @@
 ﻿namespace Identity_Lecture.Controllers
 {
 	using Identity_Lecture.Models;
+	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 	using System.Diagnostics;
 
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
-
-		public HomeController(ILogger<HomeController> logger)
+		private readonly RoleManager<IdentityRole> roleManager;
+		private readonly UserManager<IdentityUser> userManager;
+		public HomeController(
+			ILogger<HomeController> logger,
+			RoleManager<IdentityRole> roleManager,
+			UserManager<IdentityUser> userManager)
 		{
 			_logger = logger;
+			this.roleManager = roleManager;
+			this.userManager = userManager;
 		}
 
 		public IActionResult Index()
@@ -18,8 +25,12 @@
 			return View();
 		}
 
-		public IActionResult Privacy()
+		public async Task<IActionResult> Privacy()
 		{
+			await roleManager.CreateAsync(new IdentityRole("Admin"));
+			var user = await userManager.FindByEmailAsync("haralampi@abv.bg");
+			await userManager.AddToRoleAsync(user, "Admin");
+
 			return View();
 		}
 
