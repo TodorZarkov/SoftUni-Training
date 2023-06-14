@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "-01.RecursiveArraySum", "-01.RecursiveArraySum\-01.RecursiveArraySum.csproj", "{D564DA24-F16F-4597-90C4-210A41C6357F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "-01.RecursiveArraySum", "-01.RecursiveArraySum\-01.RecursiveArraySum.csproj", "{D564DA24-F16F-4597-90C4-210A41C6357F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "-02.RecursiveDrawing", "-02.RecursiveDrawing\-02.RecursiveDrawing.csproj", "{53A7F43E-F77E-4B67-8ED3-AD6C8193E79D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "-02.RecursiveDrawing", "-02.RecursiveDrawing\-02.RecursiveDrawing.csproj", "{53A7F43E-F77E-4B67-8ED3-AD6C8193E79D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "-03.Generating0-1Vectors", "-03.Generating0-1Vectors\-03.Generating0-1Vectors.csproj", "{46CBEBB9-8185-4B31-AA01-AD30A5EE1B40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "-03.Generating0-1Vectors", "-03.Generating0-1Vectors\-03.Generating0-1Vectors.csproj", "{46CBEBB9-8185-4B31-AA01-AD30A5EE1B40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "-04.RecursiveFactorial", "-04.RecursiveFactorial\-04.RecursiveFactorial.csproj", "{418F50EF-65AC-4881-9513-7BD782C73FF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "-04.RecursiveFactorial", "-04.RecursiveFactorial\-04.RecursiveFactorial.csproj", "{418F50EF-65AC-4881-9513-7BD782C73FF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "-05.PathsInLabyrinth", "-05.PathsInLabyrinth\-05.PathsInLabyrinth.csproj", "{86B03CC2-3392-47C2-8A41-EF627A39A1FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "-05.PathsInLabyrinth", "-05.PathsInLabyrinth\-05.PathsInLabyrinth.csproj", "{86B03CC2-3392-47C2-8A41-EF627A39A1FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "-06.8QueensPuzzle", "-06.8QueensPuzzle\-06.8QueensPuzzle.csproj", "{3A85902E-05F9-469B-BD4A-1B5A76AC6929}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{86B03CC2-3392-47C2-8A41-EF627A39A1FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86B03CC2-3392-47C2-8A41-EF627A39A1FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86B03CC2-3392-47C2-8A41-EF627A39A1FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A85902E-05F9-469B-BD4A-1B5A76AC6929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A85902E-05F9-469B-BD4A-1B5A76AC6929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A85902E-05F9-469B-BD4A-1B5A76AC6929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A85902E-05F9-469B-BD4A-1B5A76AC6929}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
