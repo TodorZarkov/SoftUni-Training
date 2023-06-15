@@ -3,6 +3,8 @@ namespace TaskBoardApp
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using TaskBoardApp.Data;
+    using TaskBoardApp.Services;
+    using TaskBoardApp.Services.Interfaces;
 
     public class Program
     {
@@ -15,7 +17,7 @@ namespace TaskBoardApp
 
 
             builder.Services
-                .AddDbContext<ApplicationDbContext>(options =>
+                .AddDbContext<TaskBoardDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -35,15 +37,18 @@ namespace TaskBoardApp
                     options.Lockout.MaxFailedAccessAttempts = builder.Configuration
                         .GetValue<int>("Identity:Lockout:MaxFailedAccessAttempts");
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<TaskBoardDbContext>();
 
-            builder.Services.ConfigureApplicationCookie(cfg =>
-            {
-                cfg.LoginPath = "/";
-                cfg.LogoutPath = "/";
-            });
+            //builder.Services.ConfigureApplicationCookie(cfg =>
+            //{
+            //    cfg.LoginPath = "/";
+            //    cfg.LogoutPath = "/";
+            //});
 
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IBoardService, BoardService>();
+            builder.Services.AddScoped<ITaskService, TaskService>();
 
             var app = builder.Build();
 

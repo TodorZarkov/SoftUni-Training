@@ -91,7 +91,9 @@ namespace TaskBoardApp.Areas.Identity.Pages.Account
         }
 
 
-        public async Task OnGetAsync(string returnUrl = null)
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        public async Task OnGetAsync(string returnUrl = null) //why should be async Task
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             ReturnUrl = returnUrl;
         }
