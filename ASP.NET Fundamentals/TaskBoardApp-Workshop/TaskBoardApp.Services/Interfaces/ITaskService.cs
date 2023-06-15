@@ -8,5 +8,9 @@
 		public Task AddAsync(string ownerId, TaskFormModel viewModel);
 
 		public Task<TaskDetailsViewModel> GetForDetailsByIdAsync(string id);
+
+		public Task<TaskFormModel> GetForEditByIdAsync(string id);
+
+		public Task UpdateAsync(string taskId, TaskFormModel taskModel);
 	}
 }

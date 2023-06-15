@@ -59,7 +59,7 @@
 		{
 			try
 			{
-				TaskDetailsViewModel viewModel = 
+				TaskDetailsViewModel viewModel =
 					await taskService.GetForDetailsByIdAsync(id);
 
 				return View(viewModel);
@@ -70,5 +70,39 @@
 			}
 		}
 
+		[HttpGet]
+		public async Task<IActionResult> Edit(string id)
+		{
+			try
+			{
+				TaskFormModel formModel = await taskService.GetForEditByIdAsync(id);
+				formModel.AllBoards = await boardService.AllForSelectAsync();
+
+				return View(formModel);
+			}
+			catch (Exception)
+			{
+				return RedirectToAction("All", "Board");
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(string id, TaskFormModel taskModel)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(taskModel);
+			}
+
+			try
+			{
+				await taskService.UpdateAsync(id, taskModel);
+				return RedirectToAction("All", "Board");
+			}
+			catch (Exception)
+			{
+				return RedirectToAction("All", "Board");
+			}
+		}
 	}
 }
