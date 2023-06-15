@@ -12,5 +12,14 @@
 		public Task<TaskFormModel> GetForEditByIdAsync(string id);
 
 		public Task UpdateAsync(string taskId, TaskFormModel taskModel);
+
+		public System.Threading.Tasks.Task DeleteAsync(string taskId);
+
+		public Task<TaskViewModel> GetForDeleteByIdAsync(string id);
+
+		public Task<int> CountAsync();
+
+		public Task<int> CountAsync(string userId);
+
 	}
 }

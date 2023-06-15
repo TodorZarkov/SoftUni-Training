@@ -6,6 +6,8 @@
     {
         Task<IEnumerable<BoardAllViewModel>> AllAsync();
 
+        Task<ICollection<BoardCountViewModel>> AllWithTasksAsync();
+
         Task<IEnumerable<BoardSelectViewModel>> AllForSelectAsync();
 
         Task<bool> ExistsByIdAsync(int id);

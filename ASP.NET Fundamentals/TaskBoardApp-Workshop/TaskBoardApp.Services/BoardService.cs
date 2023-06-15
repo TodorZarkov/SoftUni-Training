@@ -58,6 +58,21 @@
             return boards;
 		}
 
+		public async Task<ICollection<BoardCountViewModel>> AllWithTasksAsync()
+		{
+            var boards = await dbContext.Boards
+                .AsNoTracking()
+                .Where(b => b.Tasks.Count() != 0)
+                .Select(b => new BoardCountViewModel()
+                {
+                    Name = b.Name,
+                    TaskCount = b.Tasks.Count()
+                })
+                .ToArrayAsync();
+
+            return boards;
+		}
+
 		public async Task<bool> ExistsByIdAsync(int id)
 		{
             bool result = await dbContext

@@ -2,7 +2,6 @@
 {
 	using Microsoft.EntityFrameworkCore;
 	using TaskBoardApp.Data;
-	using TaskBoardApp.Data.Models;
 	using TaskBoardApp.Services.Interfaces;
 	using TaskBoardApp.Web.ViewModels.Task;
 
@@ -27,6 +26,47 @@
 
 			await dbContext.Tasks.AddAsync(task);
 			await dbContext.SaveChangesAsync();
+		}
+
+		public async Task<int> CountAsync()
+		{
+			int tasksCount = await dbContext.Tasks.CountAsync();
+
+			return tasksCount;
+		}
+
+		public async Task<int> CountAsync(string userId)
+		{
+			int tasksCount = await dbContext.Tasks
+				.CountAsync(t => t.OwnerId == userId);
+
+			return tasksCount;
+		}
+
+		public async System.Threading.Tasks.Task DeleteAsync(string taskId)
+		{
+			Data.Models.Task taskToDelete = await dbContext.Tasks
+				.FirstAsync(t => t.Id == new Guid(taskId));
+
+			dbContext.Tasks.Remove(taskToDelete);
+
+			await dbContext.SaveChangesAsync();
+		}
+
+		public async Task<TaskViewModel> GetForDeleteByIdAsync(string id)
+		{
+			Data.Models.Task task = await dbContext.Tasks
+				.FirstAsync(t => t.Id == new Guid(id));
+
+			TaskViewModel model = new TaskViewModel()
+			{
+				Id = task.Id.ToString(),
+				Title = task.Title,
+				Description = task.Description,
+				
+			};
+
+			return model;
 		}
 
 		public async Task<TaskDetailsViewModel> GetForDetailsByIdAsync(string id)
@@ -75,5 +115,6 @@
 
 			await dbContext.SaveChangesAsync();
 		}
+
 	}
 }

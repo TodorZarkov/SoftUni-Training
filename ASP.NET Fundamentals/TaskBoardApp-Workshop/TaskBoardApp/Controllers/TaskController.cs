@@ -104,5 +104,35 @@
 				return RedirectToAction("All", "Board");
 			}
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> Delete(string id)
+		{
+			try
+			{
+				TaskViewModel taskModel = await taskService.GetForDeleteByIdAsync(id);
+				return View(taskModel);
+			}
+			catch (Exception)
+			{
+				return RedirectToAction("Index", "Home");
+			}
+
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Delete(TaskViewModel taskModel)
+		{
+			try
+			{
+				await taskService.DeleteAsync(taskModel.Id);
+
+				return RedirectToAction("All", "Board");
+			}
+			catch (Exception)
+			{
+				return RedirectToAction("All", "Board");
+			}
+		}
 	}
 }
