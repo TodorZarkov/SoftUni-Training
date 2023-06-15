@@ -37,6 +37,12 @@ namespace TaskBoardApp
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            builder.Services.ConfigureApplicationCookie(cfg =>
+            {
+                cfg.LoginPath = "/";
+                cfg.LogoutPath = "/";
+            });
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
