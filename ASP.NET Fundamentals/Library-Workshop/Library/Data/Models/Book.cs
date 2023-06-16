@@ -1,4 +1,4 @@
-﻿namespace Library.Data.Models
+﻿ namespace Library.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -9,7 +9,7 @@
     {
         public Book()
         {
-            UsersBooks = new HashSet<UserBook>();
+            UsersBooks = new HashSet<IdentityUserBook>();
         }
 
 
@@ -40,6 +40,6 @@
         [Required]
         public Category Category { get; set; } = null!;
 
-        public ICollection<UserBook> UsersBooks { get; set; }
+        public virtual ICollection<IdentityUserBook> UsersBooks { get; set; }
     }
 }

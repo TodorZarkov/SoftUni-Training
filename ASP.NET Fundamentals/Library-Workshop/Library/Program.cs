@@ -14,7 +14,7 @@ builder.Services.AddDbContext<LibraryDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services
-	.AddDefaultIdentity<LibraryUser>(options =>
+	.AddDefaultIdentity<IdentityUser>(options =>
 	{
 		options.SignIn.RequireConfirmedAccount = false;
 		options.Password.RequireDigit = false;
