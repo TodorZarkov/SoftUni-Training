@@ -75,10 +75,16 @@ namespace Library.Areas.Identity.Pages.Account
 
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-		public async Task OnGetAsync(string returnUrl = null)
+		public async Task<IActionResult> OnGetAsync(string returnUrl = null)
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 		{
-			ReturnUrl = returnUrl;
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("All", "Book");
+            }
+
+            ReturnUrl = returnUrl;
+			return Page();
 		}
 
 		public async Task<IActionResult> OnPostAsync(string returnUrl = null)
