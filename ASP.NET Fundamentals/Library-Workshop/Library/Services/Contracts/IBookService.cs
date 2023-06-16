@@ -1,11 +1,16 @@
-﻿using Library.ViewModels.Book;
-
-namespace Library.Services.Contracts
+﻿namespace Library.Services.Contracts
 {
+    using Library.ViewModels.Book;
     public interface IBookService
     {
         Task<ICollection<AllBookViewModel>> GetAllBooksAsync();
 
-        Task<ICollection<AllBookViewModel>> GetAllBooksAsync(string userId);
+        Task<ICollection<MineBookViewModel>> GetAllBooksAsync(string userId);
+
+        Task AddToUserAsync(int bookId, string userId);
+
+        Task RemoveFromUserAsync(int bookId, string userId);
+
+        Task AddAsync(FormBookViewModel viewModel);
     }
 }
