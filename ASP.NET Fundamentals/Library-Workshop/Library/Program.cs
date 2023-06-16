@@ -25,6 +25,13 @@ builder.Services
 	})
 	.AddEntityFrameworkStores<LibraryDbContext>();
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+	options.Password.RequireDigit = false;
+	options.Password.RequireNonAlphanumeric = false;
+	options.Password.RequireUppercase = false;
+});
+
 
 builder.Services.AddControllersWithViews();
 
