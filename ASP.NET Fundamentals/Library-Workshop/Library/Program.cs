@@ -1,4 +1,5 @@
 using Library.Data;
+using Library.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,7 @@ builder.Services.AddDbContext<LibraryDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services
-	.AddDefaultIdentity<IdentityUser>(options =>
+	.AddDefaultIdentity<LibraryUser>(options =>
 	{
 		options.SignIn.RequireConfirmedAccount = false;
 		options.Password.RequireDigit = false;
