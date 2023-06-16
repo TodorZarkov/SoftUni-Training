@@ -88,7 +88,7 @@ namespace Library.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, false, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return LocalRedirect(returnUrl);
+                    return RedirectToAction("All", "Book");
                 }
                 if (result.IsLockedOut)
                 {
