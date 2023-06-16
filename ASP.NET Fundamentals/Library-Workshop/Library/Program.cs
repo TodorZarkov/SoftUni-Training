@@ -1,5 +1,7 @@
 using Library.Data;
 using Library.Data.Models;
+using Library.Services;
+using Library.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +27,8 @@ builder.Services
 
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IBookService, BookService>();
 
 var app = builder.Build();
 
