@@ -23,12 +23,16 @@ namespace Library.Data
             
             base.OnModelCreating(builder);
 
+
+
             builder.Entity<IdentityUserBook>()
                 .HasKey(e => new { e.BookId, e.CollectorId });
 
             builder.Entity<Book>()
                 .Property(p => p.Rating)
                 .HasPrecision(18, 2);
+
+
 
             builder
                .Entity<Book>()

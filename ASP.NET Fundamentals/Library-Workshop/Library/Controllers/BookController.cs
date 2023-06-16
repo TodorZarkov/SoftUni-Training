@@ -1,14 +1,15 @@
-﻿using Library.Extensions;
-using Library.Services.Contracts;
-using Library.ViewModels.Book;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+﻿
 
 namespace Library.Controllers
 {
-    [Authorize]
-    public class BookController : Controller
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
+    using Library.Extensions;
+    using Library.Services.Contracts;
+    using Library.ViewModels.Book;
+
+    public class BookController : BaseController
     {
         private readonly IBookService bookService;
         private readonly ICategoryService categoryService;
