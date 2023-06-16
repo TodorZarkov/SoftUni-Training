@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "TaskBoardApp.Common": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:61032;http://localhost:61033"
+    }
+  }
+}
