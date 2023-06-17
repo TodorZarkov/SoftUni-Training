@@ -1,20 +1,27 @@
 ﻿namespace Homies.Controllers
 {
+    using Homies.Common.Contracts;
     using Homies.Extensions;
     using Homies.Models.Event;
     using Homies.Services.Contracts;
     using Microsoft.AspNetCore.Mvc;
-    using static Homies.Common.Validators;
+    using static Homies.Common.Validator;
 
     public class EventController : BaseController
     {
         private readonly IEventService eventService;
         private readonly ITypeService typeService;
+        private readonly IValidator validator;
 
-        public EventController(IEventService eventService, ITypeService typeService)
+        public EventController(
+                                IEventService eventService, 
+                                ITypeService typeService,
+                                IValidator validator
+                                )
         {
             this.eventService = eventService;
             this.typeService = typeService;
+            this.validator = validator;
         }
 
         [HttpGet]
@@ -48,7 +55,7 @@
                 return View(viewModel);
             }
 
-            if (!IsSecondAfterFirst(viewModel.Start, viewModel.End))
+            if (!validator.IsSecondAfterFirst(viewModel.Start, viewModel.End))
             {
                 var allTypes = await typeService.GetAllTypesForSelectAsync();
                 viewModel.Types = allTypes;
@@ -124,9 +131,16 @@
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var viewModel = await eventService.GetAsync(id);
+            try
+            {
+                var viewModel = await eventService.GetAsync(id);
 
-            return View(viewModel);
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("All", "Event");
+            }
         }
     }
 }

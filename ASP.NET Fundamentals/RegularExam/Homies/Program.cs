@@ -1,3 +1,5 @@
+using Homies.Common;
+using Homies.Common.Contracts;
 using Homies.Data;
 using Homies.Services;
 using Homies.Services.Contracts;
@@ -25,6 +27,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<ITypeService, TypeService>();
+builder.Services.AddSingleton<IValidator, Validator>();
 
 
 var app = builder.Build();

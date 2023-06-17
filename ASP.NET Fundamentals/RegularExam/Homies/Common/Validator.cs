@@ -1,10 +1,11 @@
 ﻿namespace Homies.Common
 {
+    using Homies.Common.Contracts;
     using System.Globalization;
 
-    public static class Validators
+    public class Validator : IValidator
     {
-        public static bool IsSecondAfterFirst(string firstDate, string secondDate)
+        public bool IsSecondAfterFirst(string firstDate, string secondDate)
         {
             DateTime fDate;
             bool isFirstDate = DateTime.TryParseExact(firstDate, "yyyy-MM-dd H:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out fDate);

@@ -25,7 +25,7 @@
                 Name = viewModel.Name,
                 Description = viewModel.Description,
                 TypeId = viewModel.TypeId,
-                CreatedOn = DateTime.Now,
+                CreatedOn = DateTime.UtcNow,
                 OrganiserId = userId,
                 Start = DateTime.Parse(viewModel.Start),
                 End = DateTime.Parse(viewModel.End)
@@ -44,7 +44,7 @@
                     Id = e.Id,
                     Name = e.Name,
                     Type = e.Type.Name,
-                    Start = e.Start.ToString("MM-dd-yyyy H:mm", CultureInfo.InvariantCulture),
+                    Start = e.Start.ToString("dd-MMM-yyyy H:mm", CultureInfo.InvariantCulture),
                     Organiser = e.Organiser.UserName
                 })
                 .ToArrayAsync();
@@ -62,7 +62,7 @@
                     Id = e.Id,
                     Name = e.Name,
                     Type = e.Type.Name,
-                    Start = e.Start.ToString("MM-dd-yyyy H:mm", CultureInfo.InvariantCulture),
+                    Start = e.Start.ToString("dd-MMM-yyyy H:mm", CultureInfo.InvariantCulture),
                     Organiser = e.Organiser.UserName
                 })
                 .ToArrayAsync();
@@ -79,11 +79,11 @@
                 .Select(model => new EventViewModel()
                 {
                     Description = model.Description,
-                    CreatedOn = model.CreatedOn.ToString(),
-                    End = model.End.ToString(),
+                    CreatedOn = model.CreatedOn.ToString("dd-MMM-yyyy H:mm:ss", CultureInfo.InvariantCulture),
+                    End = model.End.ToString("dd-MMM-yyyy H:mm", CultureInfo.InvariantCulture),
                     Name = model.Name,
                     Organiser = model.Organiser.UserName,
-                    Start = model.Start.ToString(),
+                    Start = model.Start.ToString("dd-MMM-yyyy H:mm", CultureInfo.InvariantCulture),
                     Type = model.Type.Name
                 })
                 .FirstAsync();
@@ -94,8 +94,14 @@
 
         public async Task JoinAsync(string userId, int eventId)
         {
-            //throws if no such event id or if pair is present
-            //to do: check explicit
+            bool isValidEvent = await dbContext.Events
+                .AnyAsync(e => e.Id == eventId);
+            bool isAlreadyParticipant = await dbContext.EventsParticipants
+                .AnyAsync(ep => ep.HelperId == userId && ep.EventId == eventId);
+            if (!isValidEvent || isAlreadyParticipant)
+            {
+                throw new InvalidOperationException("Event id not present in the db, or user already participant");
+            }
 
             var eventParticipant = new EventParticipant()
             {
@@ -109,7 +115,6 @@
 
         public async Task LeavAsync(string userId, int eventId)
         {
-            //to do: check explicit
             var eventParticipant = await dbContext.EventsParticipants.FirstAsync(ep => ep.EventId == eventId && ep.HelperId == userId);
             dbContext.EventsParticipants.Remove(eventParticipant);
             await dbContext.SaveChangesAsync();
