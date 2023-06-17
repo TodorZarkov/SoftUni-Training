@@ -72,21 +72,24 @@
 
         public async Task<EventViewModel> GetAsync(int id)
         {
-            var model =await dbContext.Events.FindAsync(id);
 
-            var viewModel = new EventViewModel()
-            {
-                Description = model.Description,
-                CreatedOn = model.CreatedOn.ToString(),
-                End = model.End.ToString(),
-                Name = model.Name,
-                Organiser = model.Organiser.UserName,
-                Start = model.Start.ToString(),
-                Type = model.Type.Name
-            };
+
+            var viewModel = await dbContext.Events
+                .Where(model => model.Id == id)
+                .Select(model => new EventViewModel()
+                {
+                    Description = model.Description,
+                    CreatedOn = model.CreatedOn.ToString(),
+                    End = model.End.ToString(),
+                    Name = model.Name,
+                    Organiser = model.Organiser.UserName,
+                    Start = model.Start.ToString(),
+                    Type = model.Type.Name
+                })
+                .FirstAsync();
+                
 
             return viewModel;
-
         }
 
         public async Task JoinAsync(string userId, int eventId)

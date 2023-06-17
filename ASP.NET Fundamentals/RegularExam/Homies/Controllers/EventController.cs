@@ -121,10 +121,12 @@
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
+            var viewModel = await eventService.GetAsync(id);
 
+            return View(viewModel);
         }
     }
 }
