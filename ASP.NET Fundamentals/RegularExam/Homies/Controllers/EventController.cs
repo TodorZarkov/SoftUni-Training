@@ -14,7 +14,7 @@
         private readonly IValidator validator;
 
         public EventController(
-                                IEventService eventService, 
+                                IEventService eventService,
                                 ITypeService typeService,
                                 IValidator validator
                                 )
@@ -136,6 +136,69 @@
                 var viewModel = await eventService.GetAsync(id);
 
                 return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("All", "Event");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+                var viewModel = await eventService.GetForEditAsync(id);
+                var types = await typeService.GetAllTypesForSelectAsync();
+                viewModel.Types = types;
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("All", "Event");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, FormEventViewModel viewModel)
+        {
+            if (!(await typeService.IsValidType(viewModel.TypeId)))
+            {
+                var allTypes = await typeService.GetAllTypesForSelectAsync();
+                viewModel.Types = allTypes;
+
+                ModelState.AddModelError(nameof(viewModel.Types), "Invalid Type");
+                return View(viewModel);
+            }
+
+            if (!validator.IsSecondAfterFirst(viewModel.Start, viewModel.End))
+            {
+                var allTypes = await typeService.GetAllTypesForSelectAsync();
+                viewModel.Types = allTypes;
+
+                ModelState.AddModelError(nameof(viewModel.End), $"The start date must proceed the edn date. Format must be {MainDateFormat}");
+                return View(viewModel);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var allTypes = await typeService.GetAllTypesForSelectAsync();
+                viewModel.Types = allTypes;
+
+                return View(viewModel);
+            }
+
+            string userId = User.GetId();
+            if (!(await eventService.IsOwner(userId, id)))
+            {
+                return RedirectToAction("All", "Event");
+            }
+
+            try
+            {
+                await eventService.EditAsync(id, viewModel);
+                return RedirectToAction("All", "Event");
             }
             catch (Exception)
             {

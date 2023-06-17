@@ -8,6 +8,7 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Threading.Tasks;
+    using static Homies.Common.EntityValidationConstants.Date;
 
     public class EventService : IEventService
     {
@@ -36,6 +37,19 @@
             await dbContext.SaveChangesAsync();
         }
 
+        public async Task EditAsync(int eventId, FormEventViewModel viewModel)
+        {
+            var model = await dbContext.Events.FirstAsync(e => e.Id == eventId);
+
+            model.Name = viewModel.Name;
+            model.Description = viewModel.Description;
+            model.Start = DateTime.Parse(viewModel.Start);
+            model.End = DateTime.Parse(viewModel.End);
+            model.TypeId = viewModel.TypeId;
+
+            await dbContext.SaveChangesAsync();
+        }
+
         public async Task<ICollection<AllEventViewModel>> GetAllEventsAsync()
         {
             var allEvents = await dbContext.Events
@@ -44,7 +58,7 @@
                     Id = e.Id,
                     Name = e.Name,
                     Type = e.Type.Name,
-                    Start = e.Start.ToString("dd-MMM-yyyy H:mm", CultureInfo.InvariantCulture),
+                    Start = e.Start.ToString(MainDateFormat, CultureInfo.InvariantCulture),
                     Organiser = e.Organiser.UserName
                 })
                 .ToArrayAsync();
@@ -62,7 +76,7 @@
                     Id = e.Id,
                     Name = e.Name,
                     Type = e.Type.Name,
-                    Start = e.Start.ToString("dd-MMM-yyyy H:mm", CultureInfo.InvariantCulture),
+                    Start = e.Start.ToString(MainDateFormat, CultureInfo.InvariantCulture),
                     Organiser = e.Organiser.UserName
                 })
                 .ToArrayAsync();
@@ -70,26 +84,54 @@
             return allEvents;
         }
 
-        public async Task<EventViewModel> GetAsync(int id)
+        public async Task<EventViewModel> GetAsync(int eventId)
         {
 
 
             var viewModel = await dbContext.Events
-                .Where(model => model.Id == id)
+                .Where(model => model.Id == eventId)
                 .Select(model => new EventViewModel()
                 {
+                    Id = model.Id,
                     Description = model.Description,
-                    CreatedOn = model.CreatedOn.ToString("dd-MMM-yyyy H:mm:ss", CultureInfo.InvariantCulture),
-                    End = model.End.ToString("dd-MMM-yyyy H:mm", CultureInfo.InvariantCulture),
+                    CreatedOn = model.CreatedOn.ToString(MainDateFormat, CultureInfo.InvariantCulture),
+                    End = model.End.ToString(MainDateFormat, CultureInfo.InvariantCulture),
                     Name = model.Name,
                     Organiser = model.Organiser.UserName,
-                    Start = model.Start.ToString("dd-MMM-yyyy H:mm", CultureInfo.InvariantCulture),
+                    Start = model.Start.ToString(MainDateFormat, CultureInfo.InvariantCulture),
                     Type = model.Type.Name
                 })
                 .FirstAsync();
                 
 
             return viewModel;
+        }
+
+        public async Task<FormEventViewModel> GetForEditAsync(int eventId)
+        {
+            var model = await dbContext.Events.FirstAsync(e => e.Id == eventId);
+
+            var viewModel = new FormEventViewModel()
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Start = model.Start.ToString(MainDateFormat),
+                End = model.End.ToString(MainDateFormat),
+                TypeId = model.TypeId,
+            };
+
+            return viewModel;
+        }
+
+        public async Task<bool> IsOwner(string userId, int eventId)
+        {
+            var e = await dbContext.Events.FindAsync(eventId);
+            if (e != null)
+            {
+                return e.OrganiserId == userId;
+            }
+
+            return false;
         }
 
         public async Task JoinAsync(string userId, int eventId)

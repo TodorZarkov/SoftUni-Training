@@ -8,7 +8,5 @@
         public string End { get; set; } = null!;
 
         public string CreatedOn { get; set; } = null!;
-
-
     }
 }

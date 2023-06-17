@@ -15,5 +15,11 @@
         Task LeavAsync(string userId, int eventId);
 
         Task<EventViewModel> GetAsync(int id);
+
+        Task EditAsync(int eventId, FormEventViewModel model);
+
+        Task<FormEventViewModel> GetForEditAsync(int eventId);
+
+        Task<bool> IsOwner(string userId, int eventId);
     }
 }
