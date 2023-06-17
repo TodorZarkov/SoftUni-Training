@@ -31,6 +31,6 @@ namespace Library.ViewModels.Book
         [Required]
         public int CategoryId { get; set; }
 
-        public virtual ICollection<SelectCategoryViewModel> Categories { get; set; } = null!;
+        public virtual ICollection<SelectCategoryViewModel>? Categories { get; set; }
     }
 }
