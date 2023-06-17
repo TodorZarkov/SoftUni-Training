@@ -21,7 +21,7 @@ namespace Library.ViewModels.Book
         [StringLength(DescriptionMax, MinimumLength = DescriptionMin, ErrorMessage = "The Description must be between {2} and {1} symbols")]
         public string Description { get; set; } = null!;
 
-        [Required]
+        [Required(AllowEmptyStrings = false)]
         public string Url { get; set; } = null!;
 
         [Required]
