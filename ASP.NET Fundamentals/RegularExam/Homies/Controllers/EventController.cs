@@ -5,7 +5,7 @@
     using Homies.Models.Event;
     using Homies.Services.Contracts;
     using Microsoft.AspNetCore.Mvc;
-    using static Homies.Common.Validator;
+    using static Homies.Common.EntityValidationConstants.Date;
 
     public class EventController : BaseController
     {
@@ -60,7 +60,7 @@
                 var allTypes = await typeService.GetAllTypesForSelectAsync();
                 viewModel.Types = allTypes;
 
-                ModelState.AddModelError(nameof(viewModel.End), "The start date must proceed the edn date. Format must be yyyy-MM-dd H:mm");
+                ModelState.AddModelError(nameof(viewModel.End), $"The start date must proceed the edn date. Format must be {MainDateFormat}");
                 return View(viewModel);
             }
 

@@ -16,5 +16,10 @@
             public const int TypeNameMin = 5;
             public const int TypeNameMax = 15;
         }
+
+        public static class Date
+        {
+            public const string MainDateFormat = "dd-MMM-yyyy H:mm";
+        }
     }
 }
