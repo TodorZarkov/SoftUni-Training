@@ -3,6 +3,7 @@ using Library.Data.Models;
 using Library.Services.Contracts;
 using Library.ViewModels.Book;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Library.Services
 {
@@ -31,15 +32,31 @@ namespace Library.Services
 
         public async Task AddToUserAsync(int bookId, string userId)
         {
-            Book book = await dbContext.Books.FirstAsync(b => b.Id == bookId);//chatch not existin book id
+            //unusual case if book id doesn't eixst, to catch
+            bool isValidBookId = await dbContext.Books.AnyAsync(b => b.Id == bookId);
+            if (!isValidBookId)
+            {
+                throw new InvalidOperationException("The book id not present in the database!");
+            }
+
+
+            bool isAdded = await dbContext.IdentityUserBook
+                .AnyAsync(ub => ub.BookId == bookId && ub.CollectorId == userId);
+            if (isAdded)
+            {
+                //usual case pair aready exists exception from the app, to catch
+                throw new InvalidOperationException("The book already is in the user collection!");
+            }
+            //the previous two checks are also made in the db
 
             IdentityUserBook userBook = new IdentityUserBook()
             {
                 BookId = bookId,
                 CollectorId = userId
             };
-
-            book.UsersBooks.Add(userBook); // pair aready exists
+            dbContext.IdentityUserBook.Add(userBook); 
+            //unusual case not existing foreign key if book isn't present in the database
+            //usual case pair aready exists exception from the database, to catch
             await dbContext.SaveChangesAsync();
         }
 
@@ -83,6 +100,7 @@ namespace Library.Services
 
         public async Task RemoveFromUserAsync(int bookId, string userId)
         {
+            //to catch if pair doesnt exist (unusual case)
             IdentityUserBook userBook = await dbContext
                 .IdentityUserBook
                 .FirstAsync(ub => ub.BookId == bookId && ub.CollectorId == userId);
