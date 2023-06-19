@@ -1,15 +1,16 @@
 ﻿namespace _06._8QueensPuzzle
 {
     using System;
+    using System.Collections.Generic;
 
     public class Program
     {
         //static int count = 1;
         const int rank = 8;
-        static HashSet<int> attackRow = new(); 
-        static HashSet<int> attackCol = new(); 
-        static HashSet<int> attackLeftDiagonal = new(); 
-        static HashSet<int> attackRightDiagonal = new();
+        static HashSet<int> attackRow = new HashSet<int>(); 
+        static HashSet<int> attackCol = new HashSet<int>(); 
+        static HashSet<int> attackLeftDiagonal = new HashSet<int>(); 
+        static HashSet<int> attackRightDiagonal = new HashSet<int>();
         static bool[,] matrix = new bool[rank, rank];
         static void Main(string[] args)
         {
