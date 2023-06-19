@@ -4,7 +4,7 @@
 
     public class Program
     {
-        static int count = 1;
+        //static int count = 1;
         const int rank = 8;
         static HashSet<int> attackRow = new(); 
         static HashSet<int> attackCol = new(); 
@@ -14,32 +14,36 @@
         static void Main(string[] args)
         {
             
-                QueensPosition(0, 0);
+                QueensPosition(0);
             
         }
 
-        static void QueensPosition(int row, int col)
+        static void QueensPosition(int row)
         {
             if (row > rank - 1)
             {
                 PrintMatrix();
                 return;
             }
-            if (IsUnderAttack(row, col))
-            {
-                return;
-            }
-            matrix[row, col] = true;
-            SetUnderAttack(row, col);
+           
+           
 
-            for (int j = 0; j < rank; j++)
+            for (int col = 0; col < rank; col++)
             {
-                QueensPosition(row + 1, j);
+                if (!IsUnderAttack(row, col))
+                {
+                    matrix[row, col] = true;
+                    SetUnderAttack(row, col);
+
+                    QueensPosition(row + 1);
+
+                    matrix[row, col] = false;
+                    SetFree(row, col);
+                }
                 
             }
 
-            matrix[row, col] = false;
-            SetFree(row, col);
+            
 
         }
 
@@ -78,7 +82,7 @@
                 }
                 Console.WriteLine(string.Join(" ",line));
             }
-            Console.WriteLine(count++);
+            Console.WriteLine();//count++);
         }
     }
 }
