@@ -30,13 +30,8 @@
             {
                 for (int i = 0; i < elements.Length; i++)
                 {
-
-
-                    used[i] = true;
                     variations[index] = elements[i];
                     Variate(index + 1);
-                    used[i] = false;
-
                 }
             }
         }
