@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "-02.NestedLoops", "-02.Nest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "-03.ConnectedAreasInMatrix", "-03.ConnectedAreasInMatrix\-03.ConnectedAreasInMatrix.csproj", "{0780786C-ABCB-4417-B7D1-61F3C5E0FEA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "-04.Cinema", "-04.Cinema\-04.Cinema.csproj", "{7421B3E7-70CE-40B0-9F6C-BBE9C11E995D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0780786C-ABCB-4417-B7D1-61F3C5E0FEA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0780786C-ABCB-4417-B7D1-61F3C5E0FEA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0780786C-ABCB-4417-B7D1-61F3C5E0FEA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7421B3E7-70CE-40B0-9F6C-BBE9C11E995D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7421B3E7-70CE-40B0-9F6C-BBE9C11E995D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7421B3E7-70CE-40B0-9F6C-BBE9C11E995D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7421B3E7-70CE-40B0-9F6C-BBE9C11E995D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
