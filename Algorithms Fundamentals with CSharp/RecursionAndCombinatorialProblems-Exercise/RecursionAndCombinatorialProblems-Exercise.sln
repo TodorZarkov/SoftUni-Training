@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "-04.Cinema", "-04.Cinema\-0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "-05.SchoolTeams", "-05.SchoolTeams\-05.SchoolTeams.csproj", "{6F451C9E-CEF1-4BBB-9598-EDD788A95D91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "-06.WordCruncher", "-06.WordCruncher\-06.WordCruncher.csproj", "{2D0BC174-A6E7-4E8E-B18C-2EE9D9C2EA44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{6F451C9E-CEF1-4BBB-9598-EDD788A95D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F451C9E-CEF1-4BBB-9598-EDD788A95D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F451C9E-CEF1-4BBB-9598-EDD788A95D91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D0BC174-A6E7-4E8E-B18C-2EE9D9C2EA44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D0BC174-A6E7-4E8E-B18C-2EE9D9C2EA44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D0BC174-A6E7-4E8E-B18C-2EE9D9C2EA44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D0BC174-A6E7-4E8E-B18C-2EE9D9C2EA44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
