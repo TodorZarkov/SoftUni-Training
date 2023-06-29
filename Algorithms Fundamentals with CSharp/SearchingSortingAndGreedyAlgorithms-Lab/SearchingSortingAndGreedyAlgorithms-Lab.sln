@@ -3,19 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.BinarySearch", "01.BinarySearch\01.BinarySearch.csproj", "{7DE56404-A4DF-4118-A12C-B52BF9005312}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01.BinarySearch", "01.BinarySearch\01.BinarySearch.csproj", "{7DE56404-A4DF-4118-A12C-B52BF9005312}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.SelectionSort", "02.SelectionSort\02.SelectionSort.csproj", "{EFE65DD4-4BE6-44FD-9FB2-BDEB57C302A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02.SelectionSort", "02.SelectionSort\02.SelectionSort.csproj", "{EFE65DD4-4BE6-44FD-9FB2-BDEB57C302A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.BubbleSort", "03.BubbleSort\03.BubbleSort.csproj", "{C6820C4D-8958-4019-A99A-5B458D469DA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03.BubbleSort", "03.BubbleSort\03.BubbleSort.csproj", "{C6820C4D-8958-4019-A99A-5B458D469DA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.InsertionSort", "04.InsertionSort\04.InsertionSort.csproj", "{72712443-29D5-4C9D-9C18-4A953A2E419D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04.InsertionSort", "04.InsertionSort\04.InsertionSort.csproj", "{72712443-29D5-4C9D-9C18-4A953A2E419D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.Quicksort", "05.Quicksort\05.Quicksort.csproj", "{C5E88406-AD3C-42FD-B468-98C8384DABB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05.Quicksort", "05.Quicksort\05.Quicksort.csproj", "{C5E88406-AD3C-42FD-B468-98C8384DABB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quicksort-left-right-pointer", "Quicksort-left-right-pointer\Quicksort-left-right-pointer.csproj", "{4D332DFB-A25A-4E0D-8698-0375D706D059}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quicksort-left-right-pointer", "Quicksort-left-right-pointer\Quicksort-left-right-pointer.csproj", "{4D332DFB-A25A-4E0D-8698-0375D706D059}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.MergeSort", "06.MergeSort\06.MergeSort.csproj", "{6A3233CC-C9D9-4375-9DE5-01AC5B620EEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06.MergeSort", "06.MergeSort\06.MergeSort.csproj", "{6A3233CC-C9D9-4375-9DE5-01AC5B620EEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.SumOfCoins", "07.SumOfCoins\07.SumOfCoins.csproj", "{98BC4ACC-8BC0-4847-9DB4-952F4F1A1920}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{6A3233CC-C9D9-4375-9DE5-01AC5B620EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A3233CC-C9D9-4375-9DE5-01AC5B620EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A3233CC-C9D9-4375-9DE5-01AC5B620EEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98BC4ACC-8BC0-4847-9DB4-952F4F1A1920}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98BC4ACC-8BC0-4847-9DB4-952F4F1A1920}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98BC4ACC-8BC0-4847-9DB4-952F4F1A1920}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98BC4ACC-8BC0-4847-9DB4-952F4F1A1920}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

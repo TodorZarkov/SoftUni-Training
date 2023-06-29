@@ -52,8 +52,9 @@
                     left++;
 
                 }
-
             }
+
+
             for (int i = left; i <= leftEnd; i++)
             {
                 helpList.Add(numbers[i]);
@@ -64,11 +65,6 @@
             }
 
             helpList.CopyTo(numbers, leftStart);
-        }
-
-        private static void Swap(List<int> helpList, int left, int right)
-        {
-            (helpList[left], helpList[right]) = (helpList[right], helpList[left]);
         }
     }
 }
