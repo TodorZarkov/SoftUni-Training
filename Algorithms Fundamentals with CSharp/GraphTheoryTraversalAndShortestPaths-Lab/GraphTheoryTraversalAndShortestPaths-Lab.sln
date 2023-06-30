@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFS_With_Recursion", "DFS_W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BFS_With_Queue", "BFS_With_Queue\BFS_With_Queue.csproj", "{407580C5-6E32-4F70-A161-ED22EE6B17D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.TopologicalSorting", "02.TopologicalSorting\02.TopologicalSorting.csproj", "{CA14ECDA-7972-431B-9F71-875B4E6E91B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{407580C5-6E32-4F70-A161-ED22EE6B17D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{407580C5-6E32-4F70-A161-ED22EE6B17D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{407580C5-6E32-4F70-A161-ED22EE6B17D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA14ECDA-7972-431B-9F71-875B4E6E91B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA14ECDA-7972-431B-9F71-875B4E6E91B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA14ECDA-7972-431B-9F71-875B4E6E91B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA14ECDA-7972-431B-9F71-875B4E6E91B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
