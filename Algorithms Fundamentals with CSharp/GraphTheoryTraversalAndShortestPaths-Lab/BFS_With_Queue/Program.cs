@@ -36,6 +36,23 @@
                 return;
             }
 
+            Queue<int> toVisit = new Queue<int>();
+            toVisit.Enqueue(node);
+            visited.Add(node);
+
+            while (toVisit.Count > 0)
+            {
+                var endNode = toVisit.Dequeue();
+                foreach (var child in graph[endNode])
+                {
+                    if (!visited.Contains(child))
+                    {
+                        toVisit.Enqueue(child);
+                        visited.Add(child);
+                    }
+                }
+                Console.WriteLine(endNode);
+            }
 
         }
     }
