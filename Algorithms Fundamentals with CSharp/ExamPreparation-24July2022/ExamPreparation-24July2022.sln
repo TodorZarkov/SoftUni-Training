@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.Trains", "01.Trains\01.Trains.csproj", "{0A95B502-E48B-471E-AEBE-55820010AF4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.ConditionalExpressionResolver", "02.ConditionalExpressionResolver\02.ConditionalExpressionResolver.csproj", "{8F6C9BE6-5C62-4735-93A5-2FFDF461353D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0A95B502-E48B-471E-AEBE-55820010AF4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A95B502-E48B-471E-AEBE-55820010AF4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A95B502-E48B-471E-AEBE-55820010AF4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F6C9BE6-5C62-4735-93A5-2FFDF461353D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F6C9BE6-5C62-4735-93A5-2FFDF461353D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F6C9BE6-5C62-4735-93A5-2FFDF461353D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F6C9BE6-5C62-4735-93A5-2FFDF461353D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
