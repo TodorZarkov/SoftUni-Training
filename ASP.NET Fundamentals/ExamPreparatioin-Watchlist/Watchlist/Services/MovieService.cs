@@ -16,7 +16,7 @@
             this.dbContext = dbContext;
         }
 
-        public async Task<int> Create(MovieFormDTO model)
+        public async Task<int> CreateAsync(MovieFormDTO model)
         {
             Movie movie = new()
             {
@@ -27,15 +27,16 @@
                 Title = model.Title,
             };
 
-            await dbContext.Movies
-                .AddAsync(movie);
+            await dbContext.Movies.AddAsync(movie);
+            await dbContext.SaveChangesAsync();
 
             return movie.Id;
         }
 
-        public async Task<ICollection<MovieAllDTO>> GetAll()
+        public async Task<ICollection<MovieAllDTO>> GetAllAsync()
         {
             MovieAllDTO[] movies = await dbContext.Movies
+                .AsNoTracking()
                 .Select(m => new MovieAllDTO
                 {
                     Id = m.Id,

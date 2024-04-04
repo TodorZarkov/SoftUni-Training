@@ -29,6 +29,6 @@
         //dynamic validation
         public int GenreId { get; set; }
 
-        public ICollection<GenreSelectDTO> Genre { get; set; } = null!;
+        public ICollection<GenreSelectDTO> AvailableGenres { get; set; } = null!;
     }
 }

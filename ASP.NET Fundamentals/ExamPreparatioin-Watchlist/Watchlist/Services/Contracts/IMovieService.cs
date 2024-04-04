@@ -4,9 +4,9 @@
 
     public interface IMovieService
     {
-        Task<ICollection<MovieAllDTO>> GetAll();
+        Task<ICollection<MovieAllDTO>> GetAllAsync();
 
-        Task<int> Create(MovieFormDTO movieModel);
+        Task<int> CreateAsync(MovieFormDTO movieModel);
 
        
     }
