@@ -6,6 +6,7 @@
 
     public class MovieFormDTO
     {
+
         [Required(AllowEmptyStrings = false)]
         [StringLength(maximumLength: TitleMaxLength, MinimumLength = TitleMinLength)]
         public string Title { get; set; } = null!;
@@ -29,6 +30,6 @@
         //dynamic validation
         public int GenreId { get; set; }
 
-        public ICollection<GenreSelectDTO> AvailableGenres { get; set; } = null!;
+        public ICollection<GenreSelectDTO>? AvailableGenres { get; set; }
     }
 }

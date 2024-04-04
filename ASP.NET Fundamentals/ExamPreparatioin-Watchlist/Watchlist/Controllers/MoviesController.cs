@@ -15,13 +15,15 @@
         private readonly UserManager<Watchlist.Data.User> userManager;
 
         public MoviesController(
-            IMovieService movieService, 
-            IUserMovieService userMovieService, 
-            UserManager<Data.User> userManager)
+            IMovieService movieService,
+            IUserMovieService userMovieService,
+            UserManager<Data.User> userManager,
+            IGenreService genreService)
         {
             this.movieService = movieService;
             this.userMovieService = userMovieService;
             this.userManager = userManager;
+            this.genreService = genreService;
         }
 
 
@@ -35,7 +37,7 @@
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            MovieFormDTO model = new();
+            MovieFormDTO model = new MovieFormDTO();
             model.AvailableGenres = await genreService.GetForSelect();
 
             return View(model);
@@ -69,7 +71,7 @@
             return View(model);
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> AddToCollection(int movieId)
         {
             string userId = userManager.GetUserId(User);
@@ -80,7 +82,7 @@
             return RedirectToAction("All", "Movies");
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> RemoveFromCollection(int movieId)
         {
             string userId = userManager.GetUserId(User);

@@ -1,11 +1,13 @@
-﻿@{
+﻿@model MovieFormDTO
+
+@{
     ViewBag.Title = "Add Movie";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-@*
+
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <form method="post">
@@ -32,7 +34,7 @@
             <div class="mb-3">
                 <label asp-for="@Model.GenreId" class="form-label">Genre</label>
                 <select asp-for="@Model.GenreId" class="form-control">
-                    @foreach (var genre in Model.Genres)
+                    @foreach (var genre in Model.AvailableGenres)
                     {
                         <option value="@genre.Id">@genre.Name</option>
                     }
@@ -50,4 +52,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-*@
