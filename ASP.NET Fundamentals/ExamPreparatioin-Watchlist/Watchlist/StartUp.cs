@@ -6,23 +6,31 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<WatchlistDbContext>(options =>
-    options.UseSqlServer(connectionString));
+	options.UseSqlServer(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<WatchlistDbContext>();
+
+builder.Services.AddDefaultIdentity<Watchlist.Data.User>(options =>
+{
+	//options.SignIn.RequireConfirmedAccount = true;
+	options.Password.RequiredLength = 5;
+})
+	.AddEntityFrameworkStores<WatchlistDbContext>();
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+	app.UseMigrationsEndPoint();
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+	app.UseExceptionHandler("/Home/Error");
+	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -34,8 +42,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+	name: "default",
+	pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

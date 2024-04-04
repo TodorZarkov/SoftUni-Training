@@ -1,6 +1,9 @@
-﻿@*
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<Watchlist.Data.User> UserManager;
+@inject SignInManager<Watchlist.Data.User> SignInManager;
+
 <ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
+    @if (SignInManager.IsSignedIn(User))//User.Identity?.IsAuthenticated ?? false)
     {
         <li class="nav-item">
             <form class="form-inline" asp-controller="User" asp-action="Logout" asp-route-id="@UserManager.GetUserId(User)">
@@ -18,7 +21,6 @@
         </li>
     }
 </ul>
-*@
 
 @*
     USE THIS CODE IF YOU ARE SCAFFOLDING IDENTITY
