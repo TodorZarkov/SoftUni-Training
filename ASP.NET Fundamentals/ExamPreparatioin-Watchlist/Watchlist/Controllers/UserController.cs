@@ -21,7 +21,7 @@
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult>  Register()
+        public IActionResult  Register()
         {
             RegisterDTO model = new RegisterDTO();
 
@@ -61,9 +61,9 @@
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Login()
+        public IActionResult Login()
         {
-            LoginDTO model = new LoginDTO();
+            LoginDTO model = new();
 
             return View(model);
         }
