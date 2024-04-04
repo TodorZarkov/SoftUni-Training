@@ -14,5 +14,15 @@
 
             return View(userModel);
         }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Login()
+        {
+            UserDTO userModel = new UserDTO();
+
+            return View(userModel);
+        }
     }
 }
