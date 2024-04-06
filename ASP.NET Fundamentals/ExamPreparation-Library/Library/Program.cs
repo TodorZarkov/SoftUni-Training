@@ -1,6 +1,7 @@
 using Library.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +14,31 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedAccount = builder.Configuration
+                        .GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+    options.Password.RequireUppercase = builder.Configuration
+        .GetValue<bool>("Identity:Password:RequireUppercase");
+    options.Password.RequireNonAlphanumeric = builder.Configuration
+        .GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+    options.Password.RequireDigit = builder.Configuration
+        .GetValue<bool>("Identity:Password:RequireDigit");
+    //options.Password.RequireLowercase = builder.Configuration
+    //    .GetValue<bool>("Identity:Password:RequireLowercase");
+    //options.Password.RequiredLength = builder.Configuration
+    //    .GetValue<int>("Identity:Password:RequiredLength");
+    //options.Lockout.MaxFailedAccessAttempts = builder.Configuration
+    //    .GetValue<int>("Identity:Lockout:MaxFailedAccessAttempts");
+
+    //options.SignIn.RequireConfirmedAccount = false;
+    //options.Password.RequireDigit = false;
+    //options.Password.RequireNonAlphanumeric = false;
+    //options.Password.RequireUppercase = false;
 })
     .AddEntityFrameworkStores<LibraryDbContext>();
-
+//• Require confirmed account: false
+//• Require digits: false
+//• Require non-alphanumeric characters: false
+//• Required uppercase letters: false
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

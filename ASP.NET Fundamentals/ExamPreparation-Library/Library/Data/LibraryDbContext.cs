@@ -12,7 +12,12 @@ namespace Library.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            /* builder
+            base.OnModelCreating(builder);
+
+            builder.Entity<IdentityUserBook>()
+                .HasKey(ub => new { ub.CollectorId, ub.BookId });
+
+            builder
                 .Entity<Book>()
                 .HasData(new Book()
                 {
@@ -24,37 +29,35 @@ namespace Library.Data
                     CategoryId = 1,
                     Rating = 9.5m
                 });
-              
-                 builder
-                .Entity<Category>()
-                .HasData(new Category()
-                {
-                    Id = 1,
-                    Name = "Action"
-                },
-                new Category()
-                {
-                    Id = 2,
-                    Name = "Biography"
-                },
-                new Category()
-                {
-                    Id = 3,
-                    Name = "Children"
-                },
-                new Category()
-                {
-                    Id = 4,
-                    Name = "Crime"
-                },
-                new Category()
-                {
-                    Id = 5,
-                    Name = "Fantasy"
-                });
-            */
 
-            base.OnModelCreating(builder);
+            builder
+           .Entity<Category>()
+           .HasData(new Category()
+           {
+               Id = 1,
+               Name = "Action"
+           },
+           new Category()
+           {
+               Id = 2,
+               Name = "Biography"
+           },
+           new Category()
+           {
+               Id = 3,
+               Name = "Children"
+           },
+           new Category()
+           {
+               Id = 4,
+               Name = "Crime"
+           },
+           new Category()
+           {
+               Id = 5,
+               Name = "Fantasy"
+           });
+
         }
     }
 }
