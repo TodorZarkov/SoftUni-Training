@@ -49,7 +49,7 @@ namespace Library.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -58,7 +58,7 @@ namespace Library.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -168,7 +168,7 @@ namespace Library.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Book",
+                name: "Books",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -182,17 +182,17 @@ namespace Library.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Book", x => x.Id);
+                    table.PrimaryKey("PK_Books", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Book_Category_CategoryId",
+                        name: "FK_Books_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Category",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdentityUserBook",
+                name: "UsersBooks",
                 columns: table => new
                 {
                     CollectorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -200,23 +200,23 @@ namespace Library.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdentityUserBook", x => new { x.CollectorId, x.BookId });
+                    table.PrimaryKey("PK_UsersBooks", x => new { x.CollectorId, x.BookId });
                     table.ForeignKey(
-                        name: "FK_IdentityUserBook_AspNetUsers_CollectorId",
+                        name: "FK_UsersBooks_AspNetUsers_CollectorId",
                         column: x => x.CollectorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_IdentityUserBook_Book_BookId",
+                        name: "FK_UsersBooks_Books_BookId",
                         column: x => x.BookId,
-                        principalTable: "Book",
+                        principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
-                table: "Category",
+                table: "Categories",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
@@ -228,7 +228,7 @@ namespace Library.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Book",
+                table: "Books",
                 columns: new[] { "Id", "Author", "CategoryId", "Description", "ImageUrl", "Rating", "Title" },
                 values: new object[] { 5, "Dolor Sit", 1, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "https://img.freepik.com/free-psd/book-cover-mock-up-arrangement_23-2148622888.jpg?w=826&t=st=1666106877~exp=1666107477~hmac=5dea3e5634804683bccfebeffdbde98371db37bc2d1a208f074292c862775e1b", 9.5m, "Lorem Ipsum" });
 
@@ -272,13 +272,13 @@ namespace Library.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Book_CategoryId",
-                table: "Book",
+                name: "IX_Books_CategoryId",
+                table: "Books",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IdentityUserBook_BookId",
-                table: "IdentityUserBook",
+                name: "IX_UsersBooks_BookId",
+                table: "UsersBooks",
                 column: "BookId");
         }
 
@@ -300,7 +300,7 @@ namespace Library.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "IdentityUserBook");
+                name: "UsersBooks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -309,10 +309,10 @@ namespace Library.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Book");
+                name: "Books");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Categories");
         }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20240406082819_Initial")]
+    [Migration("20240406102721_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,7 +61,7 @@ namespace Library.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Book");
+                    b.ToTable("Books");
 
                     b.HasData(
                         new
@@ -91,7 +91,7 @@ namespace Library.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -133,7 +133,7 @@ namespace Library.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("IdentityUserBook");
+                    b.ToTable("UsersBooks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

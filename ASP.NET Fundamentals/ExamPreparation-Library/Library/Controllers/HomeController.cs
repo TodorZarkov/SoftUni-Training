@@ -1,5 +1,6 @@
 ﻿using Library.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,9 +8,21 @@ namespace Library.Controllers
 {
     public class HomeController : BaseController
     {
+        private readonly SignInManager<IdentityUser> signInManager;
+
+        public HomeController(SignInManager<IdentityUser> signInManager)
+        {
+            this.signInManager = signInManager;
+        }
+
+
         [AllowAnonymous]
         public IActionResult Index()
         {
+            if (signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("All", "Book");
+            }
             return View();
         }
 
