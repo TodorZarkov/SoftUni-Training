@@ -1,4 +1,6 @@
 using Library.Data;
+using Library.Services;
+using Library.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -40,6 +42,10 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 //• Require non-alphanumeric characters: false
 //• Required uppercase letters: false
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IUserBookService, UserBookService>();
 
 var app = builder.Build();
 
