@@ -57,7 +57,7 @@
 			return ev.Id;
 		}
 
-		public async Task EditAsync(FormEventViewModel model, string eventId)
+		public async Task EditAsync(FormEventViewModel model, int eventId)
 		{
 			Data.Event ev = await dbContext.Events.FindAsync(eventId) ?? throw new ArgumentNullException("The Event Id doesn't exist.");
 			ev.Description = model.Description;
@@ -76,6 +76,7 @@
 				.Where(e => e.Id == eventId)
 				.Select(e => new DetailsEventViewModel
 				{
+					Id = e.Id,
 					CreatedOn = e.CreatedOn.ToString(DateTimeFormat),
 					Description = e.Description,
 					End = e.End.ToString(DateTimeFormat),
@@ -83,6 +84,24 @@
 					Organiser = e.Organiser.UserName,
 					Start = e.Start.ToString(DateTimeFormat),
 					Type = e.Type.Name
+				})
+				.FirstAsync();
+
+			return model;
+		}
+
+		public async Task<FormEventViewModel> GetForEditByIdAsync(int eventId)
+		{
+			FormEventViewModel model = await dbContext.Events
+				.AsNoTracking()
+				.Where(e => e.Id == eventId)
+				.Select(e => new FormEventViewModel
+				{
+					Description = e.Description,
+					End = e.End,
+					Name = e.Name,
+					Start = e.Start,
+					TypeId = e.TypeId
 				})
 				.FirstAsync();
 

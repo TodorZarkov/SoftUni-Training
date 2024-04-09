@@ -1,8 +1,10 @@
-﻿@{
+﻿@model FormEventViewModel
+
+@{
     ViewBag.Title = "Create a New Event";
 }
 
-@*
+
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
@@ -32,7 +34,7 @@
             <div class="mb-3">
                 <label asp-for="@Model.TypeId" class="form-label-add-edit">Type of event</label>
                 <select asp-for="@Model.TypeId" class="form-control" aria-required="true">
-                    @foreach (var type in Model.Types)
+                    @foreach (var type in Model.Types!)
                     {
                         <option value="@type.Id">@type.Name</option>
                     }
@@ -49,5 +51,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-}*@
+}
 

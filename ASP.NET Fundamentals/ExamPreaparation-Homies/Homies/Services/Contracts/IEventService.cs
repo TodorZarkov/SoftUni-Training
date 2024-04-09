@@ -8,9 +8,11 @@
 
 		Task<int> CreateAsync(FormEventViewModel eventModel, string userId);
 
-		Task EditAsync(FormEventViewModel eventModel, string eventId);
+		Task EditAsync(FormEventViewModel eventModel, int eventId);
 
 		Task<DetailsEventViewModel> GetByIdAsync(int eventId);
+
+		Task<FormEventViewModel> GetForEditByIdAsync(int eventId);
 
 
 		Task<bool> IsOwnerAsync(string userId, int eventId);
