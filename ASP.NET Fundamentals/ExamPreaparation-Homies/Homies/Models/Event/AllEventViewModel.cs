@@ -14,5 +14,7 @@
         public string Type { get; set; } = null!;
 
 
+        public string Organiser { get; set; } = null!;
+
     }
 }

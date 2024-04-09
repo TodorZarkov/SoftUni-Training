@@ -30,7 +30,8 @@
 					Id = e.Id,
 					Name = e.Name,
 					Start = e.Start.ToString(DateTimeFormat),
-					Type = e.Type.Name
+					Type = e.Type.Name,
+					Organiser = e.Organiser.UserName
 				})
 				.ToArrayAsync();
 
