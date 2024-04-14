@@ -112,5 +112,57 @@
 
 		}
 
+
+
+		[HttpGet]
+		public async Task<IActionResult> Cart()
+		{
+			string userId = userManager.GetUserId(User);
+			var model = await adBuyerService.AllByUserAsync(userId);
+
+			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> AddToCart(int id)
+		{
+			string userId = userManager.GetUserId(User);
+
+			bool isOwner = await adService.IsOwnerAsync(userId, id);
+			if (isOwner)
+			{
+				return RedirectToAction("Cart", "Ad");
+
+			}
+
+			bool exist = await adBuyerService.ExistAsync(userId, id);
+			if (exist)
+			{
+				return RedirectToAction("All", "Ad");
+			}
+
+			await adBuyerService.AddAsync(userId, id);
+
+			return RedirectToAction("Cart", "Ad");
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> RemoveFromCart(int id)
+		{
+			string userId = userManager.GetUserId(User);
+
+			bool isOwner = await adService.IsOwnerAsync(userId, id);
+			if (isOwner)
+			{
+				return RedirectToAction("All", "Ad");
+
+			}
+
+
+
+			await adBuyerService.RemoveAsync(userId, id);
+
+			return RedirectToAction("All", "Ad");
+		}
 	}
 }
