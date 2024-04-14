@@ -24,7 +24,3 @@
 
 	}
 }
-    //• BuyerId – a  string, Primary Key, foreign key (required)
-    //• Buyer – IdentityUser
-    //• AdId – an integer, Primary Key, foreign key (required)
-    //• Ad – Ad

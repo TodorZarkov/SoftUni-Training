@@ -10,6 +10,3 @@ namespace SoftUniBazar.ValidationConstants
 
     }
 }
-    //• Has Id – a unique integer, Primary Key
-    //• Has Name – a string with min length 3 and max length 15 (required)
-    //• Has Ads – a collection of type Ad
