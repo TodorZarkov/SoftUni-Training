@@ -1,4 +1,6 @@
-﻿@*@{
+﻿@model FormAdViewModel
+
+@{
     ViewBag.Title = "Create a New Ad";
 }
 
@@ -31,7 +33,7 @@
             <div class="mb-3">
                 <label asp-for="@Model.CategoryId" class="form-label-add-edit">Category</label>
                 <select asp-for="@Model.CategoryId" class="form-control" aria-required="true">
-                    @foreach (var type in Model.Categories)
+                    @foreach (var type in Model.Categories!)
                     {
                         <option value="@type.Id">@type.Name</option>
                     }
@@ -48,4 +50,4 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-}*@
+}

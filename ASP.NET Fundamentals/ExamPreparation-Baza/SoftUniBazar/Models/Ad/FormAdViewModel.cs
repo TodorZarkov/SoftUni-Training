@@ -6,6 +6,7 @@
 	using System.ComponentModel.DataAnnotations;
 
 	using static ValidationConstants.AdConstants;
+	using SoftUniBazar.Models.Category;
 
 	public class FormAdViewModel
 	{
@@ -34,7 +35,7 @@
 		//dynamic validation here
 		public int CategoryId { get; set; }
 
-		public Category[]? Categories { get; set; }
+		public CategoryViewModel[]? Categories { get; set; }
 
 	}
 }

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SoftUniBazar.Data;
+using SoftUniBazar.Services;
+using SoftUniBazar.Services.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +36,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 })
     .AddEntityFrameworkStores<BazarDbContext>();
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddScoped<IAdService, AdService>();
+builder.Services.AddScoped<IAdBuyerService, AdBuyerService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 
 var app = builder.Build();
 
