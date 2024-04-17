@@ -39,7 +39,7 @@
                 {
                     Id = ab.Ad.Id,
                     Name = ab.Ad.Name,
-                    CreatedOn = ab.Ad.CreatedOn.ToString(DateTimeCommon),
+                    CreatedOn = ab.Ad.CreatedOn.ToString(DateTimeFormat),
                     Category = ab.Ad.Category.Name,
                     ImageUrl = ab.Ad.ImageUrl,
                     Description = ab.Ad.Description,

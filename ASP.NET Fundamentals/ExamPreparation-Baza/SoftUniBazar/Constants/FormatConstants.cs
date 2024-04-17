@@ -2,6 +2,6 @@
 {
 	public static class FormatConstants
 	{
-		public const string DateTimeCommon = "yyyy-MM-dd H:mm";
+		public const string DateTimeFormat = "yyyy-MM-dd H:mm";
 	}
 }

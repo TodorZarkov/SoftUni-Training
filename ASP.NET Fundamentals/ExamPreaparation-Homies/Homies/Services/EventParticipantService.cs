@@ -18,7 +18,7 @@
 			this.dbContext = dbContext;
 		}
 
-		public async Task Add(string userId, int eventId)
+		public async Task AddAsync(string userId, int eventId)
 		{
 			EventParticipant ep = new EventParticipant
 			{
@@ -30,7 +30,7 @@
 			await dbContext.SaveChangesAsync();
 		}
 
-		public async Task<ICollection<AllEventViewModel>> AllByUser(string userId)
+		public async Task<ICollection<AllEventViewModel>> AllByUserAsync(string userId)
 		{
 			var events = await dbContext.EventsParticipants
 				.AsNoTracking()
@@ -59,7 +59,7 @@
 			return true;
 		}
 
-		public async Task Remove(string userId, int eventId)
+		public async Task RemoveAsync(string userId, int eventId)
 		{
 			EventParticipant? ep = await dbContext.EventsParticipants.FindAsync(userId, eventId);
 

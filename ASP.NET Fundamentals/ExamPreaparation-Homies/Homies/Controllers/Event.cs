@@ -138,7 +138,7 @@
 		public async Task<IActionResult> Joined()
 		{
 			string userId = userManager.GetUserId(User);
-			var model = await eventParticipantService.AllByUser(userId);
+			var model = await eventParticipantService.AllByUserAsync(userId);
 
 			return View(model);
 		}
@@ -161,7 +161,7 @@
 				return RedirectToAction("All", "Event");
 			}
 
-			await eventParticipantService.Add(userId, id);
+			await eventParticipantService.AddAsync(userId, id);
 
 			return RedirectToAction("Joined", "Event");
 		}
@@ -177,10 +177,11 @@
 				return RedirectToAction("All", "Event");
 
 			}
+			
 
 			
 
-			await eventParticipantService.Remove(userId, id);
+			await eventParticipantService.RemoveAsync(userId, id);
 
 			return RedirectToAction("All", "Event");
 		}

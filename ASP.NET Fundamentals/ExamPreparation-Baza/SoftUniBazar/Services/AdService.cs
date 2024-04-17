@@ -27,7 +27,7 @@
                 {
                     Id = a.Id,
                     Name = a.Name,
-                    CreatedOn = a.CreatedOn.ToString(DateTimeCommon),
+                    CreatedOn = a.CreatedOn.ToString(DateTimeFormat),
                     Category = a.Category.Name,
                     Owner = a.Owner.UserName,
                     Description = a.Description,
